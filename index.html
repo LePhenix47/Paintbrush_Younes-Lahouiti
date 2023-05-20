@@ -53,7 +53,7 @@
         <section class="index__tools-container">
             <div class="index__tools-container-label">
                 <input type="checkbox" name="toggle-tools" id="toggle-tools"
-                    class="hide index__input-checkbox index__input-checkbox--toggle">
+                    class="hide index__input-checkbox index__input-checkbox--toggle" />
                 <label class="index__label index__label--toggle" for="toggle-tools">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="40" width="40"
                         fill="currentColor">
@@ -63,7 +63,139 @@
                 </label>
             </div>
 
-            <div class="index__tools"></div>
+            <form class="index__tools">
+                <fieldset class="tools__current-tool">
+                    <legend class="tools__title">Tools to draw</legend>
+
+                    <label class="tools__label" for="pen">Brush:
+                        <input type="radio" name="tool-group" id="pen" class="tools__input" />
+                    </label>
+                    <label class="tools__label" for="spray">Spray:
+                        <input type="radio" name="tool-group" id="spray" class="tools__input" />
+                    </label>
+                    <label class="tools__label" for="eraser">Eraser:
+                        <input type="radio" name="tool-group" id="eraser" class="tools__input" />
+                    </label>
+                    <button type="button" class="tools_button">Delete</button>
+                </fieldset>
+                <fieldset class="colors__current-color">
+                    <legend class="colors__title">Colors</legend>
+
+                    <section class="colors__container colors__container--fill">
+                        <label class="colors__label" for="fill">Fill: <span>#Hex</span>
+                            <input type="color" id="fill" class="colors__input" />
+                        </label>
+
+                        <label for="fill-show" class="colors__label">Show:
+                            <input type="checkbox" id="fill-show" />
+                        </label>
+                        <label for="fill-rotate" class="colors__label">Rotate hue:
+                            <input type="checkbox" id="fill-rotate" />
+                        </label>
+                    </section>
+
+                    <section class="colors__container colors__container--stroke">
+                        <label class="colors__label" for="stroke">Stroke:
+                            <span>#Hex</span>
+                            <input type="color" id="stroke" class="colors__input" />
+                        </label>
+
+                        <label class="colors__label" for="stroke-width">Stroke width:
+                            <input type="number" id="stroke-width" class="colors__input" />
+                        </label>
+
+                        <label for="stroke-show" class="colors__label">Show:
+                            <input type="checkbox" id="stroke-show">
+                        </label>
+                        <label for="stroke-rotate" class="colors__label">Rotate hue:
+                            <input type="checkbox" id="stroke-rotate" />
+                        </label>
+                    </section>
+                </fieldset>
+
+                <fieldset class="controls__current-control">
+                    <legend class="controls__title">Controls</legend>
+
+                    <section class="controls__brush-container">
+                        <label for="brush-size" class="controls__label">Brush size: <span>1px</span>
+                            <input type="range" id="brush-size" min="1" max="100" step="1" />
+                        </label>
+
+                        <label for="brush-resize-auto" class="controls__label">Auto resize:
+                            <input type="checkbox" id="brush-resize-auto">
+                        </label>
+                    </section>
+
+                    <section class="controls__brush-container">
+                        <label for="rotation" class="controls__label">Rotation: <span>0°</span>
+                            <input type="range" id="rotation" min="-180" max="180" step="1" />
+                        </label>
+
+                        <label for="rotation-auto" class="controls__label">Auto resize:
+                            <input type="checkbox" id="rotation-auto">
+                        </label>
+                    </section>
+
+                    <section class="controls__shadow-container">
+                        <label class="controls__label" for="shadow">Shadow:
+                            <span>#Hex</span>
+                            <input type="color" id="shadow" class="colors__input" />
+                        </label>
+
+                        <label for="shadow-show" class="controls__label">Show:
+                            <input type="checkbox" id="shadow-show">
+                        </label>
+
+                        <label for="shadow-blur" class="controls__label">Blur:
+                            <input type="number" id="shadow-blur">
+                        </label>
+
+                        <label for="shadow-offset-x" class="controls__label">X offset:
+                            <input type="number" id="shadow-offset-x">
+                        </label>
+
+                        <label for="shadow-offset-y" class="controls__label">Y offset:
+                            <input type="number" id="shadow-offset-y">
+                        </label>
+                    </section>
+
+                </fieldset>
+
+
+                <fieldset class="shapes__current-shape">
+                    <legend class="shapes__title">Shapes</legend>
+
+                    <label class="shapes__label" for="circle-shape">Circle
+                        <input type="radio" name="tool-group" id="circle-shape" class="shape__input" />
+                    </label>
+
+                    <label class="shapes__label" for="square-shape">Square
+                        <input type="radio" name="tool-group" id="square-shape" class="shape__input" />
+                    </label>
+
+                    <label class="shapes__label" for="star-shape">Star
+                        <input type="radio" name="tool-group" id="star-shape" class="shape__input" />
+                    </label>
+
+                    <label class="shapes__label" for="polygon-shape">Polygon
+                        <input type="radio" name="tool-group" id="polygon-shape" class="shape__input" />
+                    </label>
+
+                    <section class="shapes__drawn-shape">
+                        <canvas class="shapes__canvas"></canvas>
+                    </section>
+
+                    <section class="shapes__optional-controls">
+                        <label for="shape-sides-amount" class="colors__label">Sides:
+                            <input type="number" id="shape-sides-amount">
+                        </label>
+
+                        <label for="shape-star-inner-radius" class="colors__label">Inner radius:
+                            <input type="number" id="shape-star-inner-radius">
+                        </label>
+                    </section>
+                </fieldset>
+            </form>
         </section>
 
 
