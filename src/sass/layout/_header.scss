@@ -1,0 +1,12 @@
+@use "../utils/" as *;
+
+.header {
+    background-color: var(--bg-primary);
+    color: var(--color-primary);
+
+    padding: 20px;
+
+    &__title {
+        text-align: center;
+    }
+}
