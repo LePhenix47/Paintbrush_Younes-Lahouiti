@@ -4,7 +4,8 @@
   "description": "This is a simple paintbrush application built using HTML, SASS, and TypeScript. It provides a canvas where users can draw using their mouse. The app allows for easy customization and provides a responsive interface.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch"
   },
   "keywords": [
     "paintbrush",
