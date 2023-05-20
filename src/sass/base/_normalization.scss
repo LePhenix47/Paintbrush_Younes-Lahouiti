@@ -162,6 +162,7 @@ input {
     &[type="button"] {}
 
     &[type="color"] {
+        --color-swatch-display: none;
         &::-moz-color-swatch { }
 
         &::-webkit-color-swatch { }
@@ -176,6 +177,7 @@ input {
     &[type="email"] {}
 
     &[type="file"] {
+        --file-selector-display: none;
         &::file-selector-button { }
     }
 
@@ -184,6 +186,8 @@ input {
     &[type="week"] {}
 
     &[type="number"] {
+        --inner-spin-appearance: none;
+        --outer-spin-appearance: none;
         // -moz-appearance: textfield;
 
         &::-webkit-inner-spin-button {//appearance: none;
@@ -197,9 +201,15 @@ input {
 
     &[type="range"] {
         //Track
-        &::-webkit-slider-runnable-track { }
+        --track-size: 0px;
+        --track-bg: white;
 
+        &::-webkit-slider-runnable-track { }
+        
         &::-moz-range-track { }
+        
+        --thumb-size: 0px;
+        --thumb-bg: white;
 
         //Thumb
         &::-webkit-slider-thumb { }
@@ -208,6 +218,9 @@ input {
     }
 
     &[type="search"] {
+        --cancel-button-display: none;
+        --results-button-display: none;
+        
         &::-webkit-search-cancel-button { }
 
         &::-webkit-search-results-button { }

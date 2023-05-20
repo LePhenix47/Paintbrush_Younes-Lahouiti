@@ -45,7 +45,26 @@
     </header>
 
     <main class="index">
+        <canvas class="index__canvas">
+            <!-- For accessibility purposes -->
+            Online paintbrush canvas
+        </canvas>
 
+        <section class="index__tools-container">
+            <div class="index__tools-container-label">
+                <input type="checkbox" name="toggle-tools" id="toggle-tools"
+                    class="hide index__input-checkbox index__input-checkbox--toggle">
+                <label class="index__label index__label--toggle" for="toggle-tools">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="40" width="40"
+                        fill="currentColor">
+                        <path
+                            d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z" />
+                    </svg>
+                </label>
+            </div>
+
+            <div class="index__tools"></div>
+        </section>
 
 
     </main>
