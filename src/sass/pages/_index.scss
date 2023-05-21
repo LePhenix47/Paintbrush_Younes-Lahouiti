@@ -246,6 +246,12 @@
             @include label-space-between;
         }
     }
+
+    &__input {
+        &--range {
+            @include input-range-style;
+        }
+    }
 }
 
 .shapes {
