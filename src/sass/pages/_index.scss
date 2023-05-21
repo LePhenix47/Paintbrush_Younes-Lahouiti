@@ -156,13 +156,13 @@
         align-items: center;
 
 
-        background-color: var(--bg-secondary);
+        background-color: var(--bg-tertiary);
 
         border-radius: 5px;
         padding: 5px;
 
         &:has(>input:checked) {
-            background-color: green;
+            background-color: var(--bg-radio-button);
             filter: contrast(85%);
         }
     }
@@ -267,6 +267,18 @@
 
 .shapes {
 
+    &__choose-shape {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        width: 100%;
+    }
+
+    &__input {
+        display: none;
+    }
+
     &__checkboxes {}
 
     &__label {
@@ -274,7 +286,20 @@
         justify-content: center;
         align-items: center;
 
+        aspect-ratio: 1/1;
+        height: 35px;
+
+        margin-bottom: 10px;
+
+        background-color: var(--bg-tertiary);
+
+        border-radius: 5px;
         padding: 5px;
+
+        &:has(>input:checked) {
+            background-color: var(--bg-radio-button);
+            filter: contrast(85%);
+        }
     }
 
     &__drawn-shape {
@@ -284,5 +309,8 @@
     &__canvas {
         width: inherit;
         background-color: white;
+
+        border-radius: 5px;
     }
+
 }

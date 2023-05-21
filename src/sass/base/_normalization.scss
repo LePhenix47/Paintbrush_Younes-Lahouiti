@@ -93,6 +93,10 @@ input {
         border-color: transparent;
         outline: transparent;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }
 
 
@@ -160,21 +164,6 @@ option {
 
 //Reset for all the input types
 input {
-
-
-    &[type="color"] {
-        background-color: transparent;
-        --color-swatch-display: inline-block;
-
-        &::-moz-color-swatch {
-            display: var(--color-swatch-display);
-        }
-
-        &::-webkit-color-swatch {
-            display: var(--color-swatch-display);
-        }
-    }
-
     &[type="button"] {}
 
     &[type="date"] {}
@@ -213,11 +202,51 @@ input {
         }
     }
 
+    &[type="color"] {
+        background-color: transparent;
+        --color-swatch-display: inline-block;
+
+        --color-swatch-height: 100%;
+
+        --color-swatch-border-width: 1px;
+        --color-swatch-border-color: currentColor;
+
+
+        &::-moz-color-swatch {
+            display: var(--color-swatch-display);
+
+            height: var(--color-swatch-height);
+
+            border: var(--color-swatch-border-width) solid var(--color-swatch-border-color);
+        }
+
+        &::-webkit-color-swatch {
+            display: var(--color-swatch-display);
+
+            height: var(--color-swatch-height);
+
+            border: var(--color-swatch-border-width) solid var(--color-swatch-border-color);
+        }
+    }
+
+    &[type="search"] {
+        --cancel-button-display: initial;
+        --results-button-display: initial;
+
+        &::-webkit-search-cancel-button {
+            display: var(--cancel-button-display);
+        }
+
+        &::-webkit-search-results-button {
+            display: var(--results-button-display);
+        }
+    }
 
 
     &[type="number"] {
         --inner-spin-appearance: auto;
         --outer-spin-appearance: auto;
+
 
         --moz-appearance: initial;
 
@@ -305,18 +334,7 @@ input {
         }
     }
 
-    &[type="search"] {
-        --cancel-button-display: initial;
-        --results-button-display: initial;
 
-        &::-webkit-search-cancel-button {
-            display: var(--cancel-button-display);
-        }
-
-        &::-webkit-search-results-button {
-            display: var(--results-button-display);
-        }
-    }
 
 
 }
