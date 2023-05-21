@@ -64,8 +64,8 @@
             </div>
 
             <form class="index__tools">
-                <fieldset class="tools">
-                    <legend class="tools__title">Tools to draw</legend>
+                <fieldset class="tools fieldset">
+                    <legend class="tools__title fieldset__title">Tools to draw</legend>
 
                     <label class="tools__label" for="pen">
                         <svg class="no-pointer-events" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
@@ -99,20 +99,22 @@
                         </svg>
                     </button>
                 </fieldset>
-                <fieldset class="colors">
-                    <legend class="colors__title">Colors</legend>
+                <fieldset class="colors fieldset">
+                    <legend class="colors__title fieldset__title">Colors</legend>
 
                     <section class="colors__container colors__container--fill">
                         <label class="colors__label" for="fill">Fill: <span>#Hex</span>
                             <input type="color" id="fill" class="colors__input" />
                         </label>
 
-                        <label for="fill-show" class="colors__label">Show:
-                            <input type="checkbox" id="fill-show" checked />
-                        </label>
-                        <label for="fill-rotate" class="colors__label">Rotate hue:
-                            <input type="checkbox" id="fill-rotate" />
-                        </label>
+                        <div class="colors__checkboxes">
+                            <label for="fill-show" class="colors__label">Show:
+                                <input type="checkbox" id="fill-show" checked />
+                            </label>
+                            <label for="fill-rotate" class="colors__label">Rotate hue:
+                                <input type="checkbox" id="fill-rotate" />
+                            </label>
+                        </div>
                     </section>
 
                     <section class="colors__container colors__container--stroke">
@@ -124,18 +126,19 @@
                         <label class="colors__label" for="stroke-width">Stroke width:
                             <input type="number" id="stroke-width" class="colors__input" value="0" min="0" />
                         </label>
-
-                        <label for="stroke-show" class="colors__label">Show:
-                            <input type="checkbox" id="stroke-show">
-                        </label>
-                        <label for="stroke-rotate" class="colors__label">Rotate hue:
-                            <input type="checkbox" id="stroke-rotate" />
+                        <div class="colors__checkboxes">
+                            <label for="stroke-show" class="colors__label">Show:
+                                <input type="checkbox" id="stroke-show" />
+                            </label>
+                            <label for="stroke-rotate" class="colors__label">Rotate hue:
+                                <input type="checkbox" id="stroke-rotate" />
+                        </div>
                         </label>
                     </section>
                 </fieldset>
 
-                <fieldset class="controls">
-                    <legend class="controls__title">Controls</legend>
+                <fieldset class="controls fieldset">
+                    <legend class="controls__title fieldset__title">Controls</legend>
 
                     <section class="controls__brush-container">
                         <label for="brush-size" class="controls__label">Brush size: <span>??px</span>
@@ -183,8 +186,8 @@
                 </fieldset>
 
 
-                <fieldset class="shapes">
-                    <legend class="shapes__title">Shapes</legend>
+                <fieldset class="shapes fieldset">
+                    <legend class="shapes__title fieldset__title">Shapes</legend>
 
                     <label class="shapes__label" for="circle-shape">
                         <svg class="no-pointer-events" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="25"
