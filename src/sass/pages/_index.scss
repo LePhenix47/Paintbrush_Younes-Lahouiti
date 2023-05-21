@@ -197,15 +197,15 @@
         padding: 5px;
 
         &--fill {
-            @include label-space-around;
+            @include label-space-between;
         }
 
         &--stroke {
-            @include label-space-around;
+            @include label-space-between;
         }
 
         &--stroke-width {
-            @include label-space-around;
+            @include label-space-between;
         }
     }
 
@@ -229,6 +229,7 @@
     gap: 25px;
 
     &__label {
+        width: 100%;
 
         &--range {
             display: inline-flex;
@@ -239,6 +240,10 @@
             &>span {
                 align-self: center;
             }
+        }
+
+        &--shadow {
+            @include label-space-between;
         }
     }
 }

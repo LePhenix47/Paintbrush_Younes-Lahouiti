@@ -164,11 +164,15 @@ input {
 
     &[type="color"] {
         background-color: transparent;
-        --color-swatch-display: none;
+        --color-swatch-display: inline-block;
 
-        &::-moz-color-swatch {}
+        &::-moz-color-swatch {
+            display: var(--color-swatch-display);
+        }
 
-        &::-webkit-color-swatch {}
+        &::-webkit-color-swatch {
+            display: var(--color-swatch-display);
+        }
     }
 
     &[type="date"] {}
@@ -180,9 +184,11 @@ input {
     &[type="email"] {}
 
     &[type="file"] {
-        --file-selector-display: none;
+        --file-selector-display: initial;
 
-        &::file-selector-button {}
+        &::file-selector-button {
+            display: var(--file-selector-display);
+        }
     }
 
     &[type="month"] {}
@@ -190,16 +196,19 @@ input {
     &[type="week"] {}
 
     &[type="number"] {
-        --inner-spin-appearance: none;
-        --outer-spin-appearance: none;
-        // -moz-appearance: textfield;
+        --inner-spin-appearance: initial;
+        --outer-spin-appearance: initial;
+
+        --moz-appearance: initial;
+
+        -moz-appearance: var(--moz-appearance);
 
         &::-webkit-inner-spin-button {
-            //appearance: none;
+            appearance: var(--inner-spin-appearance);
         }
 
         &::-webkit-outer-spin-button {
-            //appearance: none;
+            appearance: var(--outer-spin-appearance);
         }
     }
 
@@ -207,29 +216,65 @@ input {
 
     &[type="range"] {
         //Track
-        --track-size: 0px;
-        --track-bg: white;
+        --track-size: auto;
+        --track-height: auto;
 
-        &::-webkit-slider-runnable-track {}
+        --track-bg: transparent;
 
-        &::-moz-range-track {}
+        --track-appearance: initial;
 
-        --thumb-size: 0px;
-        --thumb-bg: white;
+        appearance: var(--track-appearance);
+
+        &::-webkit-slider-runnable-track {
+            background-color: var(--track-bg);
+            width: var(--track-size);
+            height: var(--track-bg);
+        }
+
+        &::-moz-range-track {
+            background-color: var(--track-bg);
+            width: var(--track-size);
+            height: var(--track-bg);
+        }
+
 
         //Thumb
-        &::-webkit-slider-thumb {}
+        --thumb-size: auto;
+        --thumb-height:auto;
 
-        &::-moz-range-thumb {}
+        --thumb-bg: transparent;
+        --inner-track-bg: transparent;
+
+        --thumb-appearance: initial;
+
+        appearance: var(--thumb-appearance);
+
+        &::-webkit-slider-thumb {
+            background-color: var(--thumb-bg);
+
+            width: var(--thumb-size);
+            height: var(--thumb-height);
+        }
+
+        &::-moz-range-thumb {
+            background-color: var(--thumb-bg);
+
+            width: var(--thumb-size);
+            height: var(--thumb-height);
+        }
     }
 
     &[type="search"] {
-        --cancel-button-display: none;
-        --results-button-display: none;
+        --cancel-button-display: initial;
+        --results-button-display: initial;
 
-        &::-webkit-search-cancel-button {}
+        &::-webkit-search-cancel-button {
+            display: var(--cancel-button-display);
+        }
 
-        &::-webkit-search-results-button {}
+        &::-webkit-search-results-button {
+            display: var(--results-button-display);
+        }
     }
 
     &[type="tel"] {}

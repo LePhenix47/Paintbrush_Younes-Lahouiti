@@ -1,6 +1,7 @@
 @use "../utils/" as *;
 
-* {
+*,
+.index__tools {
     &::-webkit-scrollbar {
         background-color: var(--scrollbar-track-bg-color);
         border-radius: 100vmax;
@@ -34,5 +35,10 @@
     :root {
         scrollbar-width: thin;
         scrollbar-color: var(--scrollbar-thumb-bg-color) var(--scrollbar-track-bg-color); // BGC for the scrollbar thumb - BGC for the scrollbar track
+
+        .index__tools {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb-bg-color) var(--scrollbar-track-bg-color); // BGC for the scrollbar thumb - BGC for the scrollbar track
+        }
     }
 }

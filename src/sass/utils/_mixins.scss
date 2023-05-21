@@ -110,8 +110,11 @@
 
 //Element speific mixins:
 
-@mixin label-space-around {
+@mixin label-space-between {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
 }
+
+
+@mixin input-range-style {}
