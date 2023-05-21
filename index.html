@@ -67,16 +67,37 @@
                 <fieldset class="tools__current-tool">
                     <legend class="tools__title">Tools to draw</legend>
 
-                    <label class="tools__label" for="pen">Brush:
+                    <label class="tools__label" for="pen">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="25" height="25"
+                            fill="currentColor">
+                            <path
+                                d="M339.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L568.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S517.7-4.4 499.1 9.6L262.4 187.2c-24 18-38.2 46.1-38.4 76.1L339.3 367.1zm-19.6 25.4l-116-104.4C143.9 290.3 96 339.6 96 400c0 3.9 .2 7.8 .6 11.6C98.4 429.1 86.4 448 68.8 448H64c-17.7 0-32 14.3-32 32s14.3 32 32 32H208c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z" />
+                        </svg>
                         <input type="radio" name="tool-group" id="pen" class="tools__input" />
                     </label>
-                    <label class="tools__label" for="spray">Spray:
+                    <label class="tools__label" for="spray">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25" height="25"
+                            fill="currentColor">
+                            <path
+                                d="M128 0h64c17.7 0 32 14.3 32 32v96H96V32c0-17.7 14.3-32 32-32zM0 256c0-53 43-96 96-96H224c53 0 96 43 96 96V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V256zm240 80A80 80 0 1 0 80 336a80 80 0 1 0 160 0zM256 64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM384 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm64 32a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM448 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM384 128a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg>
                         <input type="radio" name="tool-group" id="spray" class="tools__input" />
                     </label>
-                    <label class="tools__label" for="eraser">Eraser:
+                    <label class="tools__label" for="eraser">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="25" height="25"
+                            fill="currentColor">
+                            <path
+                                d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7H288h9.4H512c17.7 0 32-14.3 32-32s-14.3-32-32-32H387.9L518.6 285.3c25-25 25-65.5 0-90.5L381.3 57.4c-25-25-65.5-25-90.5 0zM297.4 416H288l-105.4 0-80-80L227.3 211.3 364.7 348.7 297.4 416z" />
+                        </svg>
                         <input type="radio" name="tool-group" id="eraser" class="tools__input" />
                     </label>
-                    <button type="button" class="tools_button">Delete</button>
+                    <button type="button" class="tools_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25" height="25"
+                            fill="currentColor">
+                            <path
+                                d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                        </svg>
+                    </button>
                 </fieldset>
                 <fieldset class="colors__current-color">
                     <legend class="colors__title">Colors</legend>
@@ -101,7 +122,7 @@
                         </label>
 
                         <label class="colors__label" for="stroke-width">Stroke width:
-                            <input type="number" id="stroke-width" class="colors__input" />
+                            <input type="number" id="stroke-width" class="colors__input" value="0" min="0" />
                         </label>
 
                         <label for="stroke-show" class="colors__label">Show:
@@ -147,15 +168,15 @@
                         </label>
 
                         <label for="shadow-blur" class="controls__label">Blur:
-                            <input type="number" id="shadow-blur">
+                            <input type="number" id="shadow-blur" value="0" min="0">
                         </label>
 
                         <label for="shadow-offset-x" class="controls__label">X offset:
-                            <input type="number" id="shadow-offset-x">
+                            <input type="number" id="shadow-offset-x" value="0" min="0">
                         </label>
 
                         <label for="shadow-offset-y" class="controls__label">Y offset:
-                            <input type="number" id="shadow-offset-y">
+                            <input type="number" id="shadow-offset-y" value="0" min="0">
                         </label>
                     </section>
 
@@ -165,19 +186,36 @@
                 <fieldset class="shapes__current-shape">
                     <legend class="shapes__title">Shapes</legend>
 
-                    <label class="shapes__label" for="circle-shape">Circle
+                    <label class="shapes__label" for="circle-shape">Circle:
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="25" height="25"
+                            fill="currentColor">
+                            <circle r="12.5" cx="25" cy="25"></circle>
+                        </svg>
                         <input type="radio" name="tool-group" id="circle-shape" class="shape__input" />
                     </label>
 
-                    <label class="shapes__label" for="square-shape">Square
+                    <label class="shapes__label" for="square-shape">Square:
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="25" height="25"
+                            fill="currentColor">
+                            <rect width="25" height="25" x="12.5" y="12.5"></rect>
+                        </svg>
                         <input type="radio" name="tool-group" id="square-shape" class="shape__input" />
                     </label>
 
-                    <label class="shapes__label" for="star-shape">Star
+                    <label class="shapes__label" for="star-shape">Star:
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20"
+                            fill="currentColor">
+                            <path
+                                d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
+                        </svg>
                         <input type="radio" name="tool-group" id="star-shape" class="shape__input" />
                     </label>
 
-                    <label class="shapes__label" for="polygon-shape">Polygon
+                    <label class="shapes__label" for="polygon-shape">Polygon:
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="25" height="25"
+                            fill="currentColor">
+                            <polygon points="5,5 10,0 15,5 12.5,10 7.5,10 5,5" />
+                        </svg>
                         <input type="radio" name="tool-group" id="polygon-shape" class="shape__input" />
                     </label>
 
@@ -187,11 +225,11 @@
 
                     <section class="shapes__optional-controls">
                         <label for="shape-sides-amount" class="colors__label">Sides:
-                            <input type="number" id="shape-sides-amount">
+                            <input type="number" id="shape-sides-amount" value="3" min="3" max="65533" />
                         </label>
 
                         <label for="shape-star-inner-radius" class="colors__label">Inner radius:
-                            <input type="number" id="shape-star-inner-radius">
+                            <input type="number" id="shape-star-inner-radius" value="1" min="1" max="65535" />
                         </label>
                     </section>
                 </fieldset>

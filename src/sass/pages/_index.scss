@@ -30,7 +30,7 @@
 
     &__tools-container {
 
-        background-color: rgb(11, 0, 128);
+        background-color: var(--bg-secondary);
 
         position: absolute;
         right: 0;
@@ -55,7 +55,6 @@
         }
 
         &:has(.index__input-checkbox--toggle:checked) {
-            background-color: yellowgreen;
             translate: 100% 0%;
 
             @include mobile-only {
@@ -114,5 +113,20 @@
                 left: 0;
             }
         }
+    }
+}
+
+.index__tools {
+    overflow-y: scroll;
+}
+
+.tools {}
+
+
+.shapes {
+    &__label {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
     }
 }
