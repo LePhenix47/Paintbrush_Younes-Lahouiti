@@ -103,7 +103,8 @@
                     <legend class="colors__title fieldset__title">Colors</legend>
 
                     <section class="colors__container colors__container--fill">
-                        <label class="colors__label" for="fill">Fill: <span>#Hex</span>
+                        <label class="colors__label colors__label--fill" for="fill">Fill: <span
+                                class="colors__span">#Hex</span>
                             <input type="color" id="fill" class="colors__input" />
                         </label>
 
@@ -118,13 +119,14 @@
                     </section>
 
                     <section class="colors__container colors__container--stroke">
-                        <label class="colors__label" for="stroke">Stroke:
-                            <span>#Hex</span>
+                        <label class="colors__label colors__label--stroke" for="stroke">Stroke:
+                            <span class="colors__span">#Hex</span>
                             <input type="color" id="stroke" class="colors__input" />
                         </label>
 
-                        <label class="colors__label" for="stroke-width">Stroke width:
-                            <input type="number" id="stroke-width" class="colors__input" value="0" min="0" />
+                        <label class="colors__label colors__label--stroke-width" for="stroke-width">Stroke width:
+                            <input type="number" id="stroke-width" class="colors__input colors__input--stroke-width"
+                                value="0" min="0" />
                         </label>
                         <div class="colors__checkboxes">
                             <label for="stroke-show" class="colors__label">Show:
@@ -141,34 +143,40 @@
                     <legend class="controls__title fieldset__title">Controls</legend>
 
                     <section class="controls__brush-container">
-                        <label for="brush-size" class="controls__label">Brush size: <span>??px</span>
+                        <label for="brush-size" class="controls__label controls__label--range">Brush size: <span
+                                class="controls__span">??px</span>
                             <input type="range" id="brush-size" min="1" max="100" step="1" />
                         </label>
-
-                        <label for="brush-resize-auto" class="controls__label">Auto resize:
-                            <input type="checkbox" id="brush-resize-auto">
-                        </label>
+                        <div class="controls__checkboxes">
+                            <label for="brush-resize-auto" class="controls__label">Auto resize:
+                                <input type="checkbox" id="brush-resize-auto">
+                            </label>
+                        </div>
                     </section>
 
                     <section class="controls__brush-container">
-                        <label for="rotation" class="controls__label">Rotation: <span>??°</span>
+                        <label for="rotation" class="controls__label controls__label--range">Rotation: <span
+                                class="controls__span">??°</span>
                             <input type="range" id="rotation" min="-180" max="180" step="1" />
                         </label>
-
-                        <label for="rotation-auto" class="controls__label">Auto resize:
-                            <input type="checkbox" id="rotation-auto">
-                        </label>
+                        <div class="controls__checkboxes">
+                            <label for="rotation-auto" class="controls__label">Auto resize:
+                                <input type="checkbox" id="rotation-auto">
+                            </label>
+                        </div>
                     </section>
 
                     <section class="controls__shadow-container">
                         <label class="controls__label" for="shadow">Shadow:
-                            <span>#Hex</span>
+                            <span class="controls__span">#Hex</span>
                             <input type="color" id="shadow" class="colors__input" />
                         </label>
 
-                        <label for="shadow-show" class="controls__label">Show:
-                            <input type="checkbox" id="shadow-show">
-                        </label>
+                        <div class="controls__checkboxes">
+                            <label for="shadow-show" class="controls__label">Show:
+                                <input type="checkbox" id="shadow-show">
+                            </label>
+                        </div>
 
                         <label for="shadow-blur" class="controls__label">Blur:
                             <input type="number" id="shadow-blur" value="0" min="0">

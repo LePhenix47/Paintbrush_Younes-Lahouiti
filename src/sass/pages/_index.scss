@@ -146,16 +146,12 @@
     justify-content: space-evenly;
     align-items: center;
 
-
-
-
-
     &__input {
         display: none;
     }
 
     &__label {
-        display: inline-block;
+        display: inline-flex;
         justify-content: center;
         align-items: center;
 
@@ -183,12 +179,73 @@
 }
 
 
-.colors {}
+.colors {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 
-.controls {}
+    &__container {
+        display: flex;
+        flex-direction: column;
+
+        &--fill {}
+
+        &--stroke {}
+    }
+
+    &__label {
+        padding: 5px;
+
+        &--fill {
+            @include label-space-around;
+        }
+
+        &--stroke {
+            @include label-space-around;
+        }
+
+        &--stroke-width {
+            @include label-space-around;
+        }
+    }
+
+    &__input {
+        &--stroke-width {
+            max-width: 15%;
+        }
+    }
+
+    &__checkboxes {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    &__label {
+
+        &--range {
+            display: inline-flex;
+            flex-direction: column;
+
+            width: 100%;
+
+            &>span {
+                align-self: center;
+            }
+        }
+    }
+}
 
 .shapes {
 
+    &__checkboxes {}
 
     &__label {
         display: inline-flex;
