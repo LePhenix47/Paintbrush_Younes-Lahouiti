@@ -159,135 +159,149 @@ option {
 
 
 //Reset for all the input types
-input {
-    &[type="button"] {}
+// input {
+//     &[type="button"] {}
 
-    &[type="color"] {
-        background-color: transparent;
-        --color-swatch-display: inline-block;
+//     &[type="color"] {
+//         background-color: transparent;
+//         --color-swatch-display: inline-block;
 
-        &::-moz-color-swatch {
-            display: var(--color-swatch-display);
-        }
+//         &::-moz-color-swatch {
+//             display: var(--color-swatch-display);
+//         }
 
-        &::-webkit-color-swatch {
-            display: var(--color-swatch-display);
-        }
-    }
+//         &::-webkit-color-swatch {
+//             display: var(--color-swatch-display);
+//         }
+//     }
 
-    &[type="date"] {}
+//     &[type="date"] {}
 
-    &[type="datetime"] {}
+//     &[type="datetime"] {}
 
-    &[type="datetime-local"] {}
+//     &[type="datetime-local"] {}
 
-    &[type="email"] {}
+//     &[type="email"] {}
 
-    &[type="file"] {
-        --file-selector-display: initial;
+//     &[type="file"] {
+//         --file-selector-display: initial;
 
-        &::file-selector-button {
-            display: var(--file-selector-display);
-        }
-    }
+//         &::file-selector-button {
+//             display: var(--file-selector-display);
+//         }
+//     }
 
-    &[type="month"] {}
+//     &[type="month"] {}
 
-    &[type="week"] {}
+//     &[type="week"] {}
 
-    &[type="number"] {
-        --inner-spin-appearance: initial;
-        --outer-spin-appearance: initial;
+//     &[type="number"] {
+//         --inner-spin-appearance: initial;
+//         --outer-spin-appearance: initial;
 
-        --moz-appearance: initial;
+//         --moz-appearance: initial;
 
-        -moz-appearance: var(--moz-appearance);
+//         -moz-appearance: var(--moz-appearance);
 
-        &::-webkit-inner-spin-button {
-            appearance: var(--inner-spin-appearance);
-        }
+//         &::-webkit-inner-spin-button {
+//             appearance: var(--inner-spin-appearance);
+//         }
 
-        &::-webkit-outer-spin-button {
-            appearance: var(--outer-spin-appearance);
-        }
-    }
+//         &::-webkit-outer-spin-button {
+//             appearance: var(--outer-spin-appearance);
+//         }
+//     }
 
-    &[type="password"] {}
+//     &[type="password"] {}
 
-    &[type="range"] {
-        //Track
-        --track-size: auto;
-        --track-height: auto;
+//     &[type="range"] {
+//         //Track
+//         --track-size: auto;
+//         --track-height: auto;
 
-        --track-bg: transparent;
+//         --track-bg: transparent;
 
-        --track-appearance: initial;
+//         --track-appearance: none;
 
-        appearance: var(--track-appearance);
+//         appearance: var(--track-appearance);
+//         overflow: hidden;
 
-        &::-webkit-slider-runnable-track {
-            background-color: var(--track-bg);
-            width: var(--track-size);
-            height: var(--track-bg);
-        }
+//         &::-webkit-slider-runnable-track {
+//             background-color: var(--track-bg);
 
-        &::-moz-range-track {
-            background-color: var(--track-bg);
-            width: var(--track-size);
-            height: var(--track-bg);
-        }
+//             width: var(--track-size);
+//             height: var(--track-bg);
+//         }
+
+//         &::-moz-range-track {
+//             background-color: var(--track-bg);
+
+//             width: var(--track-size);
+//             height: var(--track-bg);
+//         }
 
 
-        //Thumb
-        --thumb-size: auto;
-        --thumb-height:auto;
+//         //Thumb
+//         --thumb-appearance: auto;
 
-        --thumb-bg: transparent;
-        --inner-track-bg: transparent;
+//         --thumb-bg: transparent;
 
-        --thumb-appearance: initial;
+//         --thumb-size: auto;
+//         --thumb-height: 15px;
 
-        appearance: var(--thumb-appearance);
+//         --inner-track-size: 300px;
+//         --inner-track-offset: -305px;
+//         --inner-track-bg: transparent;
 
-        &::-webkit-slider-thumb {
-            background-color: var(--thumb-bg);
 
-            width: var(--thumb-size);
-            height: var(--thumb-height);
-        }
+//         &::-webkit-slider-thumb {
+//             appearance: var(--thumb-appearance) !important;
 
-        &::-moz-range-thumb {
-            background-color: var(--thumb-bg);
+//             background-color: var(--thumb-bg);
+//             color: var(--thumb-bg);
 
-            width: var(--thumb-size);
-            height: var(--thumb-height);
-        }
-    }
+//             width: var(--thumb-size);
+//             height: var(--thumb-height);
 
-    &[type="search"] {
-        --cancel-button-display: initial;
-        --results-button-display: initial;
+//             box-shadow: var(--inner-track-offset) 0 0 var(--inner-track-size) var(--inner-track-bg);
+//         }
 
-        &::-webkit-search-cancel-button {
-            display: var(--cancel-button-display);
-        }
+//         &::-moz-range-thumb {
+//             appearance: var(--thumb-appearance) !important;
 
-        &::-webkit-search-results-button {
-            display: var(--results-button-display);
-        }
-    }
+//             background-color: var(--thumb-bg);
 
-    &[type="tel"] {}
+//             width: var(--thumb-size);
+//             height: var(--thumb-height);
 
-    &[type="time"] {}
+//             box-shadow: var(--inner-track-offset) 0 0 var(--inner-track-size) var(--inner-track-bg);
+//         }
+//     }
 
-    &[type="url"] {}
+//     &[type="search"] {
+//         --cancel-button-display: initial;
+//         --results-button-display: initial;
 
-    &[type="submit"] {}
+//         &::-webkit-search-cancel-button {
+//             display: var(--cancel-button-display);
+//         }
 
-    &[type="reset"] {}
+//         &::-webkit-search-results-button {
+//             display: var(--results-button-display);
+//         }
+//     }
 
-    &[type="image"] {}
+//     &[type="tel"] {}
 
-    &[type="hidden"] {}
-}
+//     &[type="time"] {}
+
+//     &[type="url"] {}
+
+//     &[type="submit"] {}
+
+//     &[type="reset"] {}
+
+//     &[type="image"] {}
+
+//     &[type="hidden"] {}
+// }
