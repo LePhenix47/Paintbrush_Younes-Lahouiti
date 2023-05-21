@@ -117,4 +117,13 @@
 }
 
 
-@mixin input-range-style {}
+@mixin input-range-style {
+    --track-width: 307px !important;
+
+    --track-appearance: none !important;
+    --track-bg: grey !important;
+
+    --thumb-bg: currentColor !important;
+
+    --inner-track-bg: lightgrey !important;
+}

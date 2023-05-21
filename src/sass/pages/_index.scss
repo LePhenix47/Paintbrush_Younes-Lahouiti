@@ -249,6 +249,7 @@
 
     &__input {
         &--range {
+            border-radius: 100vmax;
             @include input-range-style;
         }
     }

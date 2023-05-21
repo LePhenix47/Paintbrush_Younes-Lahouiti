@@ -241,6 +241,7 @@ input {
 
         --track-appearance: auto;
 
+        background-color: var(--track-bg);
         appearance: var(--track-appearance);
         overflow: hidden;
 
@@ -270,8 +271,8 @@ input {
         --thumb-width: 15px;
         --thumb-height: 15px;
 
-        --inner-track-size: 300px;
-        --inner-track-offset: -305px;
+        --inner-track-size: calc(var(--track-width));
+        --inner-track-offset: calc(-1 * var(--track-width) - var(--thumb-width)/2); //We add a box shadow to the left
         --inner-track-bg: transparent;
 
 
