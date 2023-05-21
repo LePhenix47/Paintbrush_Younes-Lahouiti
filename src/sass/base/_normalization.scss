@@ -157,15 +157,18 @@ option {
     display: none !important;
 }
 
-/*
+
+//Reset for all the input types
 input {
     &[type="button"] {}
 
     &[type="color"] {
+        background-color: transparent;
         --color-swatch-display: none;
-        &::-moz-color-swatch { }
 
-        &::-webkit-color-swatch { }
+        &::-moz-color-swatch {}
+
+        &::-webkit-color-swatch {}
     }
 
     &[type="date"] {}
@@ -178,7 +181,8 @@ input {
 
     &[type="file"] {
         --file-selector-display: none;
-        &::file-selector-button { }
+
+        &::file-selector-button {}
     }
 
     &[type="month"] {}
@@ -190,10 +194,12 @@ input {
         --outer-spin-appearance: none;
         // -moz-appearance: textfield;
 
-        &::-webkit-inner-spin-button {//appearance: none;
+        &::-webkit-inner-spin-button {
+            //appearance: none;
         }
 
-        &::-webkit-outer-spin-button {//appearance: none;
+        &::-webkit-outer-spin-button {
+            //appearance: none;
         }
     }
 
@@ -204,26 +210,26 @@ input {
         --track-size: 0px;
         --track-bg: white;
 
-        &::-webkit-slider-runnable-track { }
-        
-        &::-moz-range-track { }
-        
+        &::-webkit-slider-runnable-track {}
+
+        &::-moz-range-track {}
+
         --thumb-size: 0px;
         --thumb-bg: white;
 
         //Thumb
-        &::-webkit-slider-thumb { }
+        &::-webkit-slider-thumb {}
 
-        &::-moz-range-thumb { }
+        &::-moz-range-thumb {}
     }
 
     &[type="search"] {
         --cancel-button-display: none;
         --results-button-display: none;
-        
-        &::-webkit-search-cancel-button { }
 
-        &::-webkit-search-results-button { }
+        &::-webkit-search-cancel-button {}
+
+        &::-webkit-search-results-button {}
     }
 
     &[type="tel"] {}
@@ -240,4 +246,3 @@ input {
 
     &[type="hidden"] {}
 }
-*/
