@@ -216,8 +216,8 @@ input {
 
 
     &[type="number"] {
-        --inner-spin-appearance: initial;
-        --outer-spin-appearance: initial;
+        --inner-spin-appearance: auto;
+        --outer-spin-appearance: auto;
 
         --moz-appearance: initial;
 

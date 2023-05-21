@@ -194,7 +194,7 @@
     }
 
     &__label {
-        padding: 5px;
+        padding: 5px 0;
 
         &--fill {
             @include label-space-between;
@@ -211,7 +211,7 @@
 
     &__input {
         &--stroke-width {
-            max-width: 15%;
+            text-align: center;
         }
     }
 
@@ -252,6 +252,16 @@
             border-radius: 100vmax;
             @include input-range-style;
         }
+
+        &--number {
+            text-align: center;
+        }
+    }
+
+
+    &__shadow-inputs {
+        margin-top: 15px;
+        @include center-flex-column(15px);
     }
 }
 
