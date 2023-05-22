@@ -141,6 +141,13 @@
     }
 }
 
+.input {
+    &--color {
+        width: 64px;
+        height: 32px;
+    }
+}
+
 .tools {
     display: flex;
     justify-content: space-evenly;
@@ -210,6 +217,12 @@
     }
 
     &__input {
+
+        &--color {
+            width: 64px;
+            height: 32px;
+        }
+
         &--stroke-width {
             text-align: center;
         }
@@ -236,14 +249,29 @@
             flex-direction: column;
 
             width: 100%;
-
-            &>span {
-                align-self: center;
-            }
         }
 
         &--shadow {
             @include label-space-between;
+        }
+    }
+
+    &__span {
+        align-self: center;
+
+        font-variant-numeric: tabular-nums;
+        position: relative;
+
+        &--size {
+            &::after {
+                content: "px";
+            }
+        }
+
+        &--rotation {
+            &::after {
+                content: "°";
+            }
         }
     }
 

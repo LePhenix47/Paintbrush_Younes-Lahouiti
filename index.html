@@ -104,8 +104,8 @@
 
                     <section class="colors__container colors__container--fill">
                         <label class="colors__label colors__label--fill" for="fill">Fill: <span
-                                class="colors__span">#Hex</span>
-                            <input type="color" id="fill" class="colors__input" />
+                                class="colors__span">#000000</span>
+                            <input type="color" id="fill" class="colors__input input--color" />
                         </label>
 
                         <div class="colors__checkboxes">
@@ -120,8 +120,8 @@
 
                     <section class="colors__container colors__container--stroke">
                         <label class="colors__label colors__label--stroke" for="stroke">Stroke:
-                            <span class="colors__span">#Hex</span>
-                            <input type="color" id="stroke" class="colors__input" />
+                            <span class="colors__span">#000000</span>
+                            <input type="color" id="stroke" class="colors__input input--color" />
                         </label>
 
                         <label class="colors__label colors__label--stroke-width" for="stroke-width">Stroke width:
@@ -144,34 +144,36 @@
 
                     <section class="controls__brush-container">
                         <label for="brush-size" class="controls__label controls__label--range">Brush size: <span
-                                class="controls__span">??px</span>
+                                class="controls__span controls__span--size">5</span>
                             <input type="range" class="controls__input controls__input--range" id="brush-size" min="1"
-                                max="100" step="1" />
+                                max="100" value="5" step="1" />
                         </label>
                         <div class="controls__checkboxes">
                             <label for="brush-resize-auto" class="controls__label">Auto resize:
-                                <input type="checkbox" id="brush-resize-auto">
+                                <input type="checkbox" id="brush-resize-auto" name="size"
+                                    class="controls__input controls__input--checkbox">
                             </label>
                         </div>
                     </section>
 
                     <section class="controls__brush-container">
                         <label for="rotation" class="controls__label controls__label--range">Rotation: <span
-                                class="controls__span">??°</span>
+                                class="controls__span controls__span--rotation">0</span>
                             <input type="range" class="controls__input controls__input--range" id="rotation" min="-180"
-                                max="180" step="1" />
+                                max="180" value="0" step="1" />
                         </label>
                         <div class="controls__checkboxes">
                             <label for="rotation-auto" class="controls__label">Auto rotate:
-                                <input type="checkbox" id="rotation-auto">
+                                <input type="checkbox" id="rotation-auto" name="rotation"
+                                    class="controls__input controls__input--checkbox">
                             </label>
                         </div>
                     </section>
 
                     <section class="controls__shadow-container">
                         <label class="controls__label controls__label--shadow" for="shadow">Shadow:
-                            <span class="controls__span">#Hex</span>
-                            <input type="color" id="shadow" class="colors__input" />
+                            <span class="controls__span">#000000</span>
+                            <input type="color" id="shadow" class="controls__input input--color" />
                         </label>
 
                         <div class="controls__checkboxes">
@@ -260,10 +262,10 @@
 
 
                 <fieldset class="miscellaneous fieldset">
-                    <legend class="miscellaneous__title fieldset__title">Global composition and filters</legend>
+                    <legend class="miscellaneous__title fieldset__title">Miscellaneous</legend>
                     <section class="miscellaneous__global-composite-operation">
                         <label for="operations" class="miscellaneous__label miscellaneous__label--select">
-                            G.O. operation:
+                            Global Composite Operation:
                             <select class="miscellaneous__select" name="operations" id="operations">
                                 <option class="miscellaneous__option" value="---">---</option>
                                 <option class="miscellaneous__option" value="source-over">source-over</option>
@@ -282,6 +284,7 @@
                                 <option class="miscellaneous__option" value="overlay">overlay</option>
                                 <option class="miscellaneous__option" value="darken">darken</option>
                                 <option class="miscellaneous__option" value="lighten">lighten</option>
+                                <option class="miscellaneous__option" value="color">color</option>
                                 <option class="miscellaneous__option" value="color-dodge">color-dodge</option>
                                 <option class="miscellaneous__option" value="color-burn">color-burn</option>
                                 <option class="miscellaneous__option" value="hard-light">hard-light</option>
@@ -290,7 +293,6 @@
                                 <option class="miscellaneous__option" value="exclusion">exclusion</option>
                                 <option class="miscellaneous__option" value="hue">hue</option>
                                 <option class="miscellaneous__option" value="saturation">saturation</option>
-                                <option class="miscellaneous__option" value="color">color</option>
                                 <option class="miscellaneous__option" value="luminosity">luminosity</option>
                             </select>
                         </label>
