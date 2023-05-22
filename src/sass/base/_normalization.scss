@@ -197,8 +197,14 @@ input {
     &[type="file"] {
         --file-selector-display: initial;
 
+        --file-selector-width: 80px;
+        --file-selector-height: 21px;
+
         &::file-selector-button {
             display: var(--file-selector-display);
+
+            height: var(--file-selector-height);
+            width: var(--file-selector-width);
         }
     }
 
@@ -268,7 +274,7 @@ input {
 
         --track-bg: transparent;
 
-        --track-appearance: auto;
+        --track-appearance: none;
 
         background-color: var(--track-bg);
         appearance: var(--track-appearance);
