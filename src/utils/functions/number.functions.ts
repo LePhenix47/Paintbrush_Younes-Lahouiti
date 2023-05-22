@@ -53,8 +53,8 @@ export function getRandomNumber(
  */
 export function nthRoot(value: number, base: number = 2): number {
   //We check that the value is negative AND  that the base is pair
-  const rootIsInvalid: boolean = value < 0 && base % 2 === 0;
-  if (rootIsInvalid) {
+  const valueOfRootIsInvalid: boolean = value < 0 && base % 2 === 0;
+  if (valueOfRootIsInvalid) {
     // Negative values cannot have an even root
     //∛(-27) = 3 but √(-16) = undefined
     error("The root of the value passed is invalid");
@@ -99,16 +99,7 @@ export function logarithm(value: number, base: number = Math.E): number {
  * @returns {number} The decimal representation of the hexadecimal value.
  */
 export function hexadecimalToDecimal(hexadecimal: string): number {
-  const splittedHexadecimal: string[] = splitString(hexadecimal, "").reverse();
-
-  let sum: number = 0;
-  for (let i = splittedHexadecimal.length - 1; i > -1; i--) {
-    const singularHexColorValue = splittedHexadecimal[i];
-
-    sum += Number(`0x${singularHexColorValue}`) * 16 ** i;
-  }
-
-  return sum;
+  return Number(`0x${hexadecimal}`);
 }
 
 /**
@@ -117,11 +108,5 @@ export function hexadecimalToDecimal(hexadecimal: string): number {
  * @returns {string} The hexadecimal representation of the decimal value.
  */
 export function decimalToHexadecimal(decimal: number): string {
-  let hexadecimal: string = decimal.toString(16);
-
-  const hexHasEvenLength: boolean = hexadecimal.length % 2 !== 0;
-  if (hexHasEvenLength) {
-    hexadecimal = "0" + hexadecimal;
-  }
-  return hexadecimal;
+  return decimal.toString(16);
 }

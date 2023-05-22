@@ -1,4 +1,4 @@
-import { hexadecimalToDecimal } from "./number.functions";
+import { decimalToHexadecimal, hexadecimalToDecimal } from "./number.functions";
 import { getSubtring, sliceString } from "./string.functions";
 
 /**
@@ -39,6 +39,45 @@ export function getColorBrightness(
 }
 
 /**
+ * Converts a Hexadecimal `#rrggbb` color value to RGB `rgb(red, green, blue)` format.
+ *
+ * @param {number} hexadecimal - The hexadecimal value of the color.
+ *
+ * @returns {string} The HSL color value.
+ */
+export function hexColorToRgb(hexadecimal: string): string {
+  const colorArgumentIsInvalid: boolean =
+    hexadecimal?.length < 6 || hexadecimal?.length > 7;
+  if (colorArgumentIsInvalid) {
+    throw `Error: Unexpected color argument length passed, was expecting a 6 or 7 characters long string but instead got ${hexadecimal.length}`;
+  }
+
+  let hexColor: string = hexadecimal;
+
+  const hasHashTag: boolean = hexadecimal.length === 7;
+  if (hasHashTag) {
+    hexColor = sliceString(hexadecimal, 1);
+  }
+
+  let redBase16: string = getSubtring(hexColor, 0, 2);
+  let greeBase16: string = getSubtring(hexColor, 2, 4);
+  let blueBase16: string = getSubtring(hexColor, 4, 6);
+
+  let base16NumbersArray: any[] = [redBase16, greeBase16, blueBase16];
+
+  for (let i = 0; i < base16NumbersArray.length; i++) {
+    let color: string = base16NumbersArray[i];
+    base16NumbersArray[i] = hexadecimalToDecimal(color);
+  }
+
+  const redBase10: string = base16NumbersArray[0];
+  const greenBase10: string = base16NumbersArray[1];
+  const blueBase10: string = base16NumbersArray[2];
+
+  return `rbg(${redBase10}, ${greenBase10}, ${blueBase10})`;
+}
+
+/**
  * Converts an RGB (Red, Blue, Green) color value to HSL (Hue, Saturation, Lightness) format.
  *
  * @param {number} red - The red component of the RGB color (0-255).
@@ -47,7 +86,11 @@ export function getColorBrightness(
  *
  * @returns {string} The HSL color value.
  */
-export function rgbToHsl(red: number, green: number, blue: number): string {
+export function rgbColorToHsl(
+  red: number,
+  green: number,
+  blue: number
+): string {
   // Normalize RGB values
   const normalizedRed: number = red / 255;
   const normalizedGreen: number = green / 255;
@@ -104,40 +147,224 @@ export function rgbToHsl(red: number, green: number, blue: number): string {
 }
 
 /**
- * Converts a Hexadecimal `#rrggbb` color value to RGB (Red, Blue, Green) format.
+ * Converts an HSL (Hue, Saturation, Lightness) color value to HEX (Hexadecimal) format.
  *
- * @param {number} hexadecimal - The hexadecimal value of the color.
+ * @param {number} hue - The hue value (0-360).
+ * @param {number} saturation - The saturation value (0-100).
+ * @param {number} lightness - The lightness value (0-100).
  *
+ * @returns {string} The HEX color value.
+ */
+export function hslColorToHex(
+  hue: number,
+  saturation: number = 100,
+  lightness: number = 50
+): string {
+  // Validate the HSL color values
+  const hasInvalidHslArguments: boolean =
+    hue < 0 ||
+    hue > 360 ||
+    saturation < 0 ||
+    saturation > 100 ||
+    lightness < 0 ||
+    lightness > 100;
+  if (hasInvalidHslArguments) {
+    throw new Error(
+      "Invalid HSL color values. Hue should be between 0 and 360, saturation and lightness should be between 0 and 100."
+    );
+  }
+
+  // Normalize the HSL values
+  const normalizedHue: number = hue / 360;
+  const normalizedSaturation: number = saturation / 100;
+  const normalizedLightness: number = lightness / 100;
+
+  // Calculate the chroma value
+  const chroma: number =
+    (1 - Math.abs(2 * normalizedLightness - 1)) * normalizedSaturation;
+
+  // Calculate the intermediate values
+  const intermediateHue: number = normalizedHue * 6;
+  const x: number = chroma * (1 - Math.abs((intermediateHue % 2) - 1));
+
+  let red: number, green: number, blue: number;
+
+  if (intermediateHue >= 0 && intermediateHue < 1) {
+    [red, green, blue] = [chroma, x, 0];
+  } else if (intermediateHue >= 1 && intermediateHue < 2) {
+    [red, green, blue] = [x, chroma, 0];
+  } else if (intermediateHue >= 2 && intermediateHue < 3) {
+    [red, green, blue] = [0, chroma, x];
+  } else if (intermediateHue >= 3 && intermediateHue < 4) {
+    [red, green, blue] = [0, x, chroma];
+  } else if (intermediateHue >= 4 && intermediateHue < 5) {
+    [red, green, blue] = [x, 0, chroma];
+  } else {
+    [red, green, blue] = [chroma, 0, x];
+  }
+
+  // Calculate the lightness adjustment values
+  const lightnessAdjustment: number = normalizedLightness - chroma / 2;
+
+  // Scale the RGB values to the range of 0-255
+  const scaledRed: number = Math.round((red + lightnessAdjustment) * 255);
+  const scaledGreen: number = Math.round((green + lightnessAdjustment) * 255);
+  const scaledBlue: number = Math.round((blue + lightnessAdjustment) * 255);
+
+  // Convert the RGB values to hexadecimal strings using an imported function
+  const redHex: string = decimalToHexadecimal(scaledRed).padStart(2, "0");
+  const greenHex: string = decimalToHexadecimal(scaledGreen).padStart(2, "0");
+  const blueHex: string = decimalToHexadecimal(scaledBlue).padStart(2, "0");
+
+  // Combine the hexadecimal values and return the HEX color value
+  return `#${redHex}${greenHex}${blueHex}`;
+}
+
+/**
+ * Converts an HSL (Hue, Saturation, Lightness) color value to HWB (Hue, Whiteness, Blackness) format.
+ *
+ * @param {number} hue - The hue value (0-360).
+ * @param {number} saturation - The saturation value (0-100).
+ * @param {number} lightness - The lightness value (0-100).
+ *
+ * @returns {string} The HWB color value.
+ */
+export function hslColorToHwb(
+  hue: number,
+  saturation: number = 100,
+  lightness: number = 50
+): string {
+  const hasInvalidHslArguments: boolean =
+    hue < 0 ||
+    hue > 360 ||
+    saturation < 0 ||
+    saturation > 100 ||
+    lightness < 0 ||
+    lightness > 100;
+  // Validate the HSL color values
+  if (hasInvalidHslArguments) {
+    throw new Error(
+      "Invalid HSL color values. Hue should be between 0 and 360, saturation and lightness should be between 0 and 100."
+    );
+  }
+
+  // Normalize the HSL values
+  const normalizedHue: number = hue / 360;
+  const normalizedSaturation: number = saturation / 100;
+  const normalizedLightness: number = lightness / 100;
+
+  // Calculate the maximum and minimum values
+  const max: number = Math.max(normalizedSaturation, normalizedLightness);
+  const min: number = Math.min(normalizedSaturation, normalizedLightness);
+
+  // Calculate the hue, whiteness, and blackness values
+  const hueValue: number = normalizedHue;
+  const whiteness: number = 1 - max;
+  const blackness: number = 1 - min;
+
+  // Scale the values to the range of 0-100
+  const scaledHue: number = Math.round(hueValue * 360);
+  const scaledWhiteness: number = Math.round(whiteness * 100);
+  const scaledBlackness: number = Math.round(blackness * 100);
+
+  // Return the HWB color value as a string
+  return `hwb(${scaledHue}, ${scaledWhiteness}%, ${scaledBlackness}%)`;
+}
+
+/**
+ * Converts an HWB (Hue, Whiteness, Blackness) color value to HSL (Hue, Saturation, Lightness) format.
+ *
+ * @param {number} hue - The hue value (0-360).
+ * @param {number} whiteness - The whiteness value (0-100).
+ * @param {number} blackness - The blackness value (0-100).
  * @returns {string} The HSL color value.
  */
-export function hexColorToRgb(hexadecimal: string): string {
-  const colorArgumentIsInvalid: boolean =
-    hexadecimal?.length < 6 || hexadecimal?.length > 7;
-  if (colorArgumentIsInvalid) {
-    throw `Error: Unexpected color argument length passed, was expecting a 6 or 7 characters long string but instead got ${hexadecimal.length}`;
+export function hwbColorToHsl(
+  hue: number,
+  whiteness: number = 0,
+  blackness: number = 0
+): string {
+  const hasInvalidHwbArguments: boolean =
+    hue < 0 ||
+    hue > 360 ||
+    whiteness < 0 ||
+    whiteness > 100 ||
+    blackness < 0 ||
+    blackness > 100;
+
+  // Validate the HWB color values
+  if (hasInvalidHwbArguments) {
+    throw new Error(
+      "Invalid HWB color values. Hue should be between 0 and 360, whiteness and blackness should be between 0 and 100."
+    );
   }
 
-  let hexColor: string = hexadecimal;
+  // Normalize the HWB values
+  const normalizedHue: number = hue / 360;
+  const normalizedWhiteness: number = whiteness / 100;
+  const normalizedBlackness: number = blackness / 100;
 
-  const hasHashTag: boolean = hexadecimal.length === 7;
-  if (hasHashTag) {
-    hexColor = sliceString(hexadecimal, 1);
+  // Calculate the lightness and saturation values
+  const lightness: number = normalizedWhiteness * (1 - normalizedBlackness);
+  const saturation: number =
+    lightness === 1
+      ? 0
+      : (normalizedWhiteness - lightness) / Math.min(lightness, 1 - lightness);
+
+  // Round the values and multiply saturation and lightness by 100
+  const roundedHue: number = Math.round(hue);
+  const roundedSaturation: number = Math.round(saturation * 100);
+  const roundedLightness: number = Math.round(lightness * 100);
+
+  // Return the HSL color value as a string
+  return `hsl(${roundedHue}, ${roundedSaturation}%, ${roundedLightness}%)`;
+}
+
+/**
+ * Converts an HWB (Hue, Whiteness, Blackness) color value to Hexadecimal format.
+ *
+ * @param {number} hue - The hue value (0-360).
+ * @param {number} whiteness - The whiteness value (0-100).
+ * @param {number} blackness - The blackness value (0-100).
+ *
+ * @returns {string} The Hex color value.
+ */
+export function hwbColorToHex(
+  hue: number,
+  whiteness: number,
+  blackness: number
+): string {
+  // Validate the HWB color values
+  const hasInvalidHslArguments: boolean =
+    hue < 0 ||
+    hue > 360 ||
+    whiteness < 0 ||
+    whiteness > 100 ||
+    blackness < 0 ||
+    blackness > 100;
+
+  if (hasInvalidHslArguments) {
+    throw new Error(
+      "Invalid HWB color values. Hue should be between 0 and 360, whiteness and blackness should be between 0 and 100."
+    );
   }
 
-  let redBase16: string = getSubtring(hexColor, 0, 2);
-  let greeBase16: string = getSubtring(hexColor, 2, 4);
-  let blueBase16: string = getSubtring(hexColor, 4, 6);
+  // Normalize the HWB values
+  const normalizedHue: number = hue / 360;
+  const normalizedWhiteness: number = whiteness / 100;
+  const normalizedBlackness: number = blackness / 100;
 
-  let base16NumbersArray: any[] = [redBase16, greeBase16, blueBase16];
+  // Calculate the saturation and lightness values
+  const saturation: number =
+    1 - normalizedWhiteness / (1 - normalizedBlackness);
+  const lightness: number = 1 - normalizedWhiteness - normalizedBlackness / 2;
 
-  for (let i = 0; i < base16NumbersArray.length; i++) {
-    let color: string = base16NumbersArray[i];
-    base16NumbersArray[i] = hexadecimalToDecimal(color);
-  }
+  // Convert HSL to Hex
+  const hex = hslColorToHex(
+    normalizedHue * 360,
+    saturation * 100,
+    lightness * 100
+  );
 
-  const redBase10: string = base16NumbersArray[0];
-  const greenBase10: string = base16NumbersArray[1];
-  const blueBase10: string = base16NumbersArray[2];
-
-  return `rbg(${redBase10}, ${greenBase10}, ${blueBase10})`;
+  return hex;
 }

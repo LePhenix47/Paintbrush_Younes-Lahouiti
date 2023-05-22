@@ -1,6 +1,11 @@
 import { Interval } from "./utils/classes/services/interval.class";
-import { hexColorToRgb } from "./utils/functions/color-conversion.functions";
-import { count, log, table } from "./utils/functions/console.functions";
+import {
+  hslColorToHex,
+  hslColorToHwb,
+  hwbColorToHex,
+  hwbColorToHsl,
+} from "./utils/functions/color-conversion.functions";
+import { assert, count, log, table } from "./utils/functions/console.functions";
 import {
   getAncestor,
   getParent,
@@ -30,12 +35,13 @@ const tracker = {
   globalCompositeOperation: "source-over",
 };
 
+log(hwbColorToHsl(240, 25, 50)); //Gives: hsl(240, 200%, 63%) instead of hsl(240, 33%, 38%)
+log(hwbColorToHsl(240, 50, 25)); //Gives: hsl(240, 80%, 38%) instead of hsl(240, 33%, 63%)
+
 const mouseInfos = {
   x: null,
   y: null,
 };
-
-log(hexColorToRgb("#e9e9e9"));
 
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 
