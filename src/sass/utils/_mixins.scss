@@ -118,12 +118,18 @@
 
 
 @mixin input-range-style {
+    height: 10px;
+
     --track-width: 307px !important;
+    --track-height: 10px !important;
 
     --track-appearance: none !important;
     --track-bg: grey !important;
 
     --thumb-bg: currentColor !important;
+
+    --thumb-width: 8px !important;
+    --thumb-height: 8px !important;
 
     --inner-track-bg: lightgrey !important;
 }
