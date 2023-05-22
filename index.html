@@ -110,10 +110,11 @@
 
                         <div class="colors__checkboxes">
                             <label for="fill-show" class="colors__label">Show:
-                                <input type="checkbox" id="fill-show" checked />
+                                <input type="checkbox" class="colors__input colors__input--checkbox" id="fill-show"
+                                    checked />
                             </label>
                             <label for="fill-rotate" class="colors__label">Rotate hue:
-                                <input type="checkbox" id="fill-rotate" />
+                                <input type="checkbox" class="colors__input color__input--checkbox" id="fill-rotate" />
                             </label>
                         </div>
                     </section>
@@ -130,10 +131,11 @@
                         </label>
                         <div class="colors__checkboxes">
                             <label for="stroke-show" class="colors__label">Show:
-                                <input type="checkbox" id="stroke-show" />
+                                <input type="checkbox" class="colors__input color__input--checkbox" id="stroke-show" />
                             </label>
                             <label for="stroke-rotate" class="colors__label">Rotate hue:
-                                <input type="checkbox" id="stroke-rotate" />
+                                <input type="checkbox" class="colors__input color__input--checkbox"
+                                    id="stroke-rotate" />
                         </div>
                         </label>
                     </section>
@@ -157,7 +159,7 @@
                     </section>
 
                     <section class="controls__brush-container">
-                        <label for="rotation" class="controls__label controls__label--range">Rotation: <span
+                        <label for="rotation" class="controls__label controls__label--range">Angle: <span
                                 class="controls__span controls__span--rotation">0</span>
                             <input type="range" class="controls__input controls__input--range" id="rotation" min="-180"
                                 max="180" value="0" step="1" />
@@ -206,6 +208,16 @@
                 <fieldset class="shapes fieldset">
                     <legend class="shapes__title fieldset__title">Shapes</legend>
                     <section class="shapes__choose-shape">
+                        <label class="shapes__label" for="line-shape">
+                            <svg class="no-pointer-events" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
+                                width="25" height="25" fill="white">
+                                <line x1="0" y1="0" x2="50" y2="50" stroke="currentColor" stroke-width="5"
+                                    style="scale: 75%; transform-origin: center;"></line>
+                            </svg>
+                            <input type="radio" class="shapes__input" name="shape-group" id="line-shape"
+                                class="shapes__input" />
+                        </label>
+
                         <label class="shapes__label" for="circle-shape">
                             <svg class="no-pointer-events" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
                                 width="25" height="25" fill="white">
@@ -267,8 +279,7 @@
                         <label for="operations" class="miscellaneous__label miscellaneous__label--select">
                             Global Composite Operation:
                             <select class="miscellaneous__select" name="operations" id="operations">
-                                <option class="miscellaneous__option" value="---">---</option>
-                                <option class="miscellaneous__option" value="source-over">source-over</option>
+                                <option class="miscellaneous__option" value="source-over">source-over (Default)</option>
                                 <option class="miscellaneous__option" value="source-in">source-in</option>
                                 <option class="miscellaneous__option" value="source-out">source-out</option>
                                 <option class="miscellaneous__option" value="source-atop">source-atop</option>

@@ -10,16 +10,18 @@ export class Interval {
   /**
    * Method that creates an interval
    *
-   * @param {(...args: any) => any | void} callback Callback function that will be called after the timer runs out
    * @param milliseconds Duration of the timer in milliseconds before executing the callback function
+   * @param {(...args: any) => any | void} callback Callback function that will be called after the timer runs out
+   * @param {...functionArguments} functionArguments Arguments for the callback function
+   *
    * @returns A number as an ID for the interval
    *
    * @example
-   * let fct = () => {
-   *   console.log("Hello World");
+   * let fct = (text) => {
+   *   console.log(text);
    * };
    *
-   * let intervalTrigger = Interval.set(fct, 2_500);
+   * let intervalTrigger = Interval.set(2_500, fct, "Hello world!");
    *
    */
   static set(
@@ -43,12 +45,11 @@ export class Interval {
    *
    * @example
    *
-   * function fct() {
-   *   console.log("Hello world!");
-   * }
+   * let fct = (text) => {
+   *   console.log(text);
+   * };
    *
-   *
-   * let intervalTrigger = Interval.set(fct, 2_500);
+   * let intervalTrigger = Interval.set(2_500, fct, "Hello world!");
    *
    * // ...
    *

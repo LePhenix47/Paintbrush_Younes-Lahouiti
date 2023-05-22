@@ -12,7 +12,7 @@
 
         --semi-transparent-bg: rgba(0, 0, 0, 70%);
 
-
+        --bg-canvas: #505050;
 
         --scrollbar-track-bg-color: black;
         --scrollbar-thumb-bg-color: #ababab;
@@ -24,8 +24,8 @@
 
         --selection-bg-color: orange;
         --selection-color: black;
-
     }
+
 
     ::backdrop {
         --backdrop-bg-color: rgba(0, 0, 0, 0.5);

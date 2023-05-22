@@ -1,5 +1,5 @@
 import { Interval } from "./utils/classes/services/interval.class";
-import { count, log } from "./utils/functions/console.functions";
+import { count, log, table } from "./utils/functions/console.functions";
 import {
   getAncestor,
   getParent,
@@ -9,8 +9,6 @@ import {
   selectQueryAll,
 } from "./utils/functions/dom.functions";
 import { formatText } from "./utils/functions/string.functions";
-
-log("Hello world!");
 
 const tracker = {
   tool: "brush",
@@ -28,11 +26,67 @@ const tracker = {
   shape: "none",
   sides: 3,
   innerRadius: 1,
+  globalCompositeOperation: "source-over",
+};
+
+const mouseInfos = {
+  x: null,
+  y: null,
 };
 
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 
-function setAutoUpdateCheckboxEvents() {
+const toolsContainer: HTMLFieldSetElement = selectQuery(".tools");
+const colorsContainer: HTMLFieldSetElement = selectQuery(".colors");
+const controlsContainer: HTMLFieldSetElement = selectQuery(".controls");
+const shapesContainer: HTMLFieldSetElement = selectQuery(".shapes");
+const miscellaneousContainer: HTMLFieldSetElement =
+  selectQuery(".miscellaneous");
+
+function setToolsContainerEvents() {
+  const radioInputsArray: HTMLInputElement[] = selectByClass(
+    "tools__input",
+    toolsContainer
+  );
+
+  for (const radioInput of radioInputsArray) {
+    radioInput.addEventListener("change", setToolToTracker);
+  }
+}
+setToolsContainerEvents();
+
+function setColorsContainerEvents() {
+  const rotateHueCheckboxesArray: HTMLInputElement[] = selectQueryAll(
+    ".color__input--checkbox:not(input#fill-show, input#stroke-show)"
+  );
+
+  table(rotateHueCheckboxesArray);
+
+  for (const rotateHueInput of rotateHueCheckboxesArray) {
+  }
+}
+setColorsContainerEvents();
+
+function setControlsContainerEvents() {}
+
+function setShapesContainerEvents() {}
+
+function setMiscellaneousContainerEvents() {}
+
+function setToolToTracker(event: Event) {
+  //@ts-ignore
+  const radioInput: HTMLInputElement = event.currentTarget;
+
+  tracker.tool = radioInput.id;
+  log(tracker);
+}
+
+/**
+ * Sets up event listeners for the checkboxes to automatically update input values.
+ *
+ * @returns {void}
+ */
+function setAutoUpdateCheckboxEvents(): void {
   const inputCheckboxRangeArray: HTMLInputElement[] = selectByClass(
     "controls__input--checkbox"
   );
@@ -67,13 +121,19 @@ const rangeInputsInfosTracker = {
     direction: "forwards",
   },
 };
-function updateRangeInputValues(event: Event) {
+
+/**
+ * Updates the range input values based on the checkbox state.
+ *
+ * @param {Event} event - The event triggered by the checkbox change.
+ *
+ * @returns {void}
+ */
+function updateRangeInputValues(event: Event): void {
   //@ts-ignore
   const checkboxInput: HTMLInputElement = event.currentTarget;
 
   const inputName: string = checkboxInput.name;
-
-  log(checkboxInput);
 
   const isChecked: boolean = checkboxInput.checked;
   if (isChecked) {
@@ -89,6 +149,13 @@ function updateRangeInputValues(event: Event) {
   }
 }
 
+/**
+ * Animates the input range value.
+ *
+ * @param {HTMLInputElement} checkboxInput - The checkbox input element.
+ *
+ * @returns {void}
+ */
 function animateInputRange(checkboxInput: HTMLInputElement): void {
   const inputName: string = checkboxInput.name;
 
@@ -132,7 +199,14 @@ function animateInputRange(checkboxInput: HTMLInputElement): void {
   setSpanToInputValue(container, valueWithUnit);
 }
 
-function setRangeInputValues(event: Event) {
+/**
+ * Sets the range input values.
+ *
+ * @param {Event} event - The event triggered by the input change.
+ *
+ * @returns {void}
+ */
+function setRangeInputValues(event: Event): void {
   //@ts-ignore
   const rangeInput: HTMLInputElement = event.currentTarget;
   const inputValue: string = rangeInput.value;
@@ -142,22 +216,58 @@ function setRangeInputValues(event: Event) {
   setSpanToInputValue(label, inputValue);
 }
 
-function setColorInputValues(event: Event) {
+/**
+ * Sets the color input values.
+ *
+ * @param {Event} event - The event triggered by the input change.
+ *
+ * @returns {void}
+ */
+function setColorInputValues(event: Event): void {
   //@ts-ignore
   const input: HTMLInputElement = event.currentTarget;
 
   const formattedInputValue: string = formatText(input.value, "uppercase");
 
-  const colorType: string = input.id;
-  tracker[colorType] = formattedInputValue;
-
   const label: HTMLLabelElement = getParent(input);
   setSpanToInputValue(label, formattedInputValue);
+
+  const container: HTMLElement = getParent(label);
+
+  const colorCheckboxesDiv = selectQuery("div", container);
+  log(colorCheckboxesDiv);
+
+  const colorType: string = input.id;
+
+  //Check here if color needs to be transparent
+  const needsToBeTransparent: boolean =
+    checkIfNeedsToBeTransparent(colorCheckboxesDiv);
+  if (needsToBeTransparent) {
+    tracker[colorType] = "transparent";
+  } else {
+    tracker[colorType] = formattedInputValue;
+  }
 
   log(tracker);
 }
 
-function setSpanToInputValue(container: HTMLElement, value: any) {
+function checkIfNeedsToBeTransparent(container: HTMLElement): boolean {
+  const checkbox: HTMLInputElement = selectQuery(
+    "input[type=checkbox]",
+    container
+  );
+  return !checkbox.checked;
+}
+
+/**
+ * Sets the span element to display the input value.
+ *
+ * @param {any} container - The container element.
+ * @param {any} value - The value to be displayed.
+ *
+ * @returns {void}
+ */
+function setSpanToInputValue(container: HTMLElement, value: any): void {
   const spanLabel: HTMLSpanElement = selectQuery("span", container);
 
   spanLabel.textContent = value;

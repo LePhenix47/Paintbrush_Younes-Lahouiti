@@ -14,7 +14,7 @@
     /* Adjust this value to center the canvas vertically */
 
     &__canvas {
-        --bg-canvas: white;
+
         position: absolute;
         width: 97%;
         height: 97%;
@@ -337,7 +337,7 @@
 
     &__canvas {
         width: inherit;
-        background-color: white;
+        background-color: var(--bg-canvas);
 
         border-radius: 5px;
     }
