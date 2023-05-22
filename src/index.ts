@@ -1,4 +1,5 @@
 import { Interval } from "./utils/classes/services/interval.class";
+import { hexColorToRgb } from "./utils/functions/color-conversion.functions";
 import { count, log, table } from "./utils/functions/console.functions";
 import {
   getAncestor,
@@ -34,6 +35,8 @@ const mouseInfos = {
   y: null,
 };
 
+log(hexColorToRgb("#e9e9e9"));
+
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 
 const toolsContainer: HTMLFieldSetElement = selectQuery(".tools");
@@ -63,6 +66,7 @@ function setColorsContainerEvents() {
   table(rotateHueCheckboxesArray);
 
   for (const rotateHueInput of rotateHueCheckboxesArray) {
+    rotateHueInput.addEventListener("change", setHueRotationAuto);
   }
 }
 setColorsContainerEvents();
@@ -72,6 +76,13 @@ function setControlsContainerEvents() {}
 function setShapesContainerEvents() {}
 
 function setMiscellaneousContainerEvents() {}
+
+function setHueRotationAuto(event: Event) {
+  //@ts-ignore
+  const checkboxInput: HTMLInputElement = event.currentTarget;
+
+  log(checkboxInput);
+}
 
 function setToolToTracker(event: Event) {
   //@ts-ignore

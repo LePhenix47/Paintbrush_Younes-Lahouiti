@@ -1,4 +1,5 @@
 import { error } from "./console.functions";
+import { splitString } from "./string.functions";
 
 /**
  * Generates a random number within a specified range.
@@ -93,42 +94,34 @@ export function logarithm(value: number, base: number = Math.E): number {
 }
 
 /**
- * Calculates the brightness of a color from its RGB values.
- *
- * @param {number} red - The red component of the color (0-255).
- * @param {number} blue - The blue component of the color (0-255).
- * @param {number} green - The green component of the color (0-255).
- * @param {boolean} hasToBeExact - Specifies whether the exact brightness should be calculated.
- *
- * If `true`, the formula [relative luminance formula](https://en.wikipedia.org/wiki/Relative_luminance) is used.
- *
- * If `false`, the average of the RGB values is used.
- *
- *
- * @returns {number} The brightness of the color.
+ * Converts a hexadecimal string to its decimal equivalent.
+ * @param {string} hexadecimal - The hexadecimal string to convert.
+ * @returns {number} The decimal representation of the hexadecimal value.
  */
-export function getColorBrightness(
-  red: number,
-  blue: number,
-  green: number,
-  hasToBeExact: boolean = true
-): number {
-  const hasInvalidRGBValues: boolean =
-    red < 0 || red > 255 || blue < 0 || blue > 255 || green < 0 || green > 255;
+export function hexadecimalToDecimal(hexadecimal: string): number {
+  const splittedHexadecimal: string[] = splitString(hexadecimal, "").reverse();
 
-  if (hasInvalidRGBValues) {
-    throw "Unexpected error: One or multiple RGB values are overflowing or underflowing";
+  let sum: number = 0;
+  for (let i = splittedHexadecimal.length - 1; i > -1; i--) {
+    const singularHexColorValue = splittedHexadecimal[i];
+
+    sum += Number(`0x${singularHexColorValue}`) * 16 ** i;
   }
 
-  if (hasToBeExact) {
-    const brightness: number = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
-
-    return brightness;
-  }
-
-  return (red + green + blue) / 3;
+  return sum;
 }
 
-export function getRandomHexadecimal() {
-  const number: number = getRandomNumber();
+/**
+ * Converts a decimal value to its hexadecimal equivalent.
+ * @param {number} decimal - The decimal value to convert.
+ * @returns {string} The hexadecimal representation of the decimal value.
+ */
+export function decimalToHexadecimal(decimal: number): string {
+  let hexadecimal: string = decimal.toString(16);
+
+  const hexHasEvenLength: boolean = hexadecimal.length % 2 !== 0;
+  if (hexHasEvenLength) {
+    hexadecimal = "0" + hexadecimal;
+  }
+  return hexadecimal;
 }

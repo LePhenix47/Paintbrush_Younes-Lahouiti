@@ -126,11 +126,15 @@ export function splitString(
 
 Slices a string to extract a portion of it between the start and end indexes.
 
+@example
 Ex: We have "Saturday" and we want to just end up with "at"
 
 ```js
 let str = "Saturday"
 str = sliceString(str, 1, 3); //at
+
+let str2 = "#FFFFFF"
+str2 = sliceSting(str2, 1); //FFFFFF
 ```
 
 @param {string} string - The input string to slice.
@@ -142,9 +146,24 @@ str = sliceString(str, 1, 3); //at
 export function sliceString(
   string: string,
   startIndex: number,
-  endIndex: number
+  endIndex?: number
 ): string {
   return string.slice(startIndex, endIndex);
+}
+
+/**
+ * Returns a substring of the given string based on the specified start and end index.
+ * @param {string} string - The string to extract the substring from.
+ * @param {number} startIndex - The starting index of the substring (inclusive).
+ * @param {number} endIndex - The ending index of the substring (exclusive).
+ * @returns {string} The extracted substring.
+ */
+export function getSubtring(
+  string: string,
+  startIndex: number,
+  endIndex: number
+): string {
+  return string.substring(startIndex, endIndex);
 }
 
 /**
