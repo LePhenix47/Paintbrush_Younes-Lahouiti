@@ -9,13 +9,17 @@ import {
 import { assert, count, log, table } from "./utils/functions/console.functions";
 import {
   getAncestor,
+  getAttribute,
   getParent,
   modifyAttribute,
   selectByClass,
   selectQuery,
   selectQueryAll,
 } from "./utils/functions/dom.functions";
-import { formatText } from "./utils/functions/string.functions";
+import {
+  formatText,
+  kebabToCamelCase,
+} from "./utils/functions/string.functions";
 
 const tracker = {
   tool: "brush",
@@ -75,11 +79,41 @@ function setColorsContainerEvents() {
   );
   log({ strokeWidthInputElement });
 
+  //Must also set to the controls container events
   strokeWidthInputElement.addEventListener("input", setNumberInputValues);
 }
 setColorsContainerEvents();
 
-function setControlsContainerEvents() {}
+function setControlsContainerEvents() {
+  const inputCheckboxRangeArray: HTMLInputElement[] = selectByClass(
+    "controls__input--checkbox"
+  );
+  for (const checkboxInputForRange of inputCheckboxRangeArray) {
+    checkboxInputForRange.addEventListener("change", updateRangeInputValues);
+  }
+
+  const inputColorArray: HTMLInputElement[] = selectByClass("input--color");
+  for (const colorInput of inputColorArray) {
+    colorInput.addEventListener("input", setColorInputValues);
+  }
+
+  const inputRangeArray: HTMLInputElement[] = selectByClass(
+    "controls__input--range"
+  );
+
+  for (const rangeInput of inputRangeArray) {
+    rangeInput.addEventListener("input", setRangeInputValues);
+  }
+
+  const inputNumberArray: HTMLInputElement[] = selectByClass(
+    "controls__input--number"
+  );
+
+  for (const numberInput of inputNumberArray) {
+    numberInput.addEventListener("input", setNumberInputValues);
+  }
+}
+setControlsContainerEvents();
 
 function setShapesContainerEvents() {}
 
@@ -206,8 +240,13 @@ function setNumberInputValues(event: Event) {
 
   handleInputValueOverflow(input, 0, Number.POSITIVE_INFINITY);
 
-  //@ts-ignore
-  log(event.target.value);
+  const label: HTMLLabelElement = getParent(input);
+  const labelForAttribute: string = getAttribute("for", label);
+
+  const formattedAttribute: string = kebabToCamelCase(labelForAttribute);
+
+  tracker[formattedAttribute] = input.valueAsNumber;
+  log(tracker);
 }
 
 function handleInputValueOverflow(
@@ -216,7 +255,6 @@ function handleInputValueOverflow(
   max: number = Number.POSITIVE_INFINITY
 ) {
   const inputValue: number = input.valueAsNumber;
-  log(inputValue, typeof inputValue);
 
   const valueOverflows: boolean = inputValue > max;
   if (valueOverflows) {
@@ -228,36 +266,6 @@ function handleInputValueOverflow(
     input.valueAsNumber = min;
   }
 }
-
-/**
- * Sets up event listeners for the checkboxes to automatically update input values.
- *
- * @returns {void}
- */
-function setAutoUpdateCheckboxEvents(): void {
-  const inputCheckboxRangeArray: HTMLInputElement[] = selectByClass(
-    "controls__input--checkbox"
-  );
-
-  const inputColorArray: HTMLInputElement[] = selectByClass("input--color");
-
-  const inputRangeArray: HTMLInputElement[] = selectByClass(
-    "controls__input--range"
-  );
-
-  for (const checkboxInputForRange of inputCheckboxRangeArray) {
-    checkboxInputForRange.addEventListener("change", updateRangeInputValues);
-  }
-
-  for (const rangeInput of inputRangeArray) {
-    rangeInput.addEventListener("input", setRangeInputValues);
-  }
-
-  for (const colorInput of inputColorArray) {
-    colorInput.addEventListener("input", setColorInputValues);
-  }
-}
-setAutoUpdateCheckboxEvents();
 
 const rangeInputsInfosTracker = {
   size: {
