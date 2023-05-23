@@ -218,9 +218,15 @@
 
     &__input {
 
+        &:out-of-range {
+            background-color: var(--out-of-range-bg);
+            color: var(--out-of-range-color);
+        }
+
         &--color {
             width: 64px;
             height: 32px;
+
         }
 
         &--stroke-width {

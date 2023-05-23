@@ -74,6 +74,8 @@ function setColorsContainerEvents() {
     ".colors__input--stroke-width"
   );
   log({ strokeWidthInputElement });
+
+  strokeWidthInputElement.addEventListener("input", setNumberInputValues);
 }
 setColorsContainerEvents();
 
@@ -193,6 +195,29 @@ function setToolToTracker(event: Event) {
   log(tracker);
 }
 
+function setNumberInputValues(event: Event) {
+  //@ts-ignore
+  const input: HTMLInputElement = event.currentTarget;
+
+  handleInputValueOverflow(input);
+
+  //@ts-ignore
+  log(event.target.value);
+}
+
+function handleInputValueOverflow(input: HTMLInputElement) {
+  const max: number = Number(input?.max);
+
+  const min: number = Number(input?.min);
+
+  log({ min }, { max });
+
+  const inputValue = input.valueAsNumber;
+  const valueOverflows = inputValue > max;
+
+  const valueUnderflows = inputValue < min;
+}
+
 /**
  * Sets up event listeners for the checkboxes to automatically update input values.
  *
@@ -281,7 +306,7 @@ function animateInputRange(checkboxInput: HTMLInputElement): void {
     container
   );
 
-  const currentValue: number = Number(rangeInput.value);
+  const currentValue: number = rangeInput.valueAsNumber;
   const maxValue: number = Number(rangeInput.max);
   const minValue: number = Number(rangeInput.min);
 
@@ -321,7 +346,7 @@ function animateInputRange(checkboxInput: HTMLInputElement): void {
 function setRangeInputValues(event: Event): void {
   //@ts-ignore
   const rangeInput: HTMLInputElement = event.currentTarget;
-  const inputValue: string = rangeInput.value;
+  const inputValue: number = rangeInput.valueAsNumber;
 
   const label: HTMLLabelElement = getParent(rangeInput);
 
