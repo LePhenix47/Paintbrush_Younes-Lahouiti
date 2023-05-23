@@ -8,7 +8,7 @@ import {
   setShapeToTracker,
   setToolToTracker,
   updateRangeInputValues,
-} from "./event-listeners";
+} from "./tracker-event-listeners";
 import { assert, log, table } from "./utils/functions/console.functions";
 import {
   selectByClass,
