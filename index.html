@@ -148,12 +148,12 @@
                         <label for="brush-size" class="controls__label controls__label--range">Brush size: <span
                                 class="controls__span controls__span--size">5</span>
                             <input type="range" class="controls__input controls__input--range" id="brush-size" min="1"
-                                max="100" value="5" step="1" />
+                                max="100" value="5" step="1" name="size" />
                         </label>
                         <div class="controls__checkboxes">
                             <label for="brush-resize-auto" class="controls__label">Auto resize:
                                 <input type="checkbox" id="brush-resize-auto" name="size"
-                                    class="controls__input controls__input--checkbox">
+                                    class="controls__input controls__input--checkbox" />
                             </label>
                         </div>
                     </section>
@@ -162,12 +162,12 @@
                         <label for="rotation" class="controls__label controls__label--range">Angle: <span
                                 class="controls__span controls__span--rotation">0</span>
                             <input type="range" class="controls__input controls__input--range" id="rotation" min="-180"
-                                max="180" value="0" step="1" />
+                                max="180" value="0" step="1" name="angle" />
                         </label>
                         <div class="controls__checkboxes">
                             <label for="rotation-auto" class="controls__label">Auto rotate:
                                 <input type="checkbox" id="rotation-auto" name="rotation"
-                                    class="controls__input controls__input--checkbox">
+                                    class="controls__input controls__input--checkbox" name="angle" />
                             </label>
                         </div>
                     </section>
@@ -187,17 +187,17 @@
                         <div class="controls__shadow-inputs">
                             <label class="controls__label controls__label--shadow" for="shadow-blur">Blur:
                                 <input type="number" class="controls__input controls__input--number" id="shadow-blur"
-                                    value="0" min="0">
+                                    value="0" min="0" />
                             </label>
 
                             <label class="controls__label controls__label--shadow" for="shadow-offset-x">X offset:
                                 <input type="number" class="controls__input controls__input--number"
-                                    id="shadow-offset-x" value="0" min="0">
+                                    id="shadow-offset-x" value="0" min="0" />
                             </label>
 
                             <label class="controls__label controls__label--shadow" for="shadow-offset-y">Y offset:
                                 <input type="number" class="controls__input controls__input--number"
-                                    id="shadow-offset-y" value="0" min="0">
+                                    id="shadow-offset-y" value="0" min="0" />
                             </label>
                         </div>
                     </section>

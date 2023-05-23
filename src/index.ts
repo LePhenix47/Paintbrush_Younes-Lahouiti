@@ -70,9 +70,7 @@ function setColorsContainerEvents() {
   const strokeWidthInputElement: HTMLInputElement = selectQuery(
     ".colors__input--stroke-width"
   );
-  log({ strokeWidthInputElement });
 
-  //Must also set to the controls container events
   strokeWidthInputElement.addEventListener("input", setNumberInputValues);
 }
 setColorsContainerEvents();

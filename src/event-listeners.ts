@@ -109,8 +109,6 @@ export function setHueRotationAuto(event: Event): void {
   } else {
     Interval.clear(checkboxHueRotation[inputId].animationId);
   }
-
-  log(colorsInput);
 }
 
 /**
@@ -121,7 +119,7 @@ export function setHueRotationAuto(event: Event): void {
  *
  * @returns {void}
  */
-export function convertAndRotateHue(
+function convertAndRotateHue(
   input: HTMLInputElement,
   checkboxObject: {
     id: number;
@@ -197,7 +195,7 @@ export function setNumberInputValues(event: Event): void {
  *
  * @returns {void}
  */
-export function handleInputValueOverflow(
+function handleInputValueOverflow(
   input: HTMLInputElement,
   min: number = Number.NEGATIVE_INFINITY,
   max: number = Number.POSITIVE_INFINITY
@@ -215,7 +213,17 @@ export function handleInputValueOverflow(
   }
 }
 
-const rangeInputsInfosTracker = {
+type rangeInputsInfosTrackerType = {
+  size: {
+    id: number;
+    direction: string;
+  };
+  rotation: {
+    id: number;
+    direction: string;
+  };
+};
+const rangeInputsInfosTracker: rangeInputsInfosTrackerType = {
   size: {
     id: 0,
     direction: "forwards",
@@ -294,15 +302,16 @@ export function animateInputRange(checkboxInput: HTMLInputElement): void {
     rangeInputsInfosTracker[inputName].direction === "forwards";
   if (directionIsForwards) {
     //@ts-ignore
-    rangeInput.value = currentValue + counter;
+    rangeInput.valueAsNumber = currentValue + counter;
   } else {
     //@ts-ignore
-    rangeInput.value = currentValue - counter;
+    rangeInput.valueAsNumber = currentValue - counter;
   }
   const valueWithUnit: string = `${rangeInput.valueAsNumber}`;
 
-  const label = selectQuery("label", container);
-  log(label);
+  const rangeInputName: string = rangeInput.name;
+
+  tracker[rangeInputName] = rangeInput.valueAsNumber;
 
   setSpanToInputValue(container, valueWithUnit);
 }
@@ -320,6 +329,12 @@ export function setRangeInputValues(event: Event): void {
   const inputValue: number = rangeInput.valueAsNumber;
 
   const label: HTMLLabelElement = getParent(rangeInput);
+
+  const rangeInputName: string = rangeInput.name;
+
+  tracker[rangeInputName] = inputValue;
+
+  log(tracker);
 
   setSpanToInputValue(label, inputValue);
 }
@@ -366,7 +381,7 @@ export function setColorInputValues(event: Event): void {
  *
  * @returns {boolean} - Whether the color needs to be transparent or not.
  */
-export function checkIfNeedsToBeTransparent(container: HTMLElement): boolean {
+function checkIfNeedsToBeTransparent(container: HTMLElement): boolean {
   const checkbox: HTMLInputElement = selectQuery(
     "input[type=checkbox]",
     container
@@ -382,7 +397,7 @@ export function checkIfNeedsToBeTransparent(container: HTMLElement): boolean {
  *
  * @returns {void}
  */
-export function setSpanToInputValue(container: HTMLElement, value: any): void {
+function setSpanToInputValue(container: HTMLElement, value: any): void {
   const spanLabel: HTMLSpanElement = selectQuery("span", container);
 
   spanLabel.textContent = value;
