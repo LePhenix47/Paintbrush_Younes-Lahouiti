@@ -4,6 +4,7 @@ import {
   hslColorToHex,
   hslColorToHwb,
   rgbColorToHsl,
+  transformColorModel,
 } from "./utils/functions/color-conversion.functions";
 import { assert, count, log, table } from "./utils/functions/console.functions";
 import {
@@ -38,6 +39,8 @@ const mouseInfos = {
   x: null,
   y: null,
 };
+
+log(transformColorModel("#ff0000", "Hex", "HSL"));
 
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 

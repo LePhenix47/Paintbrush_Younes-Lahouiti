@@ -290,3 +290,101 @@ export function hslColorToHwb(
     blackness: scaledBlackness,
   };
 }
+
+/**
+ * Transforms a color value from one color model to another.
+ *
+ * @param {any} colorValue - The color value to transform.
+ * @param {string} initialColorModel - The initial color model of the color value.
+ * @param {string} wantedColorModel - The desired color model to convert the color value to.
+ *
+ * @returns {string} The transformed color value in the desired color model.
+ */
+export function transformColorModel(
+  colorValue: any,
+  initialColorModel: string,
+  wantedColorModel: string
+): string {
+  let convertedColor: any;
+
+  initialColorModel = initialColorModel.toLowerCase();
+
+  //Direct conversions
+  const HEX_TO_RGB: boolean =
+    initialColorModel === "hex" && wantedColorModel === "rgb";
+
+  const RGB_TO_HSL: boolean =
+    initialColorModel === "rgb" && wantedColorModel === "hsl";
+
+  const HSL_TO_HEX: boolean =
+    initialColorModel === "hsl" && wantedColorModel === "hex";
+
+  const HSL_TO_HWB: boolean =
+    initialColorModel === "hsl" && wantedColorModel === "hwb";
+
+  //Indirect conversions
+  const HSL_TO_RGB: boolean =
+    initialColorModel === "hsl" && wantedColorModel === "rgb";
+  const RGB_TO_HEX: boolean =
+    initialColorModel === "rgb" && wantedColorModel === "hex";
+  const HEX_TO_HSL: boolean =
+    initialColorModel === "hex" && wantedColorModel === "hsl";
+
+  // Direct Conversions
+  if (HEX_TO_RGB) {
+    convertedColor = hexColorToRgb(colorValue);
+  } else if (RGB_TO_HSL) {
+    convertedColor = rgbColorToHsl(
+      colorValue.red,
+      colorValue.green,
+      colorValue.blue
+    );
+  } else if (HSL_TO_HEX) {
+    convertedColor = hslColorToHex(
+      colorValue.hue,
+      colorValue.saturation,
+      colorValue.lightness
+    );
+  } else if (HSL_TO_HWB) {
+    convertedColor = hslColorToHwb(
+      colorValue.hue,
+      colorValue.saturation,
+      colorValue.lightness
+    );
+  }
+
+  // Indirect Conversions
+  else if (HSL_TO_RGB) {
+    const hexColor: string = hslColorToHex(
+      colorValue.hue,
+      colorValue.saturation,
+      colorValue.lightness
+    );
+    convertedColor = hexColorToRgb(hexColor);
+  } else if (RGB_TO_HEX) {
+    const hslColor: {
+      hue: number;
+      saturation: number;
+      lightness: number;
+    } = rgbColorToHsl(colorValue.red, colorValue.green, colorValue.blue);
+    convertedColor = hslColorToHex(
+      hslColor.hue,
+      hslColor.saturation,
+      hslColor.lightness
+    );
+  } else if (HEX_TO_HSL) {
+    const rgbColor: {
+      red: number;
+      green: number;
+      blue: number;
+    } = hexColorToRgb(colorValue);
+    convertedColor = rgbColorToHsl(rgbColor.red, rgbColor.green, rgbColor.blue);
+  }
+
+  // Unsupported Conversion
+  else {
+    throw new Error("Unsupported color model conversion");
+  }
+
+  return convertedColor;
+}
