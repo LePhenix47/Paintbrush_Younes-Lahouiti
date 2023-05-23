@@ -272,11 +272,12 @@ input {
     }
 
     &[type="range"] {
+        border-radius: var(--thumb-border-radius);
         //Track
-        --track-width: auto;
-        --track-height: 15px;
+        --track-width: 160px;
+        --track-height: 20px;
 
-        --track-bg: transparent;
+        --track-bg: #e9e9ed;
 
         --track-appearance: none;
 
@@ -298,27 +299,28 @@ input {
             height: var(--track-bg);
         }
 
-
         //Thumb
         --thumb-appearance: none;
 
-        --thumb-bg: transparent;
-        --thumb-border-color: transparent;
-        --thumb-border-width: 1px;
+        --thumb-bg: #484851;
+
+        --thumb-border-color: white;
+        --thumb-border-width: 2px;
         --thumb-border-radius: 100vmax;
 
         --thumb-width: 15px;
         --thumb-height: 15px;
 
         --inner-track-size: calc(var(--track-width));
-        --inner-track-offset: calc(-1 * var(--track-width) - var(--thumb-width)/2); //We add a box shadow to the left
-        --inner-track-bg: transparent;
-
+        --inner-track-offset: calc(-1 * var(--track-width) - var(--thumb-width) / 2); //We add a box shadow to the left
+        --inner-track-bg: #2374ff;
 
         &::-webkit-slider-thumb {
-            appearance: var(--thumb-appearance) !important;
+            appearance: var(--thumb-appearance);
+            -webkit-appearance: var(--thumb-appearance);
 
             background-color: var(--thumb-bg);
+            color: var(--thumb-bg);
 
             border: var(--thumb-border-width) solid var(--thumb-border-color);
             border-radius: var(--thumb-border-radius);

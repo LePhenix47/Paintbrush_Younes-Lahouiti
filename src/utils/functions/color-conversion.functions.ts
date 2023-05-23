@@ -295,40 +295,41 @@ export function hslColorToHwb(
  * Transforms a color value from one color model to another.
  *
  * @param {any} colorValue - The color value to transform.
- * @param {string} initialColorModel - The initial color model of the color value.
- * @param {string} wantedColorModel - The desired color model to convert the color value to.
+ * @param {string} initialColorModel - The initial color model of the color value, can be: `hex`, `rgb`,`hsl` or `hwb`
+ * @param {string} wantedColorModel - The desired color model to convert the color value to, can be:  `hex`, `rgb` or `hsl`
  *
- * @returns {string} The transformed color value in the desired color model.
+ * @returns {any} The transformed color value in the desired color model.
  */
 export function transformColorModel(
   colorValue: any,
   initialColorModel: string,
   wantedColorModel: string
-): string {
+): any {
   let convertedColor: any;
 
   initialColorModel = initialColorModel.toLowerCase();
+  wantedColorModel = wantedColorModel.toLowerCase();
 
   //Direct conversions
   const HEX_TO_RGB: boolean =
-    initialColorModel === "hex" && wantedColorModel === "rgb";
+    initialColorModel.includes("hex") && wantedColorModel.includes("rgb");
 
   const RGB_TO_HSL: boolean =
-    initialColorModel === "rgb" && wantedColorModel === "hsl";
+    initialColorModel.includes("rgb") && wantedColorModel.includes("hsl");
 
   const HSL_TO_HEX: boolean =
-    initialColorModel === "hsl" && wantedColorModel === "hex";
+    initialColorModel.includes("hsl") && wantedColorModel.includes("hex");
 
   const HSL_TO_HWB: boolean =
-    initialColorModel === "hsl" && wantedColorModel === "hwb";
+    initialColorModel.includes("hsl") && wantedColorModel.includes("hwb");
 
   //Indirect conversions
   const HSL_TO_RGB: boolean =
-    initialColorModel === "hsl" && wantedColorModel === "rgb";
+    initialColorModel.includes("hsl") && wantedColorModel.includes("rgb");
   const RGB_TO_HEX: boolean =
-    initialColorModel === "rgb" && wantedColorModel === "hex";
+    initialColorModel.includes("rgb") && wantedColorModel.includes("hex");
   const HEX_TO_HSL: boolean =
-    initialColorModel === "hex" && wantedColorModel === "hsl";
+    initialColorModel.includes("hex") && wantedColorModel.includes("hsl");
 
   // Direct Conversions
   if (HEX_TO_RGB) {
@@ -383,7 +384,9 @@ export function transformColorModel(
 
   // Unsupported Conversion
   else {
-    throw new Error("Unsupported color model conversion");
+    throw new Error(
+      "Color model conversion error: Unsupported color model conversion"
+    );
   }
 
   return convertedColor;

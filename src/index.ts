@@ -40,8 +40,6 @@ const mouseInfos = {
   y: null,
 };
 
-log(transformColorModel("#ff0000", "Hex", "HSL"));
-
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 
 const toolsContainer: HTMLFieldSetElement = selectQuery(".tools");
@@ -84,14 +82,19 @@ function setMiscellaneousContainerEvents() {}
 
 const checkboxHueRotation = {
   fill: {
-    id: 0,
+    animationId: 0,
     hue: 0,
+    saturation: 0,
+    lightness: 0,
   },
   stroke: {
-    id: 0,
+    animationId: 0,
     hue: 0,
+    saturation: 0,
+    lightness: 0,
   },
 };
+
 function setHueRotationAuto(event: Event) {
   //@ts-ignore
   const checkboxInput: HTMLInputElement = event.currentTarget;
@@ -106,20 +109,37 @@ function setHueRotationAuto(event: Event) {
     container
   );
 
-  const colorInputPart: string = colorsInput.id;
+  const colorInputValue: string = colorsInput.value;
+
+  const inputId: string = colorsInput.id;
+
+  const { hue, saturation, lightness } = transformColorModel(
+    colorInputValue,
+    "hex",
+    "hsl"
+  );
+
+  //If the color is desaturated or if it's a value between white and black
+  const cannotRotateHue: boolean =
+    saturation === 0 || lightness === 0 || lightness === 100;
+  if (cannotRotateHue) {
+    return;
+  }
+
+  checkboxHueRotation[inputId].hue = hue;
+  checkboxHueRotation[inputId].saturation = saturation;
+  checkboxHueRotation[inputId].lightness = lightness;
 
   const isChecked: boolean = checkboxInput.checked;
   if (isChecked) {
-    checkboxHueRotation[colorInputPart].hue = 0;
-
-    checkboxHueRotation[colorInputPart].id = Interval.set(
-      500,
+    checkboxHueRotation[inputId].animationId = Interval.set(
+      50,
       convertAndRotateHue,
       colorsInput,
-      checkboxHueRotation[colorInputPart]
+      checkboxHueRotation[inputId]
     );
   } else {
-    Interval.clear(checkboxHueRotation[colorInputPart].id);
+    Interval.clear(checkboxHueRotation[inputId].animationId);
   }
 
   log(colorsInput);
@@ -130,24 +150,20 @@ function convertAndRotateHue(
   checkboxObject: {
     id: number;
     hue: number;
+    saturation: number;
+    lightness: number;
   }
 ) {
-  const initialHexValue: string = input.value;
+  checkboxObject.hue += 2;
+  checkboxObject.hue %= 360;
 
-  const { red, green, blue } = hexColorToRgb(initialHexValue);
-  let { hue, saturation, lightness } = rgbColorToHsl(red, green, blue);
+  let newHexValue: string = transformColorModel(checkboxObject, "hsl", "hex");
+  newHexValue = formatText(newHexValue, "uppercase");
 
-  checkboxObject.hue = hue;
-  checkboxObject.hue++;
-
-  const newUpdatedHexColor: string = hslColorToHex(
-    checkboxObject.hue,
-    saturation,
-    lightness
-  );
-
-  log(initialHexValue);
-  log("test:", { red, green, blue }, newUpdatedHexColor);
+  const label: HTMLLabelElement = getParent(input);
+  //@ts-ignore
+  input.value = newHexValue;
+  setSpanToInputValue(label, newHexValue);
 }
 
 function setToolToTracker(event: Event) {
