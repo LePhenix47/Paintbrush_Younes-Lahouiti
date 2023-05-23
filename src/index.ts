@@ -1,5 +1,6 @@
 import {
   setColorInputValues,
+  setGlobalCompositeOperation,
   setHueRotationAuto,
   setNumberInputValues,
   setRangeInputValues,
@@ -129,4 +130,9 @@ function setShapesContainerEvents() {
 }
 setShapesContainerEvents();
 
-function setMiscellaneousContainerEvents() {}
+function setMiscellaneousContainerEvents() {
+  const select: HTMLSelectElement = selectQuery(".miscellaneous__select");
+
+  select.addEventListener("change", setGlobalCompositeOperation);
+}
+setMiscellaneousContainerEvents();

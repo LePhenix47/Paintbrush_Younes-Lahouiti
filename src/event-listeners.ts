@@ -148,6 +148,16 @@ function convertAndRotateHue(
   log(tracker);
 }
 
+export function setGlobalCompositeOperation(event: Event) {
+  //@ts-ignore
+  const selectInput: HTMLSelectElement = event.currentTarget;
+
+  const selectValue: string = selectInput.value;
+  tracker.globalCompositeOperation = selectValue;
+
+  log(tracker);
+}
+
 /**
  * Sets the tool to the tracker.
  *
