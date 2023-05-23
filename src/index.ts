@@ -1,9 +1,9 @@
 import { Interval } from "./utils/classes/services/interval.class";
 import {
+  hexColorToRgb,
   hslColorToHex,
   hslColorToHwb,
-  hwbColorToHex,
-  hwbColorToHsl,
+  rgbColorToHsl,
 } from "./utils/functions/color-conversion.functions";
 import { assert, count, log, table } from "./utils/functions/console.functions";
 import {
@@ -23,7 +23,6 @@ const tracker = {
   strokeWidth: 0,
   size: 5,
   isDrawing: false,
-  hasShadow: false,
   shadow: "#000000",
   shadowBlur: 0,
   shadowOffsetX: 0,
@@ -34,9 +33,6 @@ const tracker = {
   innerRadius: 1,
   globalCompositeOperation: "source-over",
 };
-
-log(hwbColorToHsl(240, 25, 50)); //Gives: hsl(240, 200%, 63%) instead of hsl(240, 33%, 38%)
-log(hwbColorToHsl(240, 50, 25)); //Gives: hsl(240, 80%, 38%) instead of hsl(240, 33%, 63%)
 
 const mouseInfos = {
   x: null,
@@ -83,11 +79,72 @@ function setShapesContainerEvents() {}
 
 function setMiscellaneousContainerEvents() {}
 
+const checkboxHueRotation = {
+  fill: {
+    id: 0,
+    hue: 0,
+  },
+  stroke: {
+    id: 0,
+    hue: 0,
+  },
+};
 function setHueRotationAuto(event: Event) {
   //@ts-ignore
   const checkboxInput: HTMLInputElement = event.currentTarget;
 
-  log(checkboxInput);
+  const container: HTMLElement = getAncestor(
+    checkboxInput,
+    ".colors__container"
+  );
+
+  const colorsInput: HTMLInputElement = selectQuery(
+    ".colors__input",
+    container
+  );
+
+  const colorInputPart: string = colorsInput.id;
+
+  const isChecked: boolean = checkboxInput.checked;
+  if (isChecked) {
+    checkboxHueRotation[colorInputPart].hue = 0;
+
+    checkboxHueRotation[colorInputPart].id = Interval.set(
+      500,
+      convertAndRotateHue,
+      colorsInput,
+      checkboxHueRotation[colorInputPart]
+    );
+  } else {
+    Interval.clear(checkboxHueRotation[colorInputPart].id);
+  }
+
+  log(colorsInput);
+}
+
+function convertAndRotateHue(
+  input: HTMLInputElement,
+  checkboxObject: {
+    id: number;
+    hue: number;
+  }
+) {
+  const initialHexValue: string = input.value;
+
+  const { red, green, blue } = hexColorToRgb(initialHexValue);
+  let { hue, saturation, lightness } = rgbColorToHsl(red, green, blue);
+
+  checkboxObject.hue = hue;
+  checkboxObject.hue++;
+
+  const newUpdatedHexColor: string = hslColorToHex(
+    checkboxObject.hue,
+    saturation,
+    lightness
+  );
+
+  log(initialHexValue);
+  log("test:", { red, green, blue }, newUpdatedHexColor);
 }
 
 function setToolToTracker(event: Event) {
