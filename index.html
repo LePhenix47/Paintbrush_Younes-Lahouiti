@@ -214,8 +214,8 @@
                                 <line x1="0" y1="0" x2="50" y2="50" stroke="currentColor" stroke-width="5"
                                     style="scale: 75%; transform-origin: center;"></line>
                             </svg>
-                            <input type="radio" class="shapes__input" name="shape-group" id="line-shape"
-                                class="shapes__input" checked />
+                            <input type="radio" class="shapes__input shapes__input--radio" name="shape-group"
+                                id="line-shape" checked />
                         </label>
 
                         <label class="shapes__label" for="circle-shape">
@@ -223,8 +223,8 @@
                                 width="25" height="25" fill="white">
                                 <circle r="12.5" cx="25" cy="25"></circle>
                             </svg>
-                            <input type="radio" class="shapes__input" name="shape-group" id="circle-shape"
-                                class="shapes__input" />
+                            <input type="radio" class="shapes__input shapes__input--radio" name="shape-group"
+                                id="circle-shape" />
                         </label>
 
                         <label class="shapes__label" for="square-shape">
@@ -232,8 +232,8 @@
                                 width="25" height="25" fill="white">
                                 <rect width="25" height="25" x="12.5" y="12.5"></rect>
                             </svg>
-                            <input type="radio" class="shapes__input" name="shape-group" id="square-shape"
-                                class="shapes__input" />
+                            <input type="radio" class="shapes__input shapes__input--radio" name="shape-group"
+                                id="square-shape" />
                         </label>
 
                         <label class="shapes__label" for="star-shape">
@@ -242,8 +242,8 @@
                                 <path
                                     d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
                             </svg>
-                            <input type="radio" class="shapes__input" name="shape-group" id="star-shape"
-                                class="shapes__input" />
+                            <input type="radio" class="shapes__input shapes__input--radio" name="shape-group"
+                                id="star-shape" />
                         </label>
 
                         <label class="shapes__label" for="polygon-shape">
@@ -251,23 +251,25 @@
                                 width="25" height="25" fill="white">
                                 <polygon points="5,5 10,0 15,5 12.5,10 7.5,10 5,5" style="translate: -7.5% 20%" />
                             </svg>
-                            <input type="radio" class="shapes__input" name="shape-group" id="polygon-shape"
-                                class="shapes__input" />
+                            <input type="radio" class="shapes__input shapes__input--radio" name="shape-group"
+                                id="polygon-shape" />
                         </label>
                     </section>
 
 
                     <section class="shapes__drawn-shape">
-                        <canvas class="shapes__canvas"></canvas>
+                        <canvas class="shapes__canvas">Preview of the shape to be drawn</canvas>
                     </section>
 
                     <section class="shapes__optional-controls">
                         <label for="shape-sides-amount" class="colors__label">Sides:
-                            <input type="number" id="shape-sides-amount" value="3" min="3" max="65533" disabled />
+                            <input type="number" class="shapes__input shapes__input--number" id="shape-sides-amount"
+                                value="3" min="3" max="65533" disabled />
                         </label>
 
                         <label for="shape-star-inner-radius" class="colors__label">Inner radius:
-                            <input type="number" id="shape-star-inner-radius" value="1" min="1" max="65535" disabled />
+                            <input type="number" class="shapes__input shapes__input--number"
+                                id="shape-star-inner-radius" value="1" min="1" max="65535" disabled />
                         </label>
                     </section>
                 </fieldset>

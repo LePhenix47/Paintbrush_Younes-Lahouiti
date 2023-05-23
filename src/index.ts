@@ -3,6 +3,8 @@ import {
   setHueRotationAuto,
   setNumberInputValues,
   setRangeInputValues,
+  setShapeNumberInputValues,
+  setShapeToTracker,
   setToolToTracker,
   updateRangeInputValues,
 } from "./event-listeners";
@@ -25,7 +27,7 @@ export const tracker = {
   shadowBlur: 0,
   shadowOffsetX: 0,
   shadowOffsetY: 0,
-  hasShape: false,
+  hasEditableShape: false,
   shape: "line",
   sides: 3,
   innerRadius: 1,
@@ -106,6 +108,25 @@ function setControlsContainerEvents() {
 }
 setControlsContainerEvents();
 
-function setShapesContainerEvents() {}
+function setShapesContainerEvents() {
+  const radioInputsArray: HTMLInputElement[] = selectByClass(
+    "shapes__input--radio",
+    shapesContainer
+  );
+
+  for (const radioInput of radioInputsArray) {
+    radioInput.addEventListener("change", setShapeToTracker);
+  }
+
+  const numberInputsArray: HTMLInputElement[] = selectByClass(
+    "shapes__input--number",
+    shapesContainer
+  );
+
+  for (const numberInput of numberInputsArray) {
+    numberInput.addEventListener("input", setShapeNumberInputValues);
+  }
+}
+setShapesContainerEvents();
 
 function setMiscellaneousContainerEvents() {}

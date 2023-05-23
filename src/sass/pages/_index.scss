@@ -315,8 +315,14 @@
     }
 
     &__input {
-        display: none;
-        height: 10px;
+        &--radio {
+            display: none;
+            height: 10px;
+        }
+
+        &--number {
+            text-align: center;
+        }
     }
 
     &__checkboxes {}
@@ -360,6 +366,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    &__select {
+        padding: 10px 5px;
     }
 
     &__label {

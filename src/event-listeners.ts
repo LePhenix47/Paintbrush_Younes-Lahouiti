@@ -7,10 +7,14 @@ import {
   selectQuery,
   getParent,
   getAttribute,
+  getClassListValues,
+  enableElement,
+  disableElement,
 } from "./utils/functions/dom.functions";
 import {
   formatText,
   kebabToCamelCase,
+  splitString,
 } from "./utils/functions/string.functions";
 
 type checkboxHueRotationType = {
@@ -159,6 +163,54 @@ export function setToolToTracker(event: Event): void {
   log(tracker);
 }
 
+export function setShapeToTracker(event: Event) {
+  //@ts-ignore
+  const radioInput: HTMLInputElement = event.currentTarget;
+
+  const formattedInputId: string = splitString(radioInput.id, "-")[0];
+
+  tracker.shape = formattedInputId;
+
+  const isNotAShape: boolean =
+    formattedInputId !== "polygon" && formattedInputId !== "star";
+  if (isNotAShape) {
+    tracker.hasEditableShape = false;
+  } else {
+    tracker.hasEditableShape = true;
+  }
+
+  const fieldsetContainer: HTMLFieldSetElement = getAncestor(
+    radioInput,
+    "fieldset"
+  );
+
+  const sidesNumberInput: HTMLInputElement = selectQuery(
+    "input#shape-sides-amount",
+    fieldsetContainer
+  );
+
+  const innerRadiusNumberInput: HTMLInputElement = selectQuery(
+    "input#shape-star-inner-radius",
+    fieldsetContainer
+  );
+
+  const canHaveSides: boolean = tracker.hasEditableShape === true;
+  if (canHaveSides) {
+    enableElement(sidesNumberInput);
+  } else {
+    disableElement(sidesNumberInput);
+  }
+
+  const canHaveAnInnerRadius: boolean = formattedInputId === "star";
+  if (canHaveAnInnerRadius) {
+    enableElement(innerRadiusNumberInput);
+  } else {
+    disableElement(innerRadiusNumberInput);
+  }
+
+  log(tracker);
+}
+
 /**
  * Sets the number input values to the tracker.
  *
@@ -183,6 +235,46 @@ export function setNumberInputValues(event: Event): void {
   const formattedAttribute: string = kebabToCamelCase(labelForAttribute);
 
   tracker[formattedAttribute] = input.valueAsNumber;
+  log(tracker);
+}
+
+/**
+ * Sets the number of the input values inside the shapes part to the tracker.
+ *
+ * @param {Event} event - The event triggered by the number input change.
+ *
+ * @returns {void}
+ */
+export function setShapeNumberInputValues(event: Event): void {
+  //@ts-ignore
+  const input: HTMLInputElement = event.currentTarget;
+
+  const inputValueIsInvalid: boolean = isNaN(input.valueAsNumber);
+  if (inputValueIsInvalid) {
+    return;
+  }
+
+  const min: number = Number(input.min);
+  const max: number = Number(input.max);
+
+  handleInputValueOverflow(input, min, max);
+
+  const label: HTMLLabelElement = getParent(input);
+  const labelForAttribute: string = getAttribute("for", label);
+
+  const formattedAttribute: string = kebabToCamelCase(labelForAttribute);
+  switch (formattedAttribute) {
+    case "shapeSidesAmount": {
+      tracker.sides = input.valueAsNumber;
+      break;
+    }
+    case "shapeStarInnerRadius": {
+      tracker.innerRadius = input.valueAsNumber;
+      break;
+    }
+  }
+  log(formattedAttribute);
+
   log(tracker);
 }
 
@@ -275,8 +367,6 @@ export function animateInputRange(checkboxInput: HTMLInputElement): void {
     checkboxInput,
     ".controls__brush-container"
   );
-  log(container);
-
   const rangeInput: HTMLInputElement = selectQuery(
     ".controls__input--range",
     container
