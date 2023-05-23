@@ -66,11 +66,14 @@ function setColorsContainerEvents() {
     ".color__input--checkbox:not(input#fill-show, input#stroke-show)"
   );
 
-  table(rotateHueCheckboxesArray);
-
   for (const rotateHueInput of rotateHueCheckboxesArray) {
     rotateHueInput.addEventListener("change", setHueRotationAuto);
   }
+
+  const strokeWidthInputElement: HTMLInputElement = selectQuery(
+    ".colors__input--stroke-width"
+  );
+  log({ strokeWidthInputElement });
 }
 setColorsContainerEvents();
 
@@ -86,12 +89,14 @@ const checkboxHueRotation = {
     hue: 0,
     saturation: 0,
     lightness: 0,
+    type: "fill",
   },
   stroke: {
     animationId: 0,
     hue: 0,
     saturation: 0,
     lightness: 0,
+    type: "stroke",
   },
 };
 
@@ -113,18 +118,28 @@ function setHueRotationAuto(event: Event) {
 
   const inputId: string = colorsInput.id;
 
+  log(container);
+
   const { hue, saturation, lightness } = transformColorModel(
     colorInputValue,
     "hex",
     "hsl"
   );
 
+  //We cehck if the value must be transparent
+  const mustBeTransparent: boolean = checkIfNeedsToBeTransparent(container);
+
   //If the color is desaturated or if it's a value between white and black
-  const cannotRotateHue: boolean =
+  const colorIsDesaturated: boolean =
     saturation === 0 || lightness === 0 || lightness === 100;
+
+  const cannotRotateHue: boolean = mustBeTransparent || colorIsDesaturated;
+
   if (cannotRotateHue) {
     return;
   }
+
+  checkboxHueRotation[inputId].type = inputId;
 
   checkboxHueRotation[inputId].hue = hue;
   checkboxHueRotation[inputId].saturation = saturation;
@@ -152,6 +167,7 @@ function convertAndRotateHue(
     hue: number;
     saturation: number;
     lightness: number;
+    type: string;
   }
 ) {
   checkboxObject.hue += 2;
@@ -164,6 +180,9 @@ function convertAndRotateHue(
   //@ts-ignore
   input.value = newHexValue;
   setSpanToInputValue(label, newHexValue);
+
+  tracker[checkboxObject.type] = newHexValue;
+  log(tracker);
 }
 
 function setToolToTracker(event: Event) {
