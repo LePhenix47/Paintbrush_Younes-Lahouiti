@@ -199,23 +199,34 @@ function setNumberInputValues(event: Event) {
   //@ts-ignore
   const input: HTMLInputElement = event.currentTarget;
 
-  handleInputValueOverflow(input);
+  const inputValueIsInvalid: boolean = isNaN(input.valueAsNumber);
+  if (inputValueIsInvalid) {
+    return;
+  }
+
+  handleInputValueOverflow(input, 0, Number.POSITIVE_INFINITY);
 
   //@ts-ignore
   log(event.target.value);
 }
 
-function handleInputValueOverflow(input: HTMLInputElement) {
-  const max: number = Number(input?.max);
+function handleInputValueOverflow(
+  input: HTMLInputElement,
+  min: number = Number.NEGATIVE_INFINITY,
+  max: number = Number.POSITIVE_INFINITY
+) {
+  const inputValue: number = input.valueAsNumber;
+  log(inputValue, typeof inputValue);
 
-  const min: number = Number(input?.min);
+  const valueOverflows: boolean = inputValue > max;
+  if (valueOverflows) {
+    input.valueAsNumber = max;
+  }
 
-  log({ min }, { max });
-
-  const inputValue = input.valueAsNumber;
-  const valueOverflows = inputValue > max;
-
-  const valueUnderflows = inputValue < min;
+  const valueUnderflows: boolean = inputValue < min;
+  if (valueUnderflows) {
+    input.valueAsNumber = min;
+  }
 }
 
 /**
