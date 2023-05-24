@@ -399,10 +399,34 @@ export function setColorInputValues(event: Event): void {
   //Check here if color needs to be transparent
   const needsToBeTransparent: boolean =
     checkIfNeedsToBeTransparent(colorCheckboxesDiv);
+
   if (needsToBeTransparent) {
     tracker[colorType] = "transparent";
   } else {
     tracker[colorType] = formattedInputValue;
+  }
+}
+
+export function changeTrackerTransparency(event: Event) {
+  //@ts-ignore
+  const input: HTMLInputElement = event.currentTarget;
+  const showInputType = splitString(input.id, "-")[0];
+
+  const isChecked: boolean = input.checked;
+  if (isChecked) {
+    const checkboxInputContainer: HTMLDivElement = getAncestor(input, "div");
+
+    const sectionContainer: HTMLElement = getParent(checkboxInputContainer);
+
+    const colorInput: HTMLInputElement = selectQuery(
+      "input[type=color]",
+      sectionContainer
+    );
+
+    const formattedColor: string = formatText(colorInput.value, "uppercase");
+    tracker[showInputType] = formattedColor;
+  } else {
+    tracker[showInputType] = "transparent";
   }
 }
 

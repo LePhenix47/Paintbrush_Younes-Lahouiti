@@ -5,6 +5,7 @@ import {
   trackerType,
 } from "./trackers-types.variables";
 
+//For the canvas
 /**
  * The tracker object representing the current state of the drawing tool.
  * @type {Object}
@@ -32,7 +33,7 @@ export const tracker: trackerType = {
   strokeWidth: 0,
   size: 5,
   angle: 0,
-  shadow: "#000000",
+  shadow: "transparent",
   shadowBlur: 0,
   shadowOffsetX: 0,
   shadowOffsetY: 0,
@@ -56,6 +57,7 @@ export const mouseInfos: mouseInfosType = {
   isDrawing: false,
 };
 
+//For specific functions
 /**
  * An object representing the checkbox hue rotation settings.
  * @type {CheckboxHueRotation}

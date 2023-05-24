@@ -110,8 +110,8 @@
 
                         <div class="colors__checkboxes">
                             <label for="fill-show" class="colors__label">Show:
-                                <input type="checkbox" class="colors__input colors__input--checkbox" id="fill-show"
-                                    checked />
+                                <input type="checkbox" class="colors__input colors__input--checkbox show-input"
+                                    id="fill-show" checked />
                             </label>
                             <label for="fill-rotate" class="colors__label">Rotate hue:
                                 <input type="checkbox" class="colors__input color__input--checkbox" id="fill-rotate" />
@@ -131,7 +131,8 @@
                         </label>
                         <div class="colors__checkboxes">
                             <label for="stroke-show" class="colors__label">Show:
-                                <input type="checkbox" class="colors__input color__input--checkbox" id="stroke-show" />
+                                <input type="checkbox" class="colors__input color__input--checkbox show-input"
+                                    id="stroke-show" />
                             </label>
                             <label for="stroke-rotate" class="colors__label">Rotate hue:
                                 <input type="checkbox" class="colors__input color__input--checkbox"
@@ -173,15 +174,17 @@
                     </section>
 
                     <section class="controls__shadow-container">
-                        <label class="controls__label controls__label--shadow" for="shadow">Shadow:
-                            <span class="controls__span">#000000</span>
-                            <input type="color" id="shadow" class="controls__input input--color" />
-                        </label>
-
-                        <div class="controls__checkboxes">
-                            <label for="shadow-show" class="controls__label">Show:
-                                <input type="checkbox" id="shadow-show">
+                        <div class="controls__shadow-color">
+                            <label class="controls__label controls__label--shadow" for="shadow">Shadow:
+                                <span class="controls__span">#000000</span>
+                                <input type="color" id="shadow" class="controls__input input--color" />
                             </label>
+
+                            <div class="controls__checkboxes">
+                                <label for="shadow-show" class="controls__label">Show:
+                                    <input type="checkbox" class="show-input" id="shadow-show">
+                                </label>
+                            </div>
                         </div>
 
                         <div class="controls__shadow-inputs">

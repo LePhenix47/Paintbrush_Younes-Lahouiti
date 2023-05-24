@@ -1,9 +1,11 @@
 import {
+  clearOldCanvasPaint,
   setDrawingToFalse,
   setDrawingToTrue,
   setMouseCoordinates,
 } from "./canvas-event-listeners";
 import {
+  changeTrackerTransparency,
   setColorInputValues,
   setGlobalCompositeOperation,
   setHueRotationAuto,
@@ -15,7 +17,15 @@ import {
   updateRangeInputValues,
 } from "./tracker-event-listeners";
 import { Interval } from "./utils/classes/services/interval.class";
-import { assert, dir, log, table } from "./utils/functions/console.functions";
+import {
+  assert,
+  dir,
+  group,
+  groupCollapsed,
+  groupEnd,
+  log,
+  table,
+} from "./utils/functions/console.functions";
 import {
   selectByClass,
   selectQuery,
@@ -79,6 +89,9 @@ function setToolsContainerEvents(): void {
      */
     radioInput.addEventListener("change", setToolToTracker);
   }
+
+  const clearCanvasButton: HTMLButtonElement = selectQuery(".tools__button");
+  clearCanvasButton.addEventListener("click", clearOldCanvasPaint);
 }
 setToolsContainerEvents();
 
@@ -138,6 +151,12 @@ function setControlsContainerEvents(): void {
      * @returns {void}
      */
     colorInput.addEventListener("input", setColorInputValues);
+  }
+
+  const inputCheckboxShowArray: HTMLInputElement[] =
+    selectByClass("show-input");
+  for (const checkboxInput of inputCheckboxShowArray) {
+    checkboxInput.addEventListener("change", changeTrackerTransparency);
   }
 
   const inputRangeArray: HTMLInputElement[] = selectByClass(
@@ -219,10 +238,11 @@ function setMiscellaneousContainerEvents(): void {
 }
 setMiscellaneousContainerEvents();
 
-function setCanvasEventListeners() {
-  const main: HTMLElement = selectQuery("main.index");
-  const { width, height }: DOMRect = main.getBoundingClientRect();
-
+/**
+ * Sets the event listeners for the canvas to draw on.
+ * @returns {void}
+ */
+function setCanvasEventListeners(): void {
   canvasPaint.addEventListener("mousemove", setMouseCoordinates);
 
   canvasPaint.addEventListener("mousedown", setDrawingToTrue);
@@ -231,6 +251,31 @@ function setCanvasEventListeners() {
 }
 setCanvasEventListeners();
 
+window.addEventListener("resize", handleWindowResize);
+
+let canvasAnimationFrameId: number = 0;
+function handleWindowResize() {
+  const main: HTMLElement = selectQuery("main.index");
+  const { width, height }: DOMRect = main.getBoundingClientRect();
+
+  canvasPaint.width = width * 0.97;
+  canvasPaint.height = height * 0.97;
+}
+handleWindowResize();
+
+function animate() {
+  //We simply draw on the canvas, so we don't need to lear the old paint
+
+  //We animate the canvas
+  canvasAnimationFrameId = requestAnimationFrame(animate);
+}
+
+function cancelAnimation() {
+  cancelAnimationFrame(canvasAnimationFrameId);
+}
+
 Interval.set(3_500, () => {
+  groupCollapsed("Tracker");
   log(tracker, mouseInfos);
+  groupEnd();
 });
