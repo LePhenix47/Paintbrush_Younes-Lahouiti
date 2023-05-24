@@ -109,17 +109,16 @@ export class PaintBrush {
 
     this.angle = angle;
 
-    this.shadow = shadow;
-    this.shadowBlur = shadowBlur;
-    this.shadowOffsetX = shadowOffsetX;
-    this.shadowOffsetY = shadowOffsetY;
+    this.context.shadowColor = shadow;
+    this.context.shadowBlur = shadowBlur;
+    this.context.shadowOffsetX = shadowOffsetX;
+    this.context.shadowOffsetY = shadowOffsetY;
 
     this.hasEditableShape = hasEditableShape;
     this.shape = shape;
     this.sides = sides;
     this.innerRadius = innerRadius;
 
-    this.globalCompositeOperation = globalCompositeOperation;
     this.context.globalCompositeOperation = this.globalCompositeOperation;
 
     this.x = x;
