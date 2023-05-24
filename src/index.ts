@@ -16,7 +16,9 @@ import {
   setToolToTracker,
   updateRangeInputValues,
 } from "./tracker-event-listeners";
+import { PaintBrush } from "./utils/classes/effects/paintbrush.class";
 import { Interval } from "./utils/classes/services/interval.class";
+import { get2DContext } from "./utils/functions/canvas.functions";
 import {
   assert,
   dir,
@@ -38,6 +40,7 @@ import { mouseInfos, tracker } from "./utils/variables/trackers.variables";
  * @type {HTMLCanvasElement}
  */
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
+const canvasPaintContext: CanvasRenderingContext2D = get2DContext(canvasPaint);
 
 /**
  * The container element for tools.
@@ -91,7 +94,9 @@ function setToolsContainerEvents(): void {
   }
 
   const clearCanvasButton: HTMLButtonElement = selectQuery(".tools__button");
-  clearCanvasButton.addEventListener("click", clearOldCanvasPaint);
+  clearCanvasButton.addEventListener("click", (e) => {
+    clearOldCanvasPaint(e, canvasPaint, canvasPaintContext);
+  });
 }
 setToolsContainerEvents();
 
@@ -263,12 +268,21 @@ function handleWindowResize() {
 }
 handleWindowResize();
 
+let effectHandler: PaintBrush = new PaintBrush(
+  canvasPaint,
+  tracker,
+  mouseInfos
+);
 function animate() {
   //We simply draw on the canvas, so we don't need to clear the old paint
+
+  effectHandler.drawOnCanvas();
+  effectHandler.updatePropertyValues(tracker, mouseInfos);
 
   //We start our animation loop
   canvasAnimationFrameId = requestAnimationFrame(animate);
 }
+animate();
 
 function cancelAnimation() {
   cancelAnimationFrame(canvasAnimationFrameId);
@@ -276,6 +290,6 @@ function cancelAnimation() {
 
 Interval.set(3_500, () => {
   groupCollapsed("Tracker");
-  log(tracker, mouseInfos);
+  log(effectHandler);
   groupEnd();
 });

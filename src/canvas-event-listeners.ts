@@ -1,12 +1,22 @@
+import { clearOldPaint } from "./utils/functions/canvas.functions";
 import { log } from "./utils/functions/console.functions";
 import { selectQuery } from "./utils/functions/dom.functions";
 import { mouseInfos } from "./utils/variables/trackers.variables";
 
-export function clearOldCanvasPaint() {}
+export function clearOldCanvasPaint(
+  event: Event,
+  canvas: HTMLCanvasElement,
+  context: CanvasRenderingContext2D
+) {
+  clearOldPaint(context, canvas.width, canvas.height);
+}
 
 export function setMouseCoordinates(event: MouseEvent) {
-  mouseInfos.x = event.x;
-  mouseInfos.y = event.y;
+  const canvas: HTMLCanvasElement = selectQuery("canvas.index__canvas");
+  const { x, y }: DOMRect = canvas.getBoundingClientRect();
+
+  mouseInfos.x = event.x - x;
+  mouseInfos.y = event.y - y;
 }
 
 export function setDrawingToTrue(event: MouseEvent) {
@@ -23,7 +33,6 @@ export function setDrawingToTrue(event: MouseEvent) {
   if (userIsHoldingMouseLeftClick) {
     mouseInfos.isDrawing = true;
   }
-  log(mouseInfos);
 }
 
 export function setDrawingToFalse(event: MouseEvent) {
@@ -40,5 +49,4 @@ export function setDrawingToFalse(event: MouseEvent) {
   if (userReleasedMouseLeftClick) {
     mouseInfos.isDrawing = false;
   }
-  log(mouseInfos);
 }
