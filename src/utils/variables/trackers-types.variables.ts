@@ -16,7 +16,7 @@ export type trackerType = {
   shape: string;
   sides: number;
   innerRadius: number;
-  globalCompositeOperation: string;
+  globalCompositeOperation: GlobalCompositeOperation;
 };
 
 /**

@@ -120,6 +120,7 @@ export function setGlobalCompositeOperation(event: Event) {
   const selectInput: HTMLSelectElement = event.currentTarget;
 
   const selectValue: string = selectInput.value;
+  //@ts-ignore
   tracker.globalCompositeOperation = selectValue;
 }
 

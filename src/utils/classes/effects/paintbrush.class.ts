@@ -23,7 +23,7 @@ export class PaintBrush {
   shape: string;
   sides: number;
   innerRadius: number;
-  globalCompositeOperation: string;
+  globalCompositeOperation: GlobalCompositeOperation;
 
   x: number;
   y: number;
@@ -128,6 +128,8 @@ export class PaintBrush {
   }
 
   drawOnCanvas() {
+    this.context.globalCompositeOperation = this.globalCompositeOperation;
+
     const isNotDawing: boolean = !this.isDrawing;
     if (isNotDawing) {
       return;
@@ -168,20 +170,17 @@ export class PaintBrush {
 
   private drawCircle() {
     this.context.fillStyle = this.fill;
+    this.context.strokeStyle = this.stroke;
+    this.context.lineWidth = this.strokeWidth;
 
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     this.context.fill();
 
-    this.context.strokeStyle = this.stroke;
-    const hasNotStroke = this.strokeWidth === 0;
-
-    if (hasNotStroke) {
-      return;
+    const hasStroke: boolean = this.strokeWidth > 0;
+    if (hasStroke) {
+      this.context.stroke();
     }
-
-    this.context.lineWidth = this.strokeWidth;
-    this.context.stroke();
   }
 
   private drawSquare() {
@@ -191,25 +190,22 @@ export class PaintBrush {
     this.context.rotate((this.angle * Math.PI) / 180);
 
     this.context.fillStyle = this.fill;
+
     this.context.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
     this.context.fill();
 
     this.context.strokeStyle = this.stroke;
-    const hasNotStroke = this.strokeWidth === 0;
-
-    if (hasNotStroke) {
-      this.context.restore();
-      return;
-    }
-
-    this.context.strokeRect(
-      -this.size,
-      -this.size,
-      this.size * 2,
-      this.size * 2
-    );
     this.context.lineWidth = this.strokeWidth;
-    this.context.stroke();
+
+    const hasStroke: boolean = this.strokeWidth > 0;
+    if (hasStroke) {
+      this.context.strokeRect(
+        -this.size,
+        -this.size,
+        this.size * 2,
+        this.size * 2
+      );
+    }
 
     this.context.restore();
   }
@@ -254,7 +250,7 @@ export class PaintBrush {
     this.context.moveTo(this.size, 0);
 
     for (let i = 1; i < this.sides; i++) {
-      const angle: number = (Math.PI * 2) / this.sides;
+      const angle: number = (i * Math.PI * 2) / this.sides;
 
       const x: number = this.size * Math.cos(angle);
       const y: number = this.size * Math.sin(angle);
