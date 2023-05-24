@@ -9,64 +9,88 @@ import {
   setToolToTracker,
   updateRangeInputValues,
 } from "./tracker-event-listeners";
+import { Interval } from "./utils/classes/services/interval.class";
 import { assert, log, table } from "./utils/functions/console.functions";
 import {
   selectByClass,
   selectQuery,
   selectQueryAll,
 } from "./utils/functions/dom.functions";
+import { tracker } from "./utils/variables/trackers.variables";
 
-export const tracker = {
-  tool: "brush",
-  fill: "#000000",
-  stroke: "transparent",
-  strokeWidth: 0,
-  size: 5,
-  angle: 0,
-  isDrawing: false,
-  shadow: "#000000",
-  shadowBlur: 0,
-  shadowOffsetX: 0,
-  shadowOffsetY: 0,
-  hasEditableShape: false,
-  shape: "line",
-  sides: 3,
-  innerRadius: 1,
-  globalCompositeOperation: "source-over",
-};
-
-export const mouseInfos = {
-  x: null,
-  y: null,
-};
-
+/**
+ * The canvas element for painting.
+ * @type {HTMLCanvasElement}
+ */
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 
+/**
+ * The container element for tools.
+ * @type {HTMLFieldSetElement}
+ */
 const toolsContainer: HTMLFieldSetElement = selectQuery(".tools");
+
+/**
+ * The container element for colors.
+ * @type {HTMLFieldSetElement}
+ */
 const colorsContainer: HTMLFieldSetElement = selectQuery(".colors");
+
+/**
+ * The container element for controls.
+ * @type {HTMLFieldSetElement}
+ */
 const controlsContainer: HTMLFieldSetElement = selectQuery(".controls");
+
+/**
+ * The container element for shapes.
+ * @type {HTMLFieldSetElement}
+ */
 const shapesContainer: HTMLFieldSetElement = selectQuery(".shapes");
+
+/**
+ * The container element for miscellaneous options.
+ * @type {HTMLFieldSetElement}
+ */
 const miscellaneousContainer: HTMLFieldSetElement =
   selectQuery(".miscellaneous");
 
-function setToolsContainerEvents() {
+/**
+ * Sets the event listeners for the tools container.
+ * @returns {void}
+ */
+function setToolsContainerEvents(): void {
   const radioInputsArray: HTMLInputElement[] = selectByClass(
     "tools__input",
     toolsContainer
   );
 
   for (const radioInput of radioInputsArray) {
+    /**
+     * Event handler for the change event on the radio inputs in the tools container.
+     * @param {Event} event - The event triggered by the radio input change.
+     * @returns {void}
+     */
     radioInput.addEventListener("change", setToolToTracker);
   }
 }
 setToolsContainerEvents();
 
-function setColorsContainerEvents() {
+/**
+ * Sets the event listeners for the colors container.
+ * @returns {void}
+ */
+function setColorsContainerEvents(): void {
   const rotateHueCheckboxesArray: HTMLInputElement[] = selectQueryAll(
     ".color__input--checkbox:not(input#fill-show, input#stroke-show)"
   );
 
   for (const rotateHueInput of rotateHueCheckboxesArray) {
+    /**
+     * Event handler for the change event on the rotate hue checkboxes in the colors container.
+     * @param {Event} event - The event triggered by the checkbox change.
+     * @returns {void}
+     */
     rotateHueInput.addEventListener("change", setHueRotationAuto);
   }
 
@@ -74,20 +98,39 @@ function setColorsContainerEvents() {
     ".colors__input--stroke-width"
   );
 
+  /**
+   * Event handler for the input event on the stroke width input in the colors container.
+   * @param {Event} event - The event triggered by the input change.
+   * @returns {void}
+   */
   strokeWidthInputElement.addEventListener("input", setNumberInputValues);
 }
 setColorsContainerEvents();
 
-function setControlsContainerEvents() {
+/**
+ * Sets the event listeners for the controls container.
+ * @returns {void}
+ */
+function setControlsContainerEvents(): void {
   const inputCheckboxRangeArray: HTMLInputElement[] = selectByClass(
     "controls__input--checkbox"
   );
   for (const checkboxInputForRange of inputCheckboxRangeArray) {
+    /**
+     * Event handler for the change event on the input checkboxes in the controls container.
+     * @param {Event} event - The event triggered by the checkbox change.
+     * @returns {void}
+     */
     checkboxInputForRange.addEventListener("change", updateRangeInputValues);
   }
 
   const inputColorArray: HTMLInputElement[] = selectByClass("input--color");
   for (const colorInput of inputColorArray) {
+    /**
+     * Event handler for the input event on the color inputs in the controls container.
+     * @param {Event} event - The event triggered by the input change.
+     * @returns {void}
+     */
     colorInput.addEventListener("input", setColorInputValues);
   }
 
@@ -96,6 +139,11 @@ function setControlsContainerEvents() {
   );
 
   for (const rangeInput of inputRangeArray) {
+    /**
+     * Event handler for the input event on the range inputs in the controls container.
+     * @param {Event} event - The event triggered by the input change.
+     * @returns {void}
+     */
     rangeInput.addEventListener("input", setRangeInputValues);
   }
 
@@ -104,18 +152,32 @@ function setControlsContainerEvents() {
   );
 
   for (const numberInput of inputNumberArray) {
+    /**
+     * Event handler for the input event on the number inputs in the controls container.
+     * @param {Event} event - The event triggered by the input change.
+     * @returns {void}
+     */
     numberInput.addEventListener("input", setNumberInputValues);
   }
 }
 setControlsContainerEvents();
 
-function setShapesContainerEvents() {
+/**
+ * Sets the event listeners for the shapes container.
+ * @returns {void}
+ */
+function setShapesContainerEvents(): void {
   const radioInputsArray: HTMLInputElement[] = selectByClass(
     "shapes__input--radio",
     shapesContainer
   );
 
   for (const radioInput of radioInputsArray) {
+    /**
+     * Event handler for the change event on the radio inputs in the shapes container.
+     * @param {Event} event - The event triggered by the radio input change.
+     * @returns {void}
+     */
     radioInput.addEventListener("change", setShapeToTracker);
   }
 
@@ -125,14 +187,32 @@ function setShapesContainerEvents() {
   );
 
   for (const numberInput of numberInputsArray) {
+    /**
+     * Event handler for the input event on the number inputs in the shapes container.
+     * @param {Event} event - The event triggered by the input change.
+     * @returns {void}
+     */
     numberInput.addEventListener("input", setShapeNumberInputValues);
   }
 }
 setShapesContainerEvents();
 
-function setMiscellaneousContainerEvents() {
+/**
+ * Sets the event listeners for the miscellaneous container.
+ * @returns {void}
+ */
+function setMiscellaneousContainerEvents(): void {
   const select: HTMLSelectElement = selectQuery(".miscellaneous__select");
 
+  /**
+   * Event handler for the change event on the select element in the miscellaneous container.
+   * @param {Event} event - The event triggered by the select change.
+   * @returns {void}
+   */
   select.addEventListener("change", setGlobalCompositeOperation);
 }
 setMiscellaneousContainerEvents();
+
+Interval.set(1_000, () => {
+  log(tracker);
+});

@@ -1,4 +1,4 @@
-import { tracker } from "./index";
+import { tracker } from "./utils/variables/trackers.variables";
 import { Interval } from "./utils/classes/services/interval.class";
 import { transformColorModel } from "./utils/functions/color-conversion.functions";
 import { log } from "./utils/functions/console.functions";
