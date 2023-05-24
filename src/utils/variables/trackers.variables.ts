@@ -39,7 +39,7 @@ export const tracker: trackerType = {
   shadowOffsetY: 0,
   hasEditableShape: false,
   shape: "square",
-  sides: 3,
+  sides: 5,
   innerRadius: 1,
   globalCompositeOperation: "source-over",
 };
