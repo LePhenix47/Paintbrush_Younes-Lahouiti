@@ -284,16 +284,23 @@
                         <label for="operations" class="miscellaneous__label miscellaneous__label--select">
                             Global Composite Operation:
                             <select class="miscellaneous__select" name="operations" id="operations">
+                                <!--
+                                    The commented out options are the ones that do not properply work on our canvas
+
+                                    Also here's the list of all the GCOs: 
+                                    https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+                            -->
+
                                 <option class="miscellaneous__option" value="source-over">source-over (Default)</option>
-                                <option class="miscellaneous__option" value="source-in">source-in</option>
+                                <!-- <option class="miscellaneous__option" value="source-in">source-in</option>
                                 <option class="miscellaneous__option" value="source-out">source-out</option>
-                                <option class="miscellaneous__option" value="source-atop">source-atop</option>
+                                <option class="miscellaneous__option" value="source-atop">source-atop</option> -->
                                 <option class="miscellaneous__option" value="destination-over">destination-over</option>
-                                <option class="miscellaneous__option" value="destination-in">destination-in</option>
+                                <!-- <option class="miscellaneous__option" value="destination-in">destination-in</option>
                                 <option class="miscellaneous__option" value="destination-out">destination-out</option>
-                                <option class="miscellaneous__option" value="destination-atop">destination-atop</option>
+                                <option class="miscellaneous__option" value="destination-atop">destination-atop</option> -->
                                 <option class="miscellaneous__option" value="lighter">lighter</option>
-                                <option class="miscellaneous__option" value="copy">copy</option>
+                                <!-- <option class="miscellaneous__option" value="copy">copy</option> -->
                                 <option class="miscellaneous__option" value="xor">xor</option>
                                 <option class="miscellaneous__option" value="multiply">multiply</option>
                                 <option class="miscellaneous__option" value="screen">screen</option>

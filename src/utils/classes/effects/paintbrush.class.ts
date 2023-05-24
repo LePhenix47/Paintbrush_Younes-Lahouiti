@@ -120,6 +120,7 @@ export class PaintBrush {
     this.innerRadius = innerRadius;
 
     this.globalCompositeOperation = globalCompositeOperation;
+    this.context.globalCompositeOperation = this.globalCompositeOperation;
 
     this.x = x;
     this.y = y;
@@ -128,8 +129,6 @@ export class PaintBrush {
   }
 
   drawOnCanvas() {
-    this.context.globalCompositeOperation = this.globalCompositeOperation;
-
     const isNotDawing: boolean = !this.isDrawing;
     if (isNotDawing) {
       return;
@@ -229,12 +228,34 @@ export class PaintBrush {
 
   private drawStar() {
     this.context.save();
+    this.context.fillStyle = this.fill;
+    this.context.strokeStyle = this.stroke;
+    this.context.lineWidth = this.strokeWidth;
 
     this.context.translate(this.x, this.y);
     this.context.rotate((this.angle * Math.PI) / 180);
 
-    //
-    this.context.moveTo(0, 0);
+    this.context.beginPath();
+    this.context.moveTo(this.size, 0);
+
+    for (let i = 1; i < this.sides * 2; i++) {
+      const radius: number = i % 2 === 0 ? this.size : this.innerRadius;
+      const angle: number = (i * Math.PI) / this.sides;
+
+      const x: number = radius * Math.cos(angle);
+      const y: number = radius * Math.sin(angle);
+
+      this.context.lineTo(x, y);
+    }
+
+    this.context.closePath();
+
+    this.context.fill();
+
+    const hasStroke: boolean = this.strokeWidth > 0;
+    if (hasStroke) {
+      this.context.stroke();
+    }
 
     this.context.restore();
   }
@@ -242,6 +263,8 @@ export class PaintBrush {
   private drawPolygon() {
     this.context.save();
     this.context.fillStyle = this.fill;
+    this.context.strokeStyle = this.stroke;
+    this.context.lineWidth = this.strokeWidth;
 
     this.context.translate(this.x, this.y);
     this.context.rotate((this.angle * Math.PI) / 180);
@@ -257,9 +280,15 @@ export class PaintBrush {
       this.context.lineTo(x, y);
     }
 
+    this.context.closePath();
+
     this.context.fill();
 
-    this.context.closePath();
+    const hasStroke: boolean = this.strokeWidth > 0;
+    if (hasStroke) {
+      this.context.stroke();
+    }
+
     this.context.restore();
   }
 }
