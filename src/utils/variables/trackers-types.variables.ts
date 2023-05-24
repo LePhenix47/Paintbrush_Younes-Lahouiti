@@ -8,7 +8,6 @@ export type trackerType = {
   strokeWidth: number;
   size: number;
   angle: number;
-  isDrawing: boolean;
   shadow: string;
   shadowBlur: number;
   shadowOffsetX: number;
@@ -26,6 +25,7 @@ export type trackerType = {
 export type mouseInfosType = {
   x: number;
   y: number;
+  isDrawing: boolean;
 };
 
 /**

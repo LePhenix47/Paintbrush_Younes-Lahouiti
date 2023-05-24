@@ -113,7 +113,6 @@ function convertAndRotateHue(
   setSpanToInputValue(label, newHexValue);
 
   tracker[checkboxObject.type] = newHexValue;
-  log(tracker);
 }
 
 export function setGlobalCompositeOperation(event: Event) {
@@ -122,8 +121,6 @@ export function setGlobalCompositeOperation(event: Event) {
 
   const selectValue: string = selectInput.value;
   tracker.globalCompositeOperation = selectValue;
-
-  log(tracker);
 }
 
 /**
@@ -138,7 +135,6 @@ export function setToolToTracker(event: Event): void {
   const radioInput: HTMLInputElement = event.currentTarget;
 
   tracker.tool = radioInput.id;
-  log(tracker);
 }
 
 export function setShapeToTracker(event: Event) {
@@ -185,8 +181,6 @@ export function setShapeToTracker(event: Event) {
   } else {
     disableElement(innerRadiusNumberInput);
   }
-
-  log(tracker);
 }
 
 /**
@@ -213,7 +207,6 @@ export function setNumberInputValues(event: Event): void {
   const formattedAttribute: string = kebabToCamelCase(labelForAttribute);
 
   tracker[formattedAttribute] = input.valueAsNumber;
-  log(tracker);
 }
 
 /**
@@ -251,9 +244,6 @@ export function setShapeNumberInputValues(event: Event): void {
       break;
     }
   }
-  log(formattedAttribute);
-
-  log(tracker);
 }
 
 /**
@@ -381,8 +371,6 @@ export function setRangeInputValues(event: Event): void {
 
   tracker[rangeInputName] = inputValue;
 
-  log(tracker);
-
   setSpanToInputValue(label, inputValue);
 }
 
@@ -405,7 +393,6 @@ export function setColorInputValues(event: Event): void {
   const container: HTMLElement = getParent(label);
 
   const colorCheckboxesDiv = selectQuery("div", container);
-  log(colorCheckboxesDiv);
 
   const colorType: string = input.id;
 
@@ -417,8 +404,6 @@ export function setColorInputValues(event: Event): void {
   } else {
     tracker[colorType] = formattedInputValue;
   }
-
-  log(tracker);
 }
 
 /**

@@ -15,7 +15,6 @@ import {
  * @property {number} strokeWidth - The stroke width.
  * @property {number} size - The size of the drawing tool.
  * @property {number} angle - The rotation angle.
- * @property {boolean} isDrawing - Indicates if the user is currently drawing.
  * @property {string} shadow - The shadow color.
  * @property {number} shadowBlur - The blur level of the shadow.
  * @property {number} shadowOffsetX - The horizontal offset of the shadow.
@@ -33,7 +32,6 @@ export const tracker: trackerType = {
   strokeWidth: 0,
   size: 5,
   angle: 0,
-  isDrawing: false,
   shadow: "#000000",
   shadowBlur: 0,
   shadowOffsetX: 0,
@@ -50,10 +48,12 @@ export const tracker: trackerType = {
  * @type {Object}
  * @property {number} x - The x-coordinate of the mouse.
  * @property {number} y - The y-coordinate of the mouse.
+ *  @property {boolean} isDrawing - Indicates if the user is currently drawing by clicing the mouse and moving it.
  */
 export const mouseInfos: mouseInfosType = {
   x: NaN,
   y: NaN,
+  isDrawing: false,
 };
 
 /**

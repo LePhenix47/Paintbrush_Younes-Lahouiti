@@ -1,4 +1,9 @@
 import {
+  setDrawingToFalse,
+  setDrawingToTrue,
+  setMouseCoordinates,
+} from "./canvas-event-listeners";
+import {
   setColorInputValues,
   setGlobalCompositeOperation,
   setHueRotationAuto,
@@ -16,7 +21,7 @@ import {
   selectQuery,
   selectQueryAll,
 } from "./utils/functions/dom.functions";
-import { tracker } from "./utils/variables/trackers.variables";
+import { mouseInfos, tracker } from "./utils/variables/trackers.variables";
 
 /**
  * The canvas element for painting.
@@ -28,32 +33,33 @@ const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
  * The container element for tools.
  * @type {HTMLFieldSetElement}
  */
-const toolsContainer: HTMLFieldSetElement = selectQuery(".tools");
+const toolsContainer: HTMLFieldSetElement = selectQuery("fieldset.tools");
 
 /**
  * The container element for colors.
  * @type {HTMLFieldSetElement}
  */
-const colorsContainer: HTMLFieldSetElement = selectQuery(".colors");
+const colorsContainer: HTMLFieldSetElement = selectQuery("fieldset.colors");
 
 /**
  * The container element for controls.
  * @type {HTMLFieldSetElement}
  */
-const controlsContainer: HTMLFieldSetElement = selectQuery(".controls");
+const controlsContainer: HTMLFieldSetElement = selectQuery("fieldset.controls");
 
 /**
  * The container element for shapes.
  * @type {HTMLFieldSetElement}
  */
-const shapesContainer: HTMLFieldSetElement = selectQuery(".shapes");
+const shapesContainer: HTMLFieldSetElement = selectQuery("fieldset.shapes");
 
 /**
  * The container element for miscellaneous options.
  * @type {HTMLFieldSetElement}
  */
-const miscellaneousContainer: HTMLFieldSetElement =
-  selectQuery(".miscellaneous");
+const miscellaneousContainer: HTMLFieldSetElement = selectQuery(
+  "fieldset.miscellaneous"
+);
 
 /**
  * Sets the event listeners for the tools container.
@@ -213,6 +219,18 @@ function setMiscellaneousContainerEvents(): void {
 }
 setMiscellaneousContainerEvents();
 
-Interval.set(2_000, () => {
-  log(tracker);
+function setCanvasEventListeners() {
+  const main: HTMLElement = selectQuery("main.index");
+  const { width, height }: DOMRect = main.getBoundingClientRect();
+
+  canvasPaint.addEventListener("mousemove", setMouseCoordinates);
+
+  canvasPaint.addEventListener("mousedown", setDrawingToTrue);
+
+  canvasPaint.addEventListener("mouseup", setDrawingToFalse);
+}
+setCanvasEventListeners();
+
+Interval.set(3_500, () => {
+  log(tracker, mouseInfos);
 });
