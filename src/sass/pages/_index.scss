@@ -168,6 +168,16 @@
         border-radius: 5px;
         padding: 5px;
 
+        transition: filter 150ms ease-in-out;
+
+        &:hover {
+            filter: contrast(65%);
+        }
+
+        &:active {
+            filter: contrast(75%);
+        }
+
         &:has(>input:checked) {
             background-color: var(--bg-radio-button);
             filter: contrast(85%);
@@ -179,9 +189,21 @@
 
         border-radius: 5px;
         padding: 5px;
-        background-color: var(--bg-tertiary);
+
+        background-color: var(--out-of-range-bg);
+        color: var(--out-of-range-color);
 
         flex: 0.5;
+
+        transition: filter 150ms ease-in-out;
+
+        &:hover {
+            filter: contrast(85%);
+        }
+
+        &:active {
+            filter: contrast(75%);
+        }
     }
 }
 
