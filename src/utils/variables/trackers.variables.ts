@@ -52,8 +52,8 @@ export const tracker: trackerType = {
  * @property {number} y - The y-coordinate of the mouse.
  */
 export const mouseInfos: mouseInfosType = {
-  x: null,
-  y: null,
+  x: NaN,
+  y: NaN,
 };
 
 /**

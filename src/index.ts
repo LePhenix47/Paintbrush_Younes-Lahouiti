@@ -10,7 +10,7 @@ import {
   updateRangeInputValues,
 } from "./tracker-event-listeners";
 import { Interval } from "./utils/classes/services/interval.class";
-import { assert, log, table } from "./utils/functions/console.functions";
+import { assert, dir, log, table } from "./utils/functions/console.functions";
 import {
   selectByClass,
   selectQuery,
@@ -213,6 +213,6 @@ function setMiscellaneousContainerEvents(): void {
 }
 setMiscellaneousContainerEvents();
 
-Interval.set(1_000, () => {
+Interval.set(2_000, () => {
   log(tracker);
 });

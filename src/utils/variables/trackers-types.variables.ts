@@ -20,11 +20,17 @@ export type trackerType = {
   globalCompositeOperation: string;
 };
 
+/**
+ * The X and Y coordinates of the cursor in the page
+ */
 export type mouseInfosType = {
   x: number;
   y: number;
 };
 
+/**
+ * The hue rotation infos for the input type color effect
+ */
 export type checkboxHueRotationType = {
   fill: {
     animationId: number;
@@ -42,6 +48,9 @@ export type checkboxHueRotationType = {
   };
 };
 
+/**
+ * The range inputs infos for the value going back and forth effect
+ */
 export type rangeInputsInfosTrackerType = {
   size: {
     id: number;
