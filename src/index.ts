@@ -248,10 +248,10 @@ function setCanvasEventListeners(): void {
   canvasPaint.addEventListener("mousedown", setDrawingToTrue);
 
   canvasPaint.addEventListener("mouseup", setDrawingToFalse);
+
+  window.addEventListener("resize", handleWindowResize);
 }
 setCanvasEventListeners();
-
-window.addEventListener("resize", handleWindowResize);
 
 let canvasAnimationFrameId: number = 0;
 function handleWindowResize() {
@@ -264,9 +264,9 @@ function handleWindowResize() {
 handleWindowResize();
 
 function animate() {
-  //We simply draw on the canvas, so we don't need to lear the old paint
+  //We simply draw on the canvas, so we don't need to clear the old paint
 
-  //We animate the canvas
+  //We start our animation loop
   canvasAnimationFrameId = requestAnimationFrame(animate);
 }
 
