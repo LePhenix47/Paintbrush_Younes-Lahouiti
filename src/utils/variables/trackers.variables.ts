@@ -1,3 +1,10 @@
+import {
+  checkboxHueRotationType,
+  mouseInfosType,
+  rangeInputsInfosTrackerType,
+  trackerType,
+} from "./trackers-types.variables";
+
 /**
  * The tracker object representing the current state of the drawing tool.
  * @type {Object}
@@ -19,7 +26,7 @@
  * @property {number} innerRadius - The inner radius of star shape.
  * @property {string} globalCompositeOperation - The global composite operation.
  */
-export const tracker = {
+export const tracker: trackerType = {
   tool: "brush",
   fill: "#000000",
   stroke: "transparent",
@@ -44,7 +51,43 @@ export const tracker = {
  * @property {number} x - The x-coordinate of the mouse.
  * @property {number} y - The y-coordinate of the mouse.
  */
-export const mouseInfos = {
+export const mouseInfos: mouseInfosType = {
   x: null,
   y: null,
+};
+
+/**
+ * An object representing the checkbox hue rotation settings.
+ * @type {CheckboxHueRotation}
+ */
+export const checkboxHueRotation: checkboxHueRotationType = {
+  fill: {
+    animationId: 0,
+    hue: 0,
+    saturation: 0,
+    lightness: 0,
+    type: "fill",
+  },
+  stroke: {
+    animationId: 0,
+    hue: 0,
+    saturation: 0,
+    lightness: 0,
+    type: "stroke",
+  },
+};
+
+/**
+ * An object representing the range inputs information for the tracker.
+ * @type {RangeInputsInfosTracker}
+ */
+export const rangeInputsInfosTracker: rangeInputsInfosTrackerType = {
+  size: {
+    id: 0,
+    direction: "forwards",
+  },
+  rotation: {
+    id: 0,
+    direction: "forwards",
+  },
 };

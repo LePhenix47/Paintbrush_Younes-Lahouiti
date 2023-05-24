@@ -1,4 +1,8 @@
-import { tracker } from "./utils/variables/trackers.variables";
+import {
+  checkboxHueRotation,
+  rangeInputsInfosTracker,
+  tracker,
+} from "./utils/variables/trackers.variables";
 import { Interval } from "./utils/classes/services/interval.class";
 import { transformColorModel } from "./utils/functions/color-conversion.functions";
 import { log } from "./utils/functions/console.functions";
@@ -7,7 +11,6 @@ import {
   selectQuery,
   getParent,
   getAttribute,
-  getClassListValues,
   enableElement,
   disableElement,
 } from "./utils/functions/dom.functions";
@@ -16,39 +19,6 @@ import {
   kebabToCamelCase,
   splitString,
 } from "./utils/functions/string.functions";
-
-type checkboxHueRotationType = {
-  fill: {
-    animationId: number;
-    hue: number;
-    saturation: number;
-    lightness: number;
-    type: string;
-  };
-  stroke: {
-    animationId: number;
-    hue: number;
-    saturation: number;
-    lightness: number;
-    type: string;
-  };
-};
-const checkboxHueRotation: checkboxHueRotationType = {
-  fill: {
-    animationId: 0,
-    hue: 0,
-    saturation: 0,
-    lightness: 0,
-    type: "fill",
-  },
-  stroke: {
-    animationId: 0,
-    hue: 0,
-    saturation: 0,
-    lightness: 0,
-    type: "stroke",
-  },
-};
 
 /**
  * Sets the hue rotation to auto based on the checkbox state.
@@ -74,8 +44,6 @@ export function setHueRotationAuto(event: Event): void {
   const colorInputValue: string = colorsInput.value;
 
   const inputId: string = colorsInput.id;
-
-  log(container);
 
   const { hue, saturation, lightness } = transformColorModel(
     colorInputValue,
@@ -314,27 +282,6 @@ function handleInputValueOverflow(
     input.valueAsNumber = min;
   }
 }
-
-type rangeInputsInfosTrackerType = {
-  size: {
-    id: number;
-    direction: string;
-  };
-  rotation: {
-    id: number;
-    direction: string;
-  };
-};
-const rangeInputsInfosTracker: rangeInputsInfosTrackerType = {
-  size: {
-    id: 0,
-    direction: "forwards",
-  },
-  rotation: {
-    id: 0,
-    direction: "forwards",
-  },
-};
 
 /**
  * Updates the range input values based on the checkbox state.
