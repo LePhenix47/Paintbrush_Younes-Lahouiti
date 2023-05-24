@@ -5,30 +5,121 @@ import {
   trackerType,
 } from "../../variables/trackers-types.variables";
 
+/**
+ * Represents a paint brush for drawing shapes on a canvas.
+ */
 export class PaintBrush {
+  /**
+   * The HTML canvas element.
+   */
   canvas: HTMLCanvasElement;
+
+  /**
+   * The 2D rendering context of the canvas.
+   */
   context: CanvasRenderingContext2D;
 
+  /**
+   * The current selected drawing tool.
+   */
   tool: string;
+
+  /**
+   * The fill color for shapes.
+   */
   fill: string;
+
+  /**
+   * The stroke color for shapes.
+   */
   stroke: string;
+
+  /**
+   * The stroke width for shapes.
+   */
   strokeWidth: number;
+
+  /**
+   * The size of shapes.
+   */
   size: number;
+
+  /**
+   * The rotation angle of shapes in degrees.
+   */
   angle: number;
+
+  /**
+   * The shadow color for shapes.
+   */
   shadow: string;
+
+  /**
+   * The blur level for the shadow of shapes.
+   */
   shadowBlur: number;
+
+  /**
+   * The horizontal offset for the shadow of shapes.
+   */
   shadowOffsetX: number;
+
+  /**
+   * The vertical offset for the shadow of shapes.
+   */
   shadowOffsetY: number;
+
+  /**
+   * Indicates whether the shape is editable.
+   */
   hasEditableShape: boolean;
+
+  /**
+   * The type of shape to draw.
+   */
   shape: string;
+
+  /**
+   * The number of sides for polygons.
+   */
   sides: number;
+
+  /**
+   * The inner radius for stars.
+   * It refers to the distance between the center of the star and the inner points of its arms.
+   *
+   * It determines the "spikiness" or elongation of the star.
+   */
   innerRadius: number;
+
+  /**
+   * The global composite operation for drawing.
+   */
   globalCompositeOperation: GlobalCompositeOperation;
 
+  /**
+   * The x-coordinate of the current mouse position.
+   */
   x: number;
+
+  /**
+   * The y-coordinate of the current mouse position.
+   */
   y: number;
+
+  /**
+   * Indicates whether the user is currently drawing.
+   */
   isDrawing: boolean;
 
+  /**
+   * Creates a new instance of the PaintBrush class.
+   *
+   * @param {HTMLCanvasElement} canvas - The HTML canvas element.
+   * @param {trackerType} tracker - The tracker object containing tool settings.
+   * @param {mouseInfosType} mouseInfos - The mouse information object.
+   *
+   */
   constructor(
     canvas: HTMLCanvasElement,
     {
@@ -77,6 +168,13 @@ export class PaintBrush {
     log(this);
   }
 
+  /**
+   * Updates the property values of the PaintBrush instance.
+   * @param {trackerType} tracker - The tracker object containing tool settings.
+   * @param {mouseInfosType} mouseInfos - The mouse information object.
+   *
+   * @returns {void}
+   */
   updatePropertyValues(
     {
       tool,
@@ -96,7 +194,7 @@ export class PaintBrush {
       globalCompositeOperation,
     }: trackerType,
     { x, y, isDrawing }: mouseInfosType
-  ) {
+  ): void {
     this.tool = tool;
 
     this.fill = fill;
@@ -127,7 +225,12 @@ export class PaintBrush {
     this.isDrawing = isDrawing;
   }
 
-  drawOnCanvas() {
+  /**
+   * Draws on the canvas based on the current settings.
+   *
+   * @returns {void}
+   */
+  drawOnCanvas(): void {
     const isNotDawing: boolean = !this.isDrawing;
     if (isNotDawing) {
       return;
@@ -166,7 +269,12 @@ export class PaintBrush {
     }
   }
 
-  private drawCircle() {
+  /**
+   * Draws a circle on the canvas.
+   *
+   * @returns {void}
+   */
+  private drawCircle(): void {
     this.context.fillStyle = this.fill;
     this.context.strokeStyle = this.stroke;
     this.context.lineWidth = this.strokeWidth;
@@ -181,7 +289,12 @@ export class PaintBrush {
     }
   }
 
-  private drawSquare() {
+  /**
+   * Draws a square on the canvas.
+   *
+   * @returns {void}
+   */
+  private drawSquare(): void {
     this.context.save();
 
     this.context.translate(this.x, this.y);
@@ -208,7 +321,12 @@ export class PaintBrush {
     this.context.restore();
   }
 
-  private erase() {
+  /**
+   * Erases specified parts of the canvas.
+   *
+   * @returns {void}
+   */
+  private erase(): void {
     this.context.save();
 
     this.context.translate(this.x, this.y);
@@ -225,7 +343,12 @@ export class PaintBrush {
     this.context.restore();
   }
 
-  private drawStar() {
+  /**
+   * Draws a star on the canvas.
+   *
+   * @returns {void}
+   */
+  private drawStar(): void {
     this.context.save();
     this.context.fillStyle = this.fill;
     this.context.strokeStyle = this.stroke;
@@ -259,7 +382,12 @@ export class PaintBrush {
     this.context.restore();
   }
 
-  private drawPolygon() {
+  /**
+   * Draws a polygon on the canvas.
+   *
+   * @returns {void}
+   */
+  private drawPolygon(): void {
     this.context.save();
     this.context.fillStyle = this.fill;
     this.context.strokeStyle = this.stroke;
