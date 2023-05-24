@@ -155,21 +155,45 @@ export class PaintBrush {
 
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-
     this.context.fill();
+
+    this.context.strokeStyle = this.stroke;
+    const hasNotStroke = this.strokeWidth === 0;
+
+    if (hasNotStroke) {
+      return;
+    }
+
+    this.context.lineWidth = this.strokeWidth;
+    this.context.stroke();
   }
 
   private drawSquare() {
     this.context.fillStyle = this.fill;
-
     this.context.fillRect(
       this.x - this.size,
       this.y - this.size,
       this.size * 2,
       this.size * 2
     );
-
     this.context.fill();
+
+    this.context.strokeStyle = this.stroke;
+    const hasNotStroke = this.strokeWidth === 0;
+
+    if (hasNotStroke) {
+      return;
+    }
+
+    this.context.strokeRect(
+      this.x - this.size,
+
+      this.y - this.size,
+      this.size * 2,
+      this.size * 2
+    );
+    this.context.lineWidth = this.strokeWidth;
+    this.context.stroke();
   }
 
   private drawStar() {
