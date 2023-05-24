@@ -133,6 +133,12 @@ export class PaintBrush {
       return;
     }
 
+    const isErasing: boolean = this.tool === "eraser";
+    if (isErasing) {
+      this.erase();
+      return;
+    }
+
     switch (this.shape) {
       case "circle": {
         this.drawCircle();
@@ -141,6 +147,16 @@ export class PaintBrush {
 
       case "square": {
         this.drawSquare();
+        break;
+      }
+
+      case "star": {
+        this.drawStar();
+        break;
+      }
+
+      case "polygon": {
+        this.drawPolygon();
         break;
       }
 
@@ -169,42 +185,85 @@ export class PaintBrush {
   }
 
   private drawSquare() {
+    this.context.save();
+
+    this.context.translate(this.x, this.y);
+    this.context.rotate((this.angle * Math.PI) / 180);
+
     this.context.fillStyle = this.fill;
-    this.context.fillRect(
-      this.x - this.size,
-      this.y - this.size,
-      this.size * 2,
-      this.size * 2
-    );
+    this.context.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
     this.context.fill();
 
     this.context.strokeStyle = this.stroke;
     const hasNotStroke = this.strokeWidth === 0;
 
     if (hasNotStroke) {
+      this.context.restore();
       return;
     }
 
     this.context.strokeRect(
-      this.x - this.size,
-
-      this.y - this.size,
+      -this.size,
+      -this.size,
       this.size * 2,
       this.size * 2
     );
     this.context.lineWidth = this.strokeWidth;
     this.context.stroke();
+
+    this.context.restore();
+  }
+
+  private erase() {
+    this.context.save();
+
+    this.context.translate(this.x, this.y);
+    this.context.rotate((this.angle * Math.PI) / 180);
+
+    this.context.fillStyle = this.fill;
+    this.context.clearRect(
+      -this.size,
+      -this.size,
+      this.size * 2,
+      this.size * 2
+    );
+    this.context.fill();
+    this.context.restore();
   }
 
   private drawStar() {
     this.context.save();
+
+    this.context.translate(this.x, this.y);
+    this.context.rotate((this.angle * Math.PI) / 180);
+
+    //
+    this.context.moveTo(0, 0);
 
     this.context.restore();
   }
 
   private drawPolygon() {
     this.context.save();
+    this.context.fillStyle = this.fill;
 
+    this.context.translate(this.x, this.y);
+    this.context.rotate((this.angle * Math.PI) / 180);
+
+    this.context.beginPath();
+    this.context.moveTo(this.size, 0);
+
+    for (let i = 1; i < this.sides; i++) {
+      const angle: number = (Math.PI * 2) / this.sides;
+
+      const x: number = this.size * Math.cos(angle);
+      const y: number = this.size * Math.sin(angle);
+      this.context.lineTo(x, y);
+    }
+
+    this.context.fill();
+
+    this.context.closePath();
     this.context.restore();
   }
 }
