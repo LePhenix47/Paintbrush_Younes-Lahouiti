@@ -331,25 +331,42 @@ export function animateInputRange(checkboxInput: HTMLInputElement): void {
 
   let counter: number = 1;
 
-  const overflows: boolean = currentValue >= maxValue;
-  if (overflows) {
-    rangeInputsInfosTracker[inputName].direction = "backwards";
+  switch (inputName) {
+    case "size": {
+      const overflows: boolean = currentValue >= maxValue;
+      if (overflows) {
+        rangeInputsInfosTracker[inputName].direction = "backwards";
+      }
+
+      const underflows: boolean = currentValue <= minValue;
+      if (underflows) {
+        rangeInputsInfosTracker[inputName].direction = "forwards";
+      }
+
+      const directionIsForwards: boolean =
+        rangeInputsInfosTracker[inputName].direction === "forwards";
+      if (directionIsForwards) {
+        //@ts-ignore
+        rangeInput.valueAsNumber = currentValue + counter;
+      } else {
+        //@ts-ignore
+        rangeInput.valueAsNumber = currentValue - counter;
+      }
+      break;
+    }
+    case "rotation": {
+      const overflows: boolean = currentValue >= maxValue;
+
+      rangeInput.valueAsNumber = currentValue + counter;
+
+      if (overflows) {
+        rangeInput.valueAsNumber = minValue;
+      }
+
+      break;
+    }
   }
 
-  const underflows: boolean = currentValue <= minValue;
-  if (underflows) {
-    rangeInputsInfosTracker[inputName].direction = "forwards";
-  }
-
-  const directionIsForwards: boolean =
-    rangeInputsInfosTracker[inputName].direction === "forwards";
-  if (directionIsForwards) {
-    //@ts-ignore
-    rangeInput.valueAsNumber = currentValue + counter;
-  } else {
-    //@ts-ignore
-    rangeInput.valueAsNumber = currentValue - counter;
-  }
   const valueWithUnit: string = `${rangeInput.valueAsNumber}`;
 
   const rangeInputName: string = rangeInput.name;
