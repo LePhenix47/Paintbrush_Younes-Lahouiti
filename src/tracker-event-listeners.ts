@@ -141,6 +141,7 @@ export function setToolToTracker(event: Event): void {
   const radioInput: HTMLInputElement = event.currentTarget;
 
   tracker.tool = radioInput.id;
+  log("change", tracker.tool);
 }
 
 export function setShapeToTracker(event: Event) {

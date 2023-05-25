@@ -27,7 +27,7 @@ import {
  * @property {string} globalCompositeOperation - The global composite operation.
  */
 export const tracker: trackerType = {
-  tool: "brush",
+  tool: "pen",
   fill: "#000000",
   stroke: "transparent",
   strokeWidth: 0,

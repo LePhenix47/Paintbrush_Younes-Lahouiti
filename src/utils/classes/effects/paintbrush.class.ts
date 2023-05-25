@@ -1,4 +1,5 @@
 import { get2DContext } from "../../functions/canvas.functions";
+import { log } from "../../functions/console.functions";
 import {
   pointerInfosType,
   trackerType,
@@ -239,29 +240,33 @@ export class PaintBrush {
       return;
     }
 
-    switch (this.shape) {
-      case "circle": {
-        this.drawCircle();
-        break;
-      }
+    const wantsToDrawWithBrush: boolean = this.tool === "pen";
+    if (wantsToDrawWithBrush) {
+      log("drawing");
+      switch (this.shape) {
+        case "circle": {
+          this.drawCircle();
+          break;
+        }
 
-      case "square": {
-        this.drawSquare();
-        break;
-      }
+        case "square": {
+          this.drawSquare();
+          break;
+        }
 
-      case "star": {
-        this.drawStar();
-        break;
-      }
+        case "star": {
+          this.drawStar();
+          break;
+        }
 
-      case "polygon": {
-        this.drawPolygon();
-        break;
-      }
+        case "polygon": {
+          this.drawPolygon();
+          break;
+        }
 
-      default: {
-        break;
+        default: {
+          break;
+        }
       }
     }
   }
