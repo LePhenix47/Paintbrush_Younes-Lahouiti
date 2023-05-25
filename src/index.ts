@@ -1,5 +1,4 @@
 import {
-  clearOldCanvasPaint,
   handlePointerDown,
   handlePointerMove,
   handlePointerUp,
@@ -17,8 +16,12 @@ import {
   updateRangeInputValues,
 } from "./tracker-event-listeners";
 import { PaintBrush } from "./utils/classes/effects/paintbrush.class";
+import { PreviewPaintBrush } from "./utils/classes/effects/preview-paintbrush.class";
 import { Interval } from "./utils/classes/services/interval.class";
-import { get2DContext } from "./utils/functions/canvas.functions";
+import {
+  clearOldPaint,
+  get2DContext,
+} from "./utils/functions/canvas.functions";
 import {
   assert,
   dir,
@@ -36,11 +39,21 @@ import {
 import { pointerInfos, tracker } from "./utils/variables/trackers.variables";
 
 /**
- * The canvas element for painting.
+ * The canvas element for painting
  * @type {HTMLCanvasElement}
  */
 const canvasPaint: HTMLCanvasElement = selectQuery("canvas.index__canvas");
 const canvasPaintContext: CanvasRenderingContext2D = get2DContext(canvasPaint);
+
+/**
+ * The canvas element to preview the shape we're drawing
+ * @type {HTMLCanvasElement}
+ */
+const canvasForPreview: HTMLCanvasElement = selectQuery(
+  "canvas.shapes__canvas"
+);
+const canvasForPreviewContext: CanvasRenderingContext2D =
+  get2DContext(canvasForPreview);
 
 /**
  * The container element for tools.
@@ -94,8 +107,8 @@ function setToolsContainerEvents(): void {
   }
 
   const clearCanvasButton: HTMLButtonElement = selectQuery(".tools__button");
-  clearCanvasButton.addEventListener("click", (e) => {
-    clearOldCanvasPaint(e, canvasPaint, canvasPaintContext);
+  clearCanvasButton.addEventListener("click", () => {
+    clearOldPaint(canvasPaintContext, canvasPaint.width, canvasPaint.height);
   });
 }
 setToolsContainerEvents();
@@ -265,24 +278,47 @@ let canvasAnimationFrameId: number = 0;
 function handleWindowResize() {
   canvasPaint.width = canvasPaint.clientWidth;
   canvasPaint.height = canvasPaint.clientHeight;
+
+  canvasForPreview.width = canvasForPreview.clientWidth;
+  canvasForPreview.height = canvasForPreview.clientHeight;
 }
 handleWindowResize();
 
-let effectHandler: PaintBrush = new PaintBrush(
+let mainPaintbrushEffectHandler: PaintBrush = new PaintBrush(
   canvasPaint,
   tracker,
   pointerInfos
 );
+
+let previewPaintbrushEffectHandler: PreviewPaintBrush = new PreviewPaintBrush(
+  canvasForPreview,
+  tracker
+);
 function animate() {
   //We simply draw on the canvas, so we don't need to clear the old paint
+  drawPaintOnCanvas();
 
-  effectHandler.drawOnCanvas();
-  effectHandler.updatePropertyValues(tracker, pointerInfos);
+  showShapePreview();
 
   //We start our animation loop
   canvasAnimationFrameId = requestAnimationFrame(animate);
 }
 animate();
+
+function drawPaintOnCanvas() {
+  mainPaintbrushEffectHandler.drawOnCanvas();
+  mainPaintbrushEffectHandler.updatePropertyValues(tracker, pointerInfos);
+}
+
+function showShapePreview() {
+  previewPaintbrushEffectHandler.drawOnCanvas();
+
+  previewPaintbrushEffectHandler.updatePropertyValues(tracker, {
+    x: -10_000,
+    y: -10_000,
+    isDrawing: false,
+  });
+}
 
 function cancelAnimation() {
   cancelAnimationFrame(canvasAnimationFrameId);

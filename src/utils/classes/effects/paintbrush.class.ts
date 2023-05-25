@@ -164,8 +164,6 @@ export class PaintBrush {
       },
       { x, y, isDrawing }
     );
-
-    log(this);
   }
 
   /**

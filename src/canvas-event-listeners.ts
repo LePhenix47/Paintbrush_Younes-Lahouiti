@@ -3,14 +3,6 @@ import { log } from "./utils/functions/console.functions";
 import { selectQuery } from "./utils/functions/dom.functions";
 import { pointerInfos } from "./utils/variables/trackers.variables";
 
-export function clearOldCanvasPaint(
-  event: Event,
-  canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D
-) {
-  clearOldPaint(context, canvas.width, canvas.height);
-}
-
 export function handlePointerMove(event: PointerEvent) {
   event.preventDefault();
   const canvas: HTMLCanvasElement = selectQuery("canvas.index__canvas");
@@ -49,16 +41,3 @@ export function handlePointerUp(event: PointerEvent) {
     pointerInfos.isDrawing = false;
   }
 }
-
-/*
-
-function setCanvasEventListeners(): void {
-
-  window.addEventListener("resize", handleWindowResize);
-}
-
-
-
-setCanvasEventListeners();
-
-*/
