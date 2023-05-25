@@ -13,6 +13,7 @@ import {
   getAttribute,
   enableElement,
   disableElement,
+  selectQueryAll,
 } from "./utils/functions/dom.functions";
 import {
   formatText,
@@ -53,14 +54,18 @@ export function setHueRotationAuto(event: Event): void {
 
   //We cehck if the value must be transparent
   const mustBeTransparent: boolean = checkIfNeedsToBeTransparent(container);
-
+  log("Before", { mustBeTransparent });
+  if (mustBeTransparent) {
+    Interval.clear(checkboxHueRotation[inputId].animationId);
+    return;
+  }
+  log("After IF condition", { mustBeTransparent });
   //If the color is desaturated or if it's a value between white and black
   const colorIsDesaturated: boolean =
     saturation === 0 || lightness === 0 || lightness === 100;
 
-  const cannotRotateHue: boolean = mustBeTransparent || colorIsDesaturated;
-
-  if (cannotRotateHue) {
+  if (colorIsDesaturated) {
+    Interval.clear(checkboxHueRotation[inputId].animationId);
     return;
   }
 
@@ -413,12 +418,12 @@ export function changeTrackerTransparency(event: Event) {
   const input: HTMLInputElement = event.currentTarget;
   const showInputType = splitString(input.id, "-")[0];
 
+  const checkboxInputContainer: HTMLDivElement = getAncestor(input, "div");
+
+  const sectionContainer: HTMLElement = getParent(checkboxInputContainer);
+
   const isChecked: boolean = input.checked;
   if (isChecked) {
-    const checkboxInputContainer: HTMLDivElement = getAncestor(input, "div");
-
-    const sectionContainer: HTMLElement = getParent(checkboxInputContainer);
-
     const colorInput: HTMLInputElement = selectQuery(
       "input[type=color]",
       sectionContainer
@@ -427,8 +432,19 @@ export function changeTrackerTransparency(event: Event) {
     const formattedColor: string = formatText(colorInput.value, "uppercase");
     tracker[showInputType] = formattedColor;
   } else {
+    const hueRotateCheckbox: HTMLInputElement = selectQueryAll(
+      "input[type=checkbox]",
+      sectionContainer
+    )[1];
+
+    const wasRotatingHue = hueRotateCheckbox.checked;
+    if (wasRotatingHue) {
+      hueRotateCheckbox.click();
+    }
+
     tracker[showInputType] = "transparent";
   }
+  log(tracker);
 }
 
 /**

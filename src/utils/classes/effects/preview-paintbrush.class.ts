@@ -113,11 +113,44 @@ export class PreviewPaintBrush extends PaintBrush {
     this.sides = sides;
     this.innerRadius = innerRadius;
 
-    this.context.globalCompositeOperation = globalCompositeOperation;
-
     this.x = this.canvas.width / 2;
     this.y = this.canvas.height / 2;
 
     this.isDrawing = true;
+  }
+
+  /**
+   * Draws on the canvas based on the current settings.
+   *
+   * @returns {void}
+   */
+  drawOnCanvas(): void {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    switch (this.shape) {
+      case "circle": {
+        this.drawCircle();
+        break;
+      }
+
+      case "square": {
+        this.drawSquare();
+        break;
+      }
+
+      case "star": {
+        this.drawStar();
+        break;
+      }
+
+      case "polygon": {
+        this.drawPolygon();
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
   }
 }

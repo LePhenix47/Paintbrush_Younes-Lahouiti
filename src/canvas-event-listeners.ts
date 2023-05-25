@@ -1,5 +1,3 @@
-import { clearOldPaint } from "./utils/functions/canvas.functions";
-import { log } from "./utils/functions/console.functions";
 import { selectQuery } from "./utils/functions/dom.functions";
 import { pointerInfos } from "./utils/variables/trackers.variables";
 
@@ -13,7 +11,6 @@ export function handlePointerMove(event: PointerEvent) {
 }
 
 export function handlePointerDown(event: PointerEvent) {
-  log(event);
   event.preventDefault();
 
   const userIsHoldingLeftClick: boolean =
@@ -28,7 +25,6 @@ export function handlePointerDown(event: PointerEvent) {
 }
 
 export function handlePointerUp(event: PointerEvent) {
-  log(event);
   event.preventDefault();
 
   const userIsHoldingLeftClick: boolean =

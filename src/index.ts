@@ -17,20 +17,11 @@ import {
 } from "./tracker-event-listeners";
 import { PaintBrush } from "./utils/classes/effects/paintbrush.class";
 import { PreviewPaintBrush } from "./utils/classes/effects/preview-paintbrush.class";
-import { Interval } from "./utils/classes/services/interval.class";
 import {
   clearOldPaint,
   get2DContext,
 } from "./utils/functions/canvas.functions";
-import {
-  assert,
-  dir,
-  group,
-  groupCollapsed,
-  groupEnd,
-  log,
-  table,
-} from "./utils/functions/console.functions";
+import { log } from "./utils/functions/console.functions";
 import {
   selectByClass,
   selectQuery,

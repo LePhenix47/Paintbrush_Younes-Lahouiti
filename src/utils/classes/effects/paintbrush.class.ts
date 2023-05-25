@@ -1,5 +1,4 @@
 import { get2DContext } from "../../functions/canvas.functions";
-import { log } from "../../functions/console.functions";
 import {
   pointerInfosType,
   trackerType,
@@ -272,7 +271,7 @@ export class PaintBrush {
    *
    * @returns {void}
    */
-  private drawCircle(): void {
+  drawCircle(): void {
     this.context.fillStyle = this.fill;
     this.context.strokeStyle = this.stroke;
     this.context.lineWidth = this.strokeWidth;
@@ -292,14 +291,13 @@ export class PaintBrush {
    *
    * @returns {void}
    */
-  private drawSquare(): void {
+  drawSquare(): void {
     this.context.save();
 
     this.context.translate(this.x, this.y);
     this.context.rotate((this.angle * Math.PI) / 180);
 
     this.context.fillStyle = this.fill;
-
     this.context.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
     this.context.fill();
 
@@ -324,7 +322,7 @@ export class PaintBrush {
    *
    * @returns {void}
    */
-  private erase(): void {
+  erase(): void {
     this.context.save();
 
     this.context.translate(this.x, this.y);
@@ -345,7 +343,7 @@ export class PaintBrush {
    *
    * @returns {void}
    */
-  private drawPolygon(): void {
+  drawPolygon(): void {
     this.context.save();
     this.context.fillStyle = this.fill;
     this.context.strokeStyle = this.stroke;
@@ -382,7 +380,7 @@ export class PaintBrush {
    *
    * @returns {void}
    */
-  private drawStar(): void {
+  drawStar(): void {
     this.context.save();
     this.context.fillStyle = this.fill;
     this.context.strokeStyle = this.stroke;
