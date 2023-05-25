@@ -1,7 +1,7 @@
 import { get2DContext } from "../../functions/canvas.functions";
 import { log } from "../../functions/console.functions";
 import {
-  mouseInfosType,
+  pointerInfosType,
   trackerType,
 } from "../../variables/trackers-types.variables";
 
@@ -117,7 +117,7 @@ export class PaintBrush {
    *
    * @param {HTMLCanvasElement} canvas - The HTML canvas element.
    * @param {trackerType} tracker - The tracker object containing tool settings.
-   * @param {mouseInfosType} mouseInfos - The mouse information object.
+   * @param {pointerInfosType} pointerInfos - The mouse information object.
    *
    */
   constructor(
@@ -139,7 +139,7 @@ export class PaintBrush {
       innerRadius,
       globalCompositeOperation,
     }: trackerType,
-    { x, y, isDrawing }: mouseInfosType
+    { x, y, isDrawing }: pointerInfosType
   ) {
     this.canvas = canvas;
     this.context = get2DContext(this.canvas);
@@ -171,7 +171,7 @@ export class PaintBrush {
   /**
    * Updates the property values of the PaintBrush instance.
    * @param {trackerType} tracker - The tracker object containing tool settings.
-   * @param {mouseInfosType} mouseInfos - The mouse information object.
+   * @param {pointerInfosType} pointerInfos - The mouse information object.
    *
    * @returns {void}
    */
@@ -193,7 +193,7 @@ export class PaintBrush {
       innerRadius,
       globalCompositeOperation,
     }: trackerType,
-    { x, y, isDrawing }: mouseInfosType
+    { x, y, isDrawing }: pointerInfosType
   ): void {
     this.tool = tool;
 

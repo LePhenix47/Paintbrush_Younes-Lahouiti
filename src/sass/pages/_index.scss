@@ -9,8 +9,6 @@
     position: relative;
     width: 100%;
 
-    scroll-snap-type: y mandatory;
-    scroll-padding-bottom: calc((100vh - 100%) / 2);
     /* Adjust this value to center the canvas vertically */
 
     &__canvas {
@@ -23,6 +21,12 @@
         scroll-snap-align: center;
 
         background-color: var(--bg-canvas);
+
+        @include mobile-only {
+            left: 0;
+
+            width: 93%;
+        }
 
         &:hover {
             cursor: crosshair;
@@ -72,6 +76,10 @@
     &__tools {
         width: 100%;
         height: inherit;
+
+        @include mobile-only {
+            border: 2px solid currentColor;
+        }
     }
 
     &__input-checkbox {

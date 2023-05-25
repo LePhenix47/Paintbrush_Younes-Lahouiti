@@ -1,7 +1,7 @@
 import { clearOldPaint } from "./utils/functions/canvas.functions";
 import { log } from "./utils/functions/console.functions";
 import { selectQuery } from "./utils/functions/dom.functions";
-import { mouseInfos } from "./utils/variables/trackers.variables";
+import { pointerInfos } from "./utils/variables/trackers.variables";
 
 export function clearOldCanvasPaint(
   event: Event,
@@ -16,34 +16,37 @@ export function handlePointerMove(event: PointerEvent) {
   const canvas: HTMLCanvasElement = selectQuery("canvas.index__canvas");
   const { x, y }: DOMRect = canvas.getBoundingClientRect();
 
-  if (
-    event.pointerType === "mouse" ||
-    event.pointerType === "pen" ||
-    event.pointerType === "touch"
-  ) {
-    mouseInfos.x = event.clientX - x;
-    mouseInfos.y = event.clientY - y;
-  }
+  pointerInfos.x = event.clientX - x;
+  pointerInfos.y = event.clientY - y;
 }
 
 export function handlePointerDown(event: PointerEvent) {
   log(event);
   event.preventDefault();
-  if (event.pointerType === "mouse" && event.button === 0) {
-    mouseInfos.isDrawing = true;
-    //@ts-ignore
-  } else if (event.pointerType === "touch") {
-    mouseInfos.isDrawing = true;
+
+  const userIsHoldingLeftClick: boolean =
+    event.pointerType === "mouse" && event.button === 0;
+
+  const userIsTouchingScreen: boolean = event.pointerType === "touch";
+  if (userIsHoldingLeftClick) {
+    pointerInfos.isDrawing = true;
+  } else if (userIsTouchingScreen) {
+    pointerInfos.isDrawing = true;
   }
 }
 
 export function handlePointerUp(event: PointerEvent) {
   log(event);
   event.preventDefault();
-  if (event.pointerType === "mouse" && event.button === 0) {
-    mouseInfos.isDrawing = false;
-  } else if (event.pointerType === "touch") {
-    mouseInfos.isDrawing = false;
+
+  const userIsHoldingLeftClick: boolean =
+    event.pointerType === "mouse" && event.button === 0;
+
+  const userIsTouchingScreen: boolean = event.pointerType === "touch";
+  if (userIsHoldingLeftClick) {
+    pointerInfos.isDrawing = false;
+  } else if (userIsTouchingScreen) {
+    pointerInfos.isDrawing = false;
   }
 }
 

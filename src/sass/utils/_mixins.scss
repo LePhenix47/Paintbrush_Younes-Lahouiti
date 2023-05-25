@@ -121,6 +121,11 @@
     height: 10px;
 
     --track-width: 307px !important;
+
+    @include mobile-only {
+        --track-width: 707px !important;
+    }
+
     --track-height: 10px !important;
 
     --track-appearance: none !important;

@@ -22,7 +22,7 @@ export type trackerType = {
 /**
  * The X and Y coordinates of the cursor in the page
  */
-export type mouseInfosType = {
+export type pointerInfosType = {
   x: number;
   y: number;
   isDrawing: boolean;

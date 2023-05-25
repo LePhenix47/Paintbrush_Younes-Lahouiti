@@ -1,6 +1,6 @@
 import {
   checkboxHueRotationType,
-  mouseInfosType,
+  pointerInfosType,
   rangeInputsInfosTrackerType,
   trackerType,
 } from "./trackers-types.variables";
@@ -51,7 +51,7 @@ export const tracker: trackerType = {
  * @property {number} y - The y-coordinate of the mouse.
  *  @property {boolean} isDrawing - Indicates if the user is currently drawing by clicing the mouse and moving it.
  */
-export const mouseInfos: mouseInfosType = {
+export const pointerInfos: pointerInfosType = {
   x: NaN,
   y: NaN,
   isDrawing: false,

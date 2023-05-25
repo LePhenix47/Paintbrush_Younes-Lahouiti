@@ -33,7 +33,7 @@ import {
   selectQuery,
   selectQueryAll,
 } from "./utils/functions/dom.functions";
-import { mouseInfos, tracker } from "./utils/variables/trackers.variables";
+import { pointerInfos, tracker } from "./utils/variables/trackers.variables";
 
 /**
  * The canvas element for painting.
@@ -271,13 +271,13 @@ handleWindowResize();
 let effectHandler: PaintBrush = new PaintBrush(
   canvasPaint,
   tracker,
-  mouseInfos
+  pointerInfos
 );
 function animate() {
   //We simply draw on the canvas, so we don't need to clear the old paint
 
   effectHandler.drawOnCanvas();
-  effectHandler.updatePropertyValues(tracker, mouseInfos);
+  effectHandler.updatePropertyValues(tracker, pointerInfos);
 
   //We start our animation loop
   canvasAnimationFrameId = requestAnimationFrame(animate);

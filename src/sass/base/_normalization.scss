@@ -35,6 +35,8 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: 50%;
 
+    scroll-snap-type: y mandatory;
+
     color-scheme: dark light;
 }
 
