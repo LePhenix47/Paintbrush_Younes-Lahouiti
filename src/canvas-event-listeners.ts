@@ -11,42 +11,51 @@ export function clearOldCanvasPaint(
   clearOldPaint(context, canvas.width, canvas.height);
 }
 
-export function setMouseCoordinates(event: MouseEvent) {
+export function handlePointerMove(event: PointerEvent) {
+  event.preventDefault();
   const canvas: HTMLCanvasElement = selectQuery("canvas.index__canvas");
   const { x, y }: DOMRect = canvas.getBoundingClientRect();
 
-  mouseInfos.x = event.x - x;
-  mouseInfos.y = event.y - y;
+  if (
+    event.pointerType === "mouse" ||
+    event.pointerType === "pen" ||
+    event.pointerType === "touch"
+  ) {
+    mouseInfos.x = event.clientX - x;
+    mouseInfos.y = event.clientY - y;
+  }
 }
 
-export function setDrawingToTrue(event: MouseEvent) {
-  /*
-    Event buttons number meaning
-
-    0: Left click
-    
-    1: Middle click (scroll wheel click)
-    
-    2: Right click
-    */
-  const userIsHoldingMouseLeftClick: boolean = event.button === 0;
-  if (userIsHoldingMouseLeftClick) {
+export function handlePointerDown(event: PointerEvent) {
+  log(event);
+  event.preventDefault();
+  if (event.pointerType === "mouse" && event.button === 0) {
+    mouseInfos.isDrawing = true;
+    //@ts-ignore
+  } else if (event.pointerType === "touch") {
     mouseInfos.isDrawing = true;
   }
 }
 
-export function setDrawingToFalse(event: MouseEvent) {
-  /*
-    Event buttons number meaning
-
-    0: Left click
-    
-    1: Middle click (scroll wheel click)
-    
-    2: Right click
-    */
-  const userReleasedMouseLeftClick: boolean = event.button === 0;
-  if (userReleasedMouseLeftClick) {
+export function handlePointerUp(event: PointerEvent) {
+  log(event);
+  event.preventDefault();
+  if (event.pointerType === "mouse" && event.button === 0) {
+    mouseInfos.isDrawing = false;
+  } else if (event.pointerType === "touch") {
     mouseInfos.isDrawing = false;
   }
 }
+
+/*
+
+function setCanvasEventListeners(): void {
+
+  window.addEventListener("resize", handleWindowResize);
+}
+
+
+
+setCanvasEventListeners();
+
+*/

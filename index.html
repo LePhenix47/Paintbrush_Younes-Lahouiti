@@ -267,12 +267,12 @@
                     <section class="shapes__optional-controls">
                         <label for="shape-sides-amount" class="colors__label">Sides:
                             <input type="number" class="shapes__input shapes__input--number" id="shape-sides-amount"
-                                value="3" min="3" max="65533" disabled />
+                                value="5" min="3" max="65533" disabled />
                         </label>
 
                         <label for="shape-star-inner-radius" class="colors__label">Inner radius:
                             <input type="number" class="shapes__input shapes__input--number"
-                                id="shape-star-inner-radius" value="1" min="1" max="65535" disabled />
+                                id="shape-star-inner-radius" value="30" min="1" max="65535" disabled />
                         </label>
                     </section>
                 </fieldset>
@@ -316,6 +316,14 @@
                                 <option class="miscellaneous__option" value="exclusion">exclusion</option>
                                 <option class="miscellaneous__option" value="hue">hue</option>
                                 <option class="miscellaneous__option" value="saturation">saturation</option>
+                                <option class="miscellaneous__option" value="luminosity">luminosity</option>
+                            </select>
+                        </label>
+                    </section>
+                    <section class="miscellaneous__filters hide">
+                        <label for="filters" class="miscellaneous__label miscellaneous__label--select">
+                            Filters:
+                            <select class="miscellaneous__select" multiple name="filters" id="filters">
                                 <option class="miscellaneous__option" value="luminosity">luminosity</option>
                             </select>
                         </label>

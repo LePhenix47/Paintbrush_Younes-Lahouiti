@@ -342,9 +342,45 @@ export class PaintBrush {
     this.context.fill();
     this.context.restore();
   }
+  /**
+   * Draws a polygon on the canvas given the amount of sides in the polygon
+   *
+   * @returns {void}
+   */
+  private drawPolygon(): void {
+    this.context.save();
+    this.context.fillStyle = this.fill;
+    this.context.strokeStyle = this.stroke;
+    this.context.lineWidth = this.strokeWidth;
+
+    this.context.translate(this.x, this.y);
+    this.context.rotate((this.angle * Math.PI) / 180);
+
+    this.context.beginPath();
+    this.context.moveTo(this.size, 0);
+
+    for (let i = 1; i < this.sides; i++) {
+      const angle: number = (i * Math.PI * 2) / this.sides;
+
+      const x: number = this.size * Math.cos(angle);
+      const y: number = this.size * Math.sin(angle);
+      this.context.lineTo(x, y);
+    }
+
+    this.context.closePath();
+
+    this.context.fill();
+
+    const hasStroke: boolean = this.strokeWidth > 0;
+    if (hasStroke) {
+      this.context.stroke();
+    }
+
+    this.context.restore();
+  }
 
   /**
-   * Draws a star on the canvas.
+   * Draws a star on the canvas given a radius and inner radius
    *
    * @returns {void}
    */
@@ -367,43 +403,6 @@ export class PaintBrush {
       const x: number = radius * Math.cos(angle);
       const y: number = radius * Math.sin(angle);
 
-      this.context.lineTo(x, y);
-    }
-
-    this.context.closePath();
-
-    this.context.fill();
-
-    const hasStroke: boolean = this.strokeWidth > 0;
-    if (hasStroke) {
-      this.context.stroke();
-    }
-
-    this.context.restore();
-  }
-
-  /**
-   * Draws a polygon on the canvas.
-   *
-   * @returns {void}
-   */
-  private drawPolygon(): void {
-    this.context.save();
-    this.context.fillStyle = this.fill;
-    this.context.strokeStyle = this.stroke;
-    this.context.lineWidth = this.strokeWidth;
-
-    this.context.translate(this.x, this.y);
-    this.context.rotate((this.angle * Math.PI) / 180);
-
-    this.context.beginPath();
-    this.context.moveTo(this.size, 0);
-
-    for (let i = 1; i < this.sides; i++) {
-      const angle: number = (i * Math.PI * 2) / this.sides;
-
-      const x: number = this.size * Math.cos(angle);
-      const y: number = this.size * Math.sin(angle);
       this.context.lineTo(x, y);
     }
 

@@ -40,7 +40,7 @@ export const tracker: trackerType = {
   hasEditableShape: false,
   shape: "square",
   sides: 5,
-  innerRadius: 1,
+  innerRadius: 30,
   globalCompositeOperation: "source-over",
 };
 

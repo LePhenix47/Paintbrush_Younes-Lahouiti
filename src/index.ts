@@ -1,8 +1,8 @@
 import {
   clearOldCanvasPaint,
-  setDrawingToFalse,
-  setDrawingToTrue,
-  setMouseCoordinates,
+  handlePointerDown,
+  handlePointerMove,
+  handlePointerUp,
 } from "./canvas-event-listeners";
 import {
   changeTrackerTransparency,
@@ -248,23 +248,23 @@ setMiscellaneousContainerEvents();
  * @returns {void}
  */
 function setCanvasEventListeners(): void {
-  canvasPaint.addEventListener("mousemove", setMouseCoordinates);
+  canvasPaint.addEventListener("pointermove", handlePointerMove);
+  canvasPaint.addEventListener("pointerdown", handlePointerDown);
+  canvasPaint.addEventListener("pointerup", handlePointerUp);
 
-  canvasPaint.addEventListener("mousedown", setDrawingToTrue);
-
-  canvasPaint.addEventListener("mouseup", setDrawingToFalse);
+  canvasPaint.addEventListener("pointercancel", (e) => {
+    log("Cancel");
+  });
 
   window.addEventListener("resize", handleWindowResize);
 }
 setCanvasEventListeners();
 
 let canvasAnimationFrameId: number = 0;
-function handleWindowResize() {
-  const main: HTMLElement = selectQuery("main.index");
-  const { width, height }: DOMRect = main.getBoundingClientRect();
 
-  canvasPaint.width = width * 0.97;
-  canvasPaint.height = height * 0.97;
+function handleWindowResize() {
+  canvasPaint.width = canvasPaint.clientWidth;
+  canvasPaint.height = canvasPaint.clientHeight;
 }
 handleWindowResize();
 
