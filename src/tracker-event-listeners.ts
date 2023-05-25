@@ -454,9 +454,9 @@ export function changeTrackerTransparency(event: Event) {
       sectionContainer
     )[1];
 
-    const wasRotatingHue = hueRotateCheckbox.checked;
+    const wasRotatingHue: boolean = hueRotateCheckbox?.checked === true;
     if (wasRotatingHue) {
-      hueRotateCheckbox.click();
+      hueRotateCheckbox.checked = false;
     }
 
     tracker[showInputType] = "transparent";
