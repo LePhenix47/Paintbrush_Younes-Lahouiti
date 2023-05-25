@@ -385,7 +385,7 @@ export function transformColorModel(
   // Unsupported Conversion
   else {
     throw new Error(
-      "Color model conversion error: Unsupported color model conversion"
+      "Color model conversion error: Unsupported wanted color model"
     );
   }
 

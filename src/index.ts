@@ -287,9 +287,3 @@ animate();
 function cancelAnimation() {
   cancelAnimationFrame(canvasAnimationFrameId);
 }
-
-Interval.set(3_500, () => {
-  groupCollapsed("Tracker");
-  log(effectHandler);
-  groupEnd();
-});

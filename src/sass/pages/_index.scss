@@ -12,6 +12,9 @@
     /* Adjust this value to center the canvas vertically */
 
     &__canvas {
+        scroll-snap-align: end;
+        scroll-snap-stop: normal;
+
         touch-action: none;
 
         position: absolute;

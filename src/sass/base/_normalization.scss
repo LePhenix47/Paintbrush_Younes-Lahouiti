@@ -33,16 +33,15 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 50%;
 
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
 
     color-scheme: dark light;
 }
 
 
 body {
-    min-height: 100dvh;
+    min-height: 100vh;
 
 
     background-color: var(--bg-primary);
