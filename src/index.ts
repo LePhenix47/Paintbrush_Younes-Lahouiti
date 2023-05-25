@@ -313,11 +313,7 @@ function drawPaintOnCanvas() {
 function showShapePreview() {
   previewPaintbrushEffectHandler.drawOnCanvas();
 
-  previewPaintbrushEffectHandler.updatePropertyValues(tracker, {
-    x: -10_000,
-    y: -10_000,
-    isDrawing: false,
-  });
+  previewPaintbrushEffectHandler.updatePropertyValues(tracker);
 }
 
 function cancelAnimation() {

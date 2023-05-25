@@ -66,4 +66,58 @@ export class PreviewPaintBrush extends PaintBrush {
     this.canvas = canvas;
     this.context = get2DContext(this.canvas);
   }
+
+  /**
+   * Updates the property values of the PaintBrush instance.
+   * @param {trackerType} tracker - The tracker object containing tool settings.
+   * @param {pointerInfosType} pointerInfos - The mouse information object.
+   *
+   * @returns {void}
+   */
+  updatePropertyValues({
+    tool,
+    fill,
+    stroke,
+    strokeWidth,
+    size,
+    angle,
+    shadow,
+    shadowBlur,
+    shadowOffsetX,
+    shadowOffsetY,
+    hasEditableShape,
+    shape,
+    sides,
+    innerRadius,
+    globalCompositeOperation,
+  }: trackerType): void {
+    this.tool = tool;
+
+    this.fill = fill;
+
+    this.stroke = stroke;
+
+    this.strokeWidth = strokeWidth;
+
+    this.size = size;
+
+    this.angle = angle;
+
+    this.context.shadowColor = shadow;
+    this.context.shadowBlur = shadowBlur;
+    this.context.shadowOffsetX = shadowOffsetX;
+    this.context.shadowOffsetY = shadowOffsetY;
+
+    this.hasEditableShape = hasEditableShape;
+    this.shape = shape;
+    this.sides = sides;
+    this.innerRadius = innerRadius;
+
+    this.context.globalCompositeOperation = globalCompositeOperation;
+
+    this.x = this.canvas.width / 2;
+    this.y = this.canvas.height / 2;
+
+    this.isDrawing = true;
+  }
 }
