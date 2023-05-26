@@ -5,6 +5,7 @@ import {
 } from "./canvas-event-listeners";
 import {
   changeTrackerTransparency,
+  insertFilters,
   setColorInputValues,
   setGlobalCompositeOperation,
   setHueRotationAuto,
@@ -247,6 +248,9 @@ function setMiscellaneousContainerEvents(): void {
    * @returns {void}
    */
   select.addEventListener("change", setGlobalCompositeOperation);
+
+  const selectMultiple: HTMLSelectElement = selectQuery("select[multiple]");
+  selectMultiple.addEventListener("input", insertFilters);
 }
 setMiscellaneousContainerEvents();
 

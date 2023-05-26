@@ -120,6 +120,13 @@ function convertAndRotateHue(
   tracker[checkboxObject.type] = newHexValue;
 }
 
+export function insertFilters(event: Event) {
+  //@ts-ignore
+  const select: HTMLSelectElement = event.currentTarget;
+
+  log(select.selectedOptions);
+}
+
 export function setGlobalCompositeOperation(event: Event) {
   //@ts-ignore
   const selectInput: HTMLSelectElement = event.currentTarget;

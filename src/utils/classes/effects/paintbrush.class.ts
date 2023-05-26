@@ -138,6 +138,7 @@ export class PaintBrush {
       sides,
       innerRadius,
       globalCompositeOperation,
+      filters,
     }: trackerType,
     { x, y, isDrawing }: pointerInfosType
   ) {
@@ -161,6 +162,7 @@ export class PaintBrush {
         sides,
         innerRadius,
         globalCompositeOperation,
+        filters,
       },
       { x, y, isDrawing }
     );
@@ -190,6 +192,7 @@ export class PaintBrush {
       sides,
       innerRadius,
       globalCompositeOperation,
+      filters,
     }: trackerType,
     { x, y, isDrawing }: pointerInfosType
   ): void {

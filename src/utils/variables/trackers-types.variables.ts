@@ -17,6 +17,7 @@ export type trackerType = {
   sides: number;
   innerRadius: number;
   globalCompositeOperation: GlobalCompositeOperation;
+  filters: string;
 };
 
 /**

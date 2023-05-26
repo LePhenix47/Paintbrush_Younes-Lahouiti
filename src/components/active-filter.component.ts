@@ -1,3 +1,5 @@
+import { log } from "../utils/functions/console.functions";
+import { selectQuery } from "../utils/functions/dom.functions";
 import {
   cssReset,
   darkThemeVariables,
@@ -97,7 +99,14 @@ class ActiveFilter extends HTMLElement {
     return ["filter"];
   }
 
-  connectedCallback() {}
+  connectedCallback() {
+    const selectMultiple: HTMLSelectElement = selectQuery(
+      "select",
+      this.shadowRoot
+    );
+
+    log(selectMultiple);
+  }
 
   disconnectedCallback() {}
 

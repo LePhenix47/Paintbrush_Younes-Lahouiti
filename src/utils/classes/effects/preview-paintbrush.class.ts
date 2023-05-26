@@ -39,6 +39,7 @@ export class PreviewPaintBrush extends PaintBrush {
       sides,
       innerRadius,
       globalCompositeOperation,
+      filters,
     }: trackerType
   ) {
     super(
@@ -59,6 +60,7 @@ export class PreviewPaintBrush extends PaintBrush {
         sides,
         innerRadius,
         globalCompositeOperation,
+        filters,
       },
       { x: canvas.width / 2, y: canvas.width / 2, isDrawing: true }
     );
@@ -90,6 +92,7 @@ export class PreviewPaintBrush extends PaintBrush {
     sides,
     innerRadius,
     globalCompositeOperation,
+    filters,
   }: trackerType): void {
     this.tool = tool;
 
