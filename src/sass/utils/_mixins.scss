@@ -110,10 +110,11 @@
 
 //Element speific mixins:
 
-@mixin label-space-between {
+@mixin label-space-between($gap: 0px) {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
+    gap: $gap;
 }
 
 

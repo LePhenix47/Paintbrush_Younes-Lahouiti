@@ -14,7 +14,7 @@ export const cssReset: string = /* css */ `
     }
 }
 
-//Reset
+/* Reset */
 *,
 ::before,
 ::after {
@@ -166,8 +166,62 @@ option {
 
 :is(p, h1, h2, h3, h4,
     h5, h6, span):empty {
+    display: none !important;}
+`;
+
+/**
+ * JS Classes
+ */
+export const jsClasses: string = /* css */ `
+/* 
+    Hides the element and all its descendants from view
+ */
+.hide {
     display: none !important;
-}`;
+}
+
+/* 
+    Hides the element from view except for screen readers 
+    
+    - Good for accessibilty and by consequence SEO
+*/
+.screen-readers-only {
+    /*    
+    Positions the element off the screen 
+    */ 
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+
+    /*    
+    Sets the dimensions of the element to 1×1 px 
+    */ 
+    height: 1px;
+    width: 1px;
+
+    /*    
+    Hides any content that overflows the element 
+    */ 
+    overflow: hidden;
+
+    /*    
+    Positions the element absolutely 
+    */ 
+    position: absolute;
+
+    /*    
+    Prevents line breaks in the element 
+    */ 
+    white-space: nowrap;
+}
+
+/* 
+    Disables pointer (click on desktop and tap on mobile) events for the element and its descendants 
+*/
+.no-pointer-events {
+    pointer-events: none;
+}
+
+`;
 
 /**
  * CSS variables for web components.
@@ -200,8 +254,8 @@ export const lightThemeVariables: string = /* css */ `
     --scrollbar-track-bg-color: #fff;
     --scrollbar-thumb-bg-color: #545454;
     --scrollbar-thumb-bg-color--hover: #757575;
-    --scrollbar-thumb-bg-color--active: #b0b0b0
-}`;
+    --scrollbar-thumb-bg-color--active: #b0b0b0}
+`;
 
 /**
  * Dark theme CSS variables for web components.

@@ -320,36 +320,27 @@
                             </select>
                         </label>
                     </section>
-                    <section class="miscellaneous__filters">
+                    <section class="miscellaneous__filters miscellaneous__filters--shape">
                         <label for="filters" class="miscellaneous__label miscellaneous__label--select">
-                            Filters:
+                            Shape Filters:
                             <select class="miscellaneous__select" multiple name="filters" id="filters">
+                                <!-- Filter with px or % values -->
                                 <option class="miscellaneous__option" value="blur">blur</option>
                                 <option class="miscellaneous__option" value="brightness">brightness</option>
                                 <option class="miscellaneous__option" value="contrast">contrast</option>
                                 <option class="miscellaneous__option" value="grayscale">grayscale</option>
+                                <!--Filters with % values -->
                                 <option class="miscellaneous__option" value="invert">invert</option>
                                 <option class="miscellaneous__option" value="opacity">opacity</option>
                                 <option class="miscellaneous__option" value="saturate">saturate</option>
                                 <option class="miscellaneous__option" value="sepia">sepia</option>
                             </select>
                         </label>
-                        <div class="miscellaneous__active-filters-container">
-                            <div class="miscellaneous__active-filter">
-                                <label class="miscellaneous__active-filter-label" for="blur">Blur:
-                                    <input type="number" class="miscellaneous__active-filter-input" name="filters"
-                                        id="blur" />
-                                </label>
+                        <div class="miscellaneous__active-filter-container">
 
-                                <button type="button" class="miscellaneous__active-filter-button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25"
-                                        class="no-pointer-events" fill="var(--out-of-range-color)">
-                                        <path
-                                            d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm3.21 11.79a1 1 0 0 1 0 1.42 1 1 0 0 1-1.42 0L12 13.41l-1.79 1.8a1 1 0 0 1-1.42 0 1 1 0 0 1 0-1.42l1.8-1.79-1.8-1.79a1 1 0 0 1 1.42-1.42l1.79 1.8 1.79-1.8a1 1 0 0 1 1.42 1.42L13.41 12Z">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </div>
+                            <active-filter></active-filter>
+                            <active-filter></active-filter>
+                            <active-filter></active-filter>
                         </div>
 
                     </section>

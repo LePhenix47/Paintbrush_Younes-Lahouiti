@@ -12,7 +12,7 @@
     /* Adjust this value to center the canvas vertically */
 
     &__canvas {
-        scroll-snap-align: end;
+        scroll-snap-align: center;
         scroll-snap-stop: normal;
 
         touch-action: none;
@@ -397,6 +397,13 @@
 }
 
 .miscellaneous {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    gap: 15px;
+
     &__global-composite-operation {
         display: flex;
         justify-content: space-between;
@@ -405,6 +412,8 @@
 
     &__select {
         padding: 10px 5px;
+
+        width: 75%;
     }
 
     &__label {
@@ -414,4 +423,29 @@
             @include label-space-between;
         }
     }
+
+    &__active-filter {
+        @include center-flex(15px);
+
+        width: fit-content;
+    }
+
+
+    &__active-filter-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        flex-wrap: wrap
+    }
+
+    &__active-filter-label {
+        @include label-space-between(15px);
+    }
+
+    &__active-filter-input {
+        max-width: 50px;
+    }
+
+    &__active-filter-button {}
 }

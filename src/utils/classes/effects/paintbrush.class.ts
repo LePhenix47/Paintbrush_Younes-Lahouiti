@@ -242,7 +242,6 @@ export class PaintBrush {
 
     const wantsToDrawWithBrush: boolean = this.tool === "pen";
     if (wantsToDrawWithBrush) {
-      log("drawing");
       switch (this.shape) {
         case "circle": {
           this.drawCircle();
