@@ -219,6 +219,7 @@ export class PaintBrush {
     this.innerRadius = innerRadius;
 
     this.context.globalCompositeOperation = globalCompositeOperation;
+    this.context.filter = filters;
 
     this.x = x;
     this.y = y;

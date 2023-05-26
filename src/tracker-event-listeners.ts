@@ -14,6 +14,9 @@ import {
   enableElement,
   disableElement,
   selectQueryAll,
+  getSelectOptions,
+  appendChildToParent,
+  modifyAttribute,
 } from "./utils/functions/dom.functions";
 import {
   formatText,
@@ -124,7 +127,33 @@ export function insertFilters(event: Event) {
   //@ts-ignore
   const select: HTMLSelectElement = event.currentTarget;
 
-  log(select.selectedOptions);
+  const selectedOptions: string[] = getSelectOptions(select, true);
+
+  const sectionContainer: HTMLElement = getAncestor(select, "section");
+  log(sectionContainer);
+
+  const filtersContainer: HTMLDivElement = selectQuery(
+    ".miscellaneous__active-filter-container",
+    sectionContainer
+  );
+
+  for (const optionValue of selectedOptions) {
+    const isAlreadyAdded: boolean = tracker.filters.includes(optionValue);
+    if (isAlreadyAdded) {
+      continue;
+    } else {
+      tracker.filters += `${optionValue}(0%) `;
+
+      const newFilterElement: HTMLElement =
+        document.createElement("active-filter");
+
+      modifyAttribute(newFilterElement, "filter", optionValue);
+
+      appendChildToParent(newFilterElement, filtersContainer);
+    }
+  }
+
+  log(selectedOptions);
 }
 
 export function setGlobalCompositeOperation(event: Event) {

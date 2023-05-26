@@ -104,8 +104,6 @@ class ActiveFilter extends HTMLElement {
       "select",
       this.shadowRoot
     );
-
-    log(selectMultiple);
   }
 
   disconnectedCallback() {}

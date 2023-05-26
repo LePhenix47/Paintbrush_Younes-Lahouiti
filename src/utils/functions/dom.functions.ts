@@ -1,3 +1,5 @@
+import { log, table } from "./console.functions";
+
 /**
  * Simpler version of `document.getElementsByClassName()`
  * Selects all elements with a given class name inside a given container or the whole document.
@@ -315,26 +317,27 @@ export function replaceClass(
   element.classList.replace(oldClassName, newClassName);
 }
 
-/**
- * Sets the text content of an HTML element
- *
- * @param {any} element - The HTML element to set the text content for
- * @param {string} text - The text content to set
- * @returns {void}
- */
+export function getSelectOptions(
+  selectElement: HTMLSelectElement,
+  valuesOnly: boolean = false
+): any {
+  const isNotSelectElement: boolean = selectElement.tagName !== "SELECT";
+  if (isNotSelectElement) {
+    throw "Error: Elmeent passed in argument is not a <select multiple>";
+  }
 
-export function setTextContent(element: any, text: string): void {
-  element.textContent = text;
-}
+  let selectedOptionsArray: HTMLOptionElement[] = Array.from(
+    selectElement.selectedOptions
+  );
 
-/**
- * Sets the inner HTML content of an HTML element
- *
- * @param {HTMLElement} element - The HTML element to set the inner HTML content for
- * @param {string} htmlContent - The HTML content to set
- *
- * @returns {void}
- */
-export function setInnerHTML(element: HTMLElement, htmlContent: string): void {
-  element.innerHTML = htmlContent;
+  if (valuesOnly) {
+    //@ts-ignore
+    selectedOptionsArray = selectedOptionsArray.map(
+      (option: HTMLOptionElement) => {
+        return option.value;
+      }
+    );
+  }
+
+  return selectedOptionsArray;
 }

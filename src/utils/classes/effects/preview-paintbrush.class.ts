@@ -5,21 +5,29 @@ import { PaintBrush } from "./paintbrush.class";
 export class PreviewPaintBrush extends PaintBrush {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
-  tool: any;
-  fill: any;
-  stroke: any;
-  strokeWidth: any;
-  size: any;
-  angle: any;
-  hasEditableShape: any;
-  shape: any;
-  sides: any;
-  innerRadius: any;
-  x: any;
-  y: any;
-  isDrawing: any;
+
+  tool: string;
+  fill: string;
+  stroke: string;
+  strokeWidth: number;
+
+  size: number;
+  angle: number;
+  hasEditableShape: boolean;
+
+  shape: string;
+  sides: number;
+  innerRadius: number;
+
+  x: number;
+  y: number;
+
+  isDrawing: boolean;
+
   middleX: number;
   middleY: number;
+
+  filters: string;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -120,6 +128,8 @@ export class PreviewPaintBrush extends PaintBrush {
     this.y = this.canvas.height / 2;
 
     this.isDrawing = true;
+
+    this.context.filter = filters;
   }
 
   /**
