@@ -95,6 +95,22 @@ export function testRegExp(string: string, RegularExpression: RegExp): boolean {
 }
 
 /**
+ * Tests a regular expression against a string and returns an array of matches.
+ *
+ * @param {string} string - The string to test against the regular expression.
+ * @param {RegExp} regularExpression - The regular expression to test against the string.
+ *
+ * @returns {Array<string>} - An array of matches found in the string.
+ */
+export function matchRegExp(
+  string: string,
+  regularExpression: RegExp
+): string[] {
+  const matches = string.match(regularExpression);
+  return matches || [];
+}
+
+/**
  * Copies the given text to the clipboard.
  *
  * @param {string} textToCopy - The text to be copied to the clipboard.

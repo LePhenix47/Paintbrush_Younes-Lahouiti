@@ -43,7 +43,7 @@ export const tracker: trackerType = {
   sides: 5,
   innerRadius: 45,
   globalCompositeOperation: "source-over",
-  filters: "",
+  filters: "none",
 };
 
 /**

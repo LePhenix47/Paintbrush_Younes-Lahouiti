@@ -7,6 +7,7 @@ import {
 } from "../utils/functions/dom.functions";
 import {
   addNewFilterFromTracker,
+  changeFilterValueOrUnit,
   removeFilterFromTracker,
 } from "../utils/functions/filter-tracker.funtions";
 import {
@@ -106,6 +107,7 @@ class ActiveFilter extends HTMLElement {
     //We bind the this keyword to have access to the attribute values of our web component
     this.setValueToWebComponent = this.setValueToWebComponent.bind(this);
     this.setUnitToWebComponent = this.setUnitToWebComponent.bind(this);
+    this.removeWebComponent = this.removeWebComponent.bind(this);
   }
 
   get filter() {
@@ -151,6 +153,11 @@ class ActiveFilter extends HTMLElement {
     this.unit = select.value;
   }
 
+  removeWebComponent(event: Event) {
+    //@ts-ignore
+    this.remove();
+  }
+
   connectedCallback() {
     const numberInput: HTMLInputElement = selectQuery(
       "input[type=number]",
@@ -169,6 +176,8 @@ class ActiveFilter extends HTMLElement {
       "button",
       this.shadowRoot
     );
+
+    deleteButton.addEventListener("click", this.removeWebComponent);
 
     log(numberInput, selectElement, deleteButton);
 
@@ -196,6 +205,7 @@ class ActiveFilter extends HTMLElement {
       "button",
       this.shadowRoot
     );
+    deleteButton.removeEventListener("click", this.removeWebComponent);
 
     removeFilterFromTracker(this.filter);
 
@@ -223,12 +233,14 @@ class ActiveFilter extends HTMLElement {
 
       case "value": {
         log("Value change");
+        changeFilterValueOrUnit(this.filter, "", "");
         //…
         break;
       }
 
       case "unit": {
         log("Unit change");
+        changeFilterValueOrUnit(this.filter, "", "");
         // const isPercentage =
         //…
         break;
