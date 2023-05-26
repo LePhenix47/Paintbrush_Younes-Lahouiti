@@ -40,10 +40,12 @@ html {
     color-scheme: dark light;
 }
 
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap);
 
 body {
     min-height: 100vh;
 
+    font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
 
     background-color: var(--bg-primary);
     color: var(--color-primary);
@@ -161,7 +163,7 @@ option {
     font-family: inherit;
 }
 
-//Makes empty text blocks elements disappear
+
 :is(p, h1, h2, h3, h4,
     h5, h6, span):empty {
     display: none !important;
@@ -171,8 +173,6 @@ option {
  * CSS variables for web components.
  */
 export const lightThemeVariables: string = /* css */ `
-@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap);
-
 :host {
     --bg-primary: hwb(0 100% 0%);
     --bg-secondary: #f0efef;
@@ -209,7 +209,7 @@ export const lightThemeVariables: string = /* css */ `
 export const darkThemeVariables: string = /* css */ `
 
 @media(prefers-color-scheme:dark) {
-    :root {
+    :host {
         --bg-primary: #000;
         --bg-secondary: #232323;
         --bg-tertiary: #7a7a7a;

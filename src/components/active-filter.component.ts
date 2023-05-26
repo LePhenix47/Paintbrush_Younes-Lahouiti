@@ -1,3 +1,9 @@
+import {
+  cssReset,
+  darkThemeVariables,
+  lightThemeVariables,
+} from "../utils/variables/web-component.variables";
+
 const activeFilterTemplateElement = document.createElement("template");
 
 const activeFilterTemplateStyle = /* css */ `
@@ -23,13 +29,17 @@ const activeFilterTemplateContent = /*html */ `
 
 activeFilterTemplateElement.innerHTML = /*html */ `
   <style>
+    ${lightThemeVariables}
+    ${darkThemeVariables}
+    ${cssReset}
+    
     ${activeFilterTemplateStyle}
   </style>
   
   ${activeFilterTemplateContent}
 `;
 
-class UserComponent extends HTMLElement {
+class ActiveFilter extends HTMLElement {
   constructor() {
     super();
     //We create the cotnainer that holds the web component
@@ -62,4 +72,4 @@ class UserComponent extends HTMLElement {
   }
 }
 
-customElements.define("user-component", UserComponent);
+customElements.define("active-filter", ActiveFilter);

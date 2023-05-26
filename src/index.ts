@@ -29,6 +29,9 @@ import {
 } from "./utils/functions/dom.functions";
 import { pointerInfos, tracker } from "./utils/variables/trackers.variables";
 
+//Web components:
+import "./components/active-filter.component";
+
 /**
  * The canvas element for painting
  * @type {HTMLCanvasElement}
