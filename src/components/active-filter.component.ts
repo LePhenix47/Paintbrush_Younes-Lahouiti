@@ -1,5 +1,9 @@
 import { log } from "../utils/functions/console.functions";
-import { selectQuery } from "../utils/functions/dom.functions";
+import {
+  getAttribute,
+  modifyAttribute,
+  selectQuery,
+} from "../utils/functions/dom.functions";
 import {
   cssReset,
   darkThemeVariables,
@@ -87,11 +91,11 @@ class ActiveFilter extends HTMLElement {
   }
 
   get filter() {
-    return this.getAttribute("filter");
+    return getAttribute("filter", this);
   }
 
   set filter(newValue: string) {
-    this.setAttribute("filter", newValue);
+    modifyAttribute(this, "filter", newValue);
   }
 
   static get observedAttributes() {
