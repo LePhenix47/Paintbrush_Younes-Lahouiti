@@ -233,16 +233,14 @@ class ActiveFilter extends HTMLElement {
 
       case "value": {
         log("Value change");
-        changeFilterValueOrUnit(this.filter, "", "");
+        changeFilterValueOrUnit(this.filter, newValue, this.unit);
         //…
         break;
       }
 
       case "unit": {
         log("Unit change");
-        changeFilterValueOrUnit(this.filter, "", "");
-        // const isPercentage =
-        //…
+        changeFilterValueOrUnit(this.filter, this.value, newValue);
         break;
       }
 

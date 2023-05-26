@@ -193,7 +193,7 @@ export function getSubtring(
  */
 export function replaceText(
   stringOfText: string,
-  replacedText: string,
+  replacedText: string | RegExp,
   replacer: string
 ): string {
   //@ts-ignore

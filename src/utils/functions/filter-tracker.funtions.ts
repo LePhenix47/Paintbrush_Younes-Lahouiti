@@ -1,16 +1,46 @@
 import { tracker } from "../variables/trackers.variables";
 import { joinArrayOnChar } from "./array-sets.functions";
 import { log } from "./console.functions";
-import { matchRegExp, replaceText, splitString } from "./string.functions";
+import {
+  matchRegExp,
+  replaceText,
+  sliceString,
+  splitString,
+} from "./string.functions";
 
 export function removeDuplicateFilters(filterToVerify: string) {}
 
 function getValuesInsideParentheses(string: string) {
-  const parenthesesREGEX: RegExp = /\((.*?)\)/g;
+  const insideParenthesesREGEX: RegExp = /\((.*?)\)/g;
 
-  const matchingStrings: string[] = matchRegExp(string, parenthesesREGEX);
+  const matchingCharStrings: string[] = matchRegExp(
+    string,
+    insideParenthesesREGEX
+  );
 
-  return joinArrayOnChar(matchingStrings, " ");
+  let valueInsideParentheses: string = joinArrayOnChar(
+    matchingCharStrings,
+    " "
+  );
+
+  valueInsideParentheses = sliceString(valueInsideParentheses, 1, -1);
+
+  return valueInsideParentheses;
+}
+
+/**
+ * Replaces the values inside parentheses in a string with the specified replacement.
+ *
+ * @param {string} string - The string to modify.
+ * @param {string} replacement - The replacement value for the values inside parentheses.
+ *
+ * @returns {string} - The modified string with replaced values inside parentheses.
+ */
+export function replaceInParentheses(
+  string: string,
+  replacement: string
+): string {
+  return string.replace(/\([^()]+\)/g, `(${replacement})`);
 }
 
 function separateNumberAndLetter(str) {
@@ -27,8 +57,9 @@ export function addNewFilterFromTracker(filterToAdd: string) {
 export function changeFilterValueOrUnit(
   filter: string,
   value: string,
-  parameterToChange: string
+  unit: string
 ) {
+  log("Filter to change:", filter, value, unit);
   const chosenFilters: string[] = splitString(tracker.filters, " ");
 
   let filterToChange: string = chosenFilters.find((chosenFilter) => {
@@ -43,7 +74,7 @@ export function changeFilterValueOrUnit(
 
   log(`%cFilter ${filter} found!`, "background: green", filterToChange);
 
-  log(getValuesInsideParentheses(filterToChange));
+  log(replaceInParentheses("test(123)", "456"));
 }
 
 export function removeFilterFromTracker(filterToRemove: string) {
