@@ -1,9 +1,16 @@
+import { joinArrayOnChar } from "../utils/functions/array-sets.functions";
 import { log } from "../utils/functions/console.functions";
 import {
   getAttribute,
   modifyAttribute,
   selectQuery,
 } from "../utils/functions/dom.functions";
+import {
+  formatText,
+  replaceText,
+  splitString,
+} from "../utils/functions/string.functions";
+import { tracker } from "../utils/variables/trackers.variables";
 import {
   cssReset,
   darkThemeVariables,
@@ -31,7 +38,9 @@ const activeFilterTemplateStyle = /* css */ `
 }
 
 .miscellaneous__active-filter-input {
-    max-width: 50px
+    max-width: 50px;
+
+    text-align: center;
 }
 
 .miscellaneous__active-filter-button{ 
@@ -42,12 +51,13 @@ const activeFilterTemplateStyle = /* css */ `
 `;
 const activeFilterTemplateContent = /*html */ `
  <div class="miscellaneous__active-filter">
-    <label class="miscellaneous__active-filter-label" for="filter">Blur:
+    <label class="miscellaneous__active-filter-label" for="filter">
+    <span>Blur:</span>        
         <input type="number" class="miscellaneous__active-filter-input" name="filters"
-            id="filter" min="0" />
+            id="filter" value="0" min="0" />
     </label>
 
-    <label for="filter-unit">
+    <label class="miscellaneous__active-filter-label" for="filter-unit">
         <select name="unit" id="filter-unit">
             <option value="%">Percentage (%)</option>
             <option value="px">Pixels (px)</option>
@@ -88,6 +98,10 @@ class ActiveFilter extends HTMLElement {
     const clonedTemplate = activeFilterTemplateElement.content.cloneNode(true);
     //We add it as a child of our web component
     shadowRoot.appendChild(clonedTemplate);
+
+    //We bind the this keyword to have access to the attribute values of our web component
+    this.setAttributeToWebComponent =
+      this.setAttributeToWebComponent.bind(this);
   }
 
   get filter() {
@@ -98,30 +112,138 @@ class ActiveFilter extends HTMLElement {
     modifyAttribute(this, "filter", newValue);
   }
 
+  get value() {
+    return getAttribute("value", this);
+  }
+
+  set value(newValue: string) {
+    modifyAttribute(this, "value", newValue);
+  }
+
+  get unit() {
+    return getAttribute("unit", this);
+  }
+
+  set unit(newValue: string) {
+    modifyAttribute(this, "unit", newValue);
+  }
+
   static get observedAttributes() {
     //We indicate the list of attributes that the custom element wants to observe for changes.
-    return ["filter"];
+    return ["filter", "value", "unit"];
+  }
+
+  setAttributeToWebComponent(event) {
+    log(event.target.value, this);
   }
 
   connectedCallback() {
-    const selectMultiple: HTMLSelectElement = selectQuery(
+    const numberInput: HTMLInputElement = selectQuery(
+      "input[type=number]",
+      this.shadowRoot
+    );
+
+    const selectElement: HTMLSelectElement = selectQuery(
       "select",
       this.shadowRoot
     );
+
+    numberInput.addEventListener("input", this.setAttributeToWebComponent);
+    selectElement.addEventListener("input", this.setAttributeToWebComponent);
+
+    const deleteButton: HTMLButtonElement = selectQuery(
+      "button",
+      this.shadowRoot
+    );
+
+    log(numberInput, selectElement, deleteButton);
+
+    tracker.filters += `${this.filter}(${this.value}${this.unit}) `;
+
+    log("Added!");
+    log(tracker.filters);
   }
 
-  disconnectedCallback() {}
+  disconnectedCallback() {
+    const numberInput: HTMLInputElement = selectQuery(
+      "input[type=number]",
+      this.shadowRoot
+    );
+
+    const selectElement: HTMLSelectElement = selectQuery(
+      "select",
+      this.shadowRoot
+    );
+
+    numberInput.removeEventListener("input", this.setAttributeToWebComponent);
+    selectElement.removeEventListener("input", this.setAttributeToWebComponent);
+
+    const deleteButton: HTMLButtonElement = selectQuery(
+      "button",
+      this.shadowRoot
+    );
+
+    const filter = `${this.filter}(${this.value}${this.unit})`;
+
+    removeFilterFromTracker(this.filter);
+    log("Removed!");
+    log(tracker.filters);
+  }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    const webComponent: ShadowRoot = this.shadowRoot;
+
     switch (name) {
-      case "": {
+      case "filter": {
+        const span: HTMLSpanElement = selectQuery(
+          "label>span",
+          this.shadowRoot
+        );
+
+        const formattedFilterType: string = formatText(
+          this.filter,
+          "titlecase"
+        );
+        span.textContent = formattedFilterType;
         //…
         break;
       }
+
+      case "value": {
+        //…
+        break;
+      }
+
+      case "unit": {
+        // const isPercentage =
+        //…
+        break;
+      }
+
       default:
         break;
     }
   }
+}
+
+function changeFilterValueOrUnit() {}
+
+function removeFilterFromTracker(filterToRemove: string) {
+  const chosenFilters: string[] = splitString(tracker.filters, " ");
+
+  let remainingFilters: string[] = chosenFilters.filter((filter) => {
+    return !filter.includes(filterToRemove);
+  });
+
+  tracker.filters = joinArrayOnChar(remainingFilters, " ");
+}
+
+function addNewFilterFromTracker(filterToAdd: string) {
+  tracker.filters += filterToAdd;
+}
+
+function changeTrackerFilterValue(oldValue: string, newValue: string) {
+  addNewFilterFromTracker(newValue);
 }
 
 customElements.define("active-filter", ActiveFilter);

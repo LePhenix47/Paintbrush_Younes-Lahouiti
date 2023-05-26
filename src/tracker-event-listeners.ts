@@ -142,12 +142,12 @@ export function insertFilters(event: Event) {
     if (isAlreadyAdded) {
       continue;
     } else {
-      tracker.filters += `${optionValue}(0%) `;
-
       const newFilterElement: HTMLElement =
         document.createElement("active-filter");
 
       modifyAttribute(newFilterElement, "filter", optionValue);
+      modifyAttribute(newFilterElement, "value", 0);
+      modifyAttribute(newFilterElement, "unit", "%");
 
       appendChildToParent(newFilterElement, filtersContainer);
     }

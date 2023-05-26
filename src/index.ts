@@ -22,7 +22,11 @@ import {
   clearOldPaint,
   get2DContext,
 } from "./utils/functions/canvas.functions";
-import { log } from "./utils/functions/console.functions";
+import {
+  groupCollapsed,
+  groupEnd,
+  log,
+} from "./utils/functions/console.functions";
 import {
   selectByClass,
   selectQuery,
@@ -32,6 +36,7 @@ import { pointerInfos, tracker } from "./utils/variables/trackers.variables";
 
 //Web components:
 import "./components/active-filter.component";
+import { Interval } from "./utils/classes/services/interval.class";
 
 /**
  * The canvas element for painting
@@ -317,3 +322,7 @@ function showShapePreview() {
 function cancelAnimation() {
   cancelAnimationFrame(canvasAnimationFrameId);
 }
+
+Interval.set(1_000, () => {
+  log(tracker.filters);
+});

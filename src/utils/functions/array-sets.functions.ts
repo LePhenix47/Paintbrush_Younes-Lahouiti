@@ -52,3 +52,7 @@ export function spliceArray(
 
   return { removedItems, newArray };
 }
+
+export function joinArrayOnChar(array: any[], char: string = "") {
+  return array.join(char);
+}
