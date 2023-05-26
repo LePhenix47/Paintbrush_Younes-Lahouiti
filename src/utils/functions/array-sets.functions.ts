@@ -53,6 +53,12 @@ export function spliceArray(
   return { removedItems, newArray };
 }
 
-export function joinArrayOnChar(array: any[], char: string = "") {
+/**
+ * Joins the elements of an array into a string using the specified character as the separator.
+ * @param {any[]} array - The array to join.
+ * @param {string} [char=""] - The character used as the separator. Defaults to an empty string.
+ * @returns {string} The joined string.
+ */
+export function joinArrayOnChar(array: any[], char: string = ""): string {
   return array.join(char);
 }

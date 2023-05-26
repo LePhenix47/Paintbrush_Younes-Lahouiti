@@ -6,6 +6,10 @@ import {
   selectQuery,
 } from "../utils/functions/dom.functions";
 import {
+  addNewFilterFromTracker,
+  removeFilterFromTracker,
+} from "../utils/functions/filter-tracker.funtions";
+import {
   formatText,
   replaceText,
   splitString,
@@ -53,7 +57,7 @@ const activeFilterTemplateContent = /*html */ `
  <div class="miscellaneous__active-filter">
     <label class="miscellaneous__active-filter-label" for="filter">
     <span>Blur:</span>        
-        <input type="number" class="miscellaneous__active-filter-input" name="filters"
+        <input type="number" class="miscellaneous__active-filter-input" name="value"
             id="filter" value="0" min="0" />
     </label>
 
@@ -100,8 +104,8 @@ class ActiveFilter extends HTMLElement {
     shadowRoot.appendChild(clonedTemplate);
 
     //We bind the this keyword to have access to the attribute values of our web component
-    this.setAttributeToWebComponent =
-      this.setAttributeToWebComponent.bind(this);
+    this.setValueToWebComponent = this.setValueToWebComponent.bind(this);
+    this.setUnitToWebComponent = this.setUnitToWebComponent.bind(this);
   }
 
   get filter() {
@@ -133,8 +137,18 @@ class ActiveFilter extends HTMLElement {
     return ["filter", "value", "unit"];
   }
 
-  setAttributeToWebComponent(event) {
-    log(event.target.value, this);
+  setValueToWebComponent(event: Event) {
+    //@ts-ignore
+    const input: HTMLInputElement = event.currentTarget;
+
+    this.value = input.value;
+  }
+
+  setUnitToWebComponent(event: Event) {
+    //@ts-ignore
+    const select: HTMLSelectElement = event.currentTarget;
+
+    this.unit = select.value;
   }
 
   connectedCallback() {
@@ -148,8 +162,8 @@ class ActiveFilter extends HTMLElement {
       this.shadowRoot
     );
 
-    numberInput.addEventListener("input", this.setAttributeToWebComponent);
-    selectElement.addEventListener("input", this.setAttributeToWebComponent);
+    numberInput.addEventListener("input", this.setValueToWebComponent);
+    selectElement.addEventListener("input", this.setUnitToWebComponent);
 
     const deleteButton: HTMLButtonElement = selectQuery(
       "button",
@@ -158,10 +172,10 @@ class ActiveFilter extends HTMLElement {
 
     log(numberInput, selectElement, deleteButton);
 
-    tracker.filters += `${this.filter}(${this.value}${this.unit}) `;
+    const filter = `${this.filter}(${this.value}${this.unit})`;
+    addNewFilterFromTracker(filter);
 
     log("Added!");
-    log(tracker.filters);
   }
 
   disconnectedCallback() {
@@ -175,19 +189,17 @@ class ActiveFilter extends HTMLElement {
       this.shadowRoot
     );
 
-    numberInput.removeEventListener("input", this.setAttributeToWebComponent);
-    selectElement.removeEventListener("input", this.setAttributeToWebComponent);
+    numberInput.removeEventListener("input", this.setValueToWebComponent);
+    selectElement.removeEventListener("input", this.setUnitToWebComponent);
 
     const deleteButton: HTMLButtonElement = selectQuery(
       "button",
       this.shadowRoot
     );
 
-    const filter = `${this.filter}(${this.value}${this.unit})`;
-
     removeFilterFromTracker(this.filter);
+
     log("Removed!");
-    log(tracker.filters);
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -210,11 +222,13 @@ class ActiveFilter extends HTMLElement {
       }
 
       case "value": {
+        log("Value change");
         //…
         break;
       }
 
       case "unit": {
+        log("Unit change");
         // const isPercentage =
         //…
         break;
@@ -224,26 +238,6 @@ class ActiveFilter extends HTMLElement {
         break;
     }
   }
-}
-
-function changeFilterValueOrUnit() {}
-
-function removeFilterFromTracker(filterToRemove: string) {
-  const chosenFilters: string[] = splitString(tracker.filters, " ");
-
-  let remainingFilters: string[] = chosenFilters.filter((filter) => {
-    return !filter.includes(filterToRemove);
-  });
-
-  tracker.filters = joinArrayOnChar(remainingFilters, " ");
-}
-
-function addNewFilterFromTracker(filterToAdd: string) {
-  tracker.filters += filterToAdd;
-}
-
-function changeTrackerFilterValue(oldValue: string, newValue: string) {
-  addNewFilterFromTracker(newValue);
 }
 
 customElements.define("active-filter", ActiveFilter);
