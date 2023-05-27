@@ -126,6 +126,11 @@ function convertAndRotateHue(
   tracker[checkboxObject.type] = newHexValue;
 }
 
+/**
+ * Sets the background color of the canvas based on the event.
+ *
+ * @param {Event} event - The event triggering the change.
+ */
 export function setCanvasBackgorundColor(event: Event) {
   //@ts-ignore
   const input: HTMLInputElement = event.currentTarget;
@@ -139,6 +144,11 @@ export function setCanvasBackgorundColor(event: Event) {
   setStyleProperty("--bg-canvas", formattedValue);
 }
 
+/**
+ * Inserts shape filters web components based on the event.
+ *
+ * @param {Event} event - The event triggering the change.
+ */
 export function insertShapeFilters(event: Event) {
   //@ts-ignore
   const select: HTMLSelectElement = event.currentTarget;
@@ -160,6 +170,11 @@ export function insertShapeFilters(event: Event) {
   );
 }
 
+/**
+ * Inserts canvas filters web components based on the event.
+ *
+ * @param {Event} event - The event triggering the change.
+ */
 export function insertCanvasFilters(event: Event) {
   //@ts-ignore
   const select: HTMLSelectElement = event.currentTarget;
@@ -182,6 +197,13 @@ export function insertCanvasFilters(event: Event) {
   );
 }
 
+/**
+ * Adds a filter web component based on the selected options, filter array, and container.
+ *
+ * @param {string[]} selectedOptions - The selected options.
+ * @param {string[]} filterArray - The filter array to modify.
+ * @param {HTMLDivElement} container - The container element to append the filter web component to.
+ */
 function addFilterWebComponent(
   selectedOptions: string[],
   filterArray: string[],
@@ -212,6 +234,11 @@ function addFilterWebComponent(
   }
 }
 
+/**
+ * Sets the global composite operation based on the event.
+ *
+ * @param {Event} event - The event triggering the change.
+ */
 export function setGlobalCompositeOperation(event: Event) {
   //@ts-ignore
   const selectInput: HTMLSelectElement = event.currentTarget;
@@ -523,6 +550,11 @@ export function setColorInputValues(event: Event): void {
   }
 }
 
+/**
+ * Changes the transparency of the change tracker based on the event.
+ *
+ * @param {Event} event - The event triggering the change.
+ */
 export function changeTrackerTransparency(event: Event) {
   //@ts-ignore
   const input: HTMLInputElement = event.currentTarget;
