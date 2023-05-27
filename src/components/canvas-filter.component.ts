@@ -214,15 +214,13 @@ class CanvasFilter extends HTMLElement {
 
     deleteButton.removeEventListener("click", this.removeWebComponent);
 
-    this.updateCanvasElementProperty();
-
     const filter: string = `${this.filter}(${this.value}${this.unit})`;
     removeCanvasFilterFromTracker(filter);
+
+    this.updateCanvasElementProperty();
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    const webComponent: ShadowRoot = this.shadowRoot;
-
     switch (name) {
       case "filter": {
         const span: HTMLSpanElement = selectQuery(
@@ -317,6 +315,11 @@ class CanvasFilter extends HTMLElement {
   updateCanvasElementProperty() {
     const filterForCanvas: string = joinArrayOnChar(canvasState.filters, " ");
     log(filterForCanvas);
+    const hasNoFilters: boolean = !filterForCanvas.length;
+    if (hasNoFilters) {
+      setStyleProperty("--canvas-filters", "none");
+      return;
+    }
 
     setStyleProperty("--canvas-filters", filterForCanvas);
   }
