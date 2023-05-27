@@ -1,3 +1,4 @@
+import { joinArrayOnChar } from "../../functions/array-sets.functions";
 import { get2DContext } from "../../functions/canvas.functions";
 import { log } from "../../functions/console.functions";
 import {
@@ -219,7 +220,15 @@ export class PaintBrush {
     this.innerRadius = innerRadius;
 
     this.context.globalCompositeOperation = globalCompositeOperation;
-    this.context.filter = filters;
+
+    const stringifiedFilters: string = joinArrayOnChar(filters, " ");
+    const hasNoFilters: boolean = !stringifiedFilters.length;
+    if (hasNoFilters) {
+      this.context.filter = "none";
+    } else {
+      log(stringifiedFilters);
+      this.context.filter = stringifiedFilters;
+    }
 
     this.x = x;
     this.y = y;

@@ -25,7 +25,7 @@ import {
  * @property {number} sides - The number of sides for polygon and star shape.
  * @property {number} innerRadius - The inner radius of star shape.
  * @property {GlobalCompositeOperation} globalCompositeOperation - The global composite operation.
- * @property {string} filters - The filters for a particular context.
+ * @property {string[]} filters - The filters for a particular context.
  */
 export const tracker: trackerType = {
   tool: "pen",
@@ -43,7 +43,7 @@ export const tracker: trackerType = {
   sides: 5,
   innerRadius: 45,
   globalCompositeOperation: "source-over",
-  filters: "none",
+  filters: [],
 };
 
 /**

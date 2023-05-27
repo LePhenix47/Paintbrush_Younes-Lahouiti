@@ -1,3 +1,4 @@
+import { joinArrayOnChar } from "../../functions/array-sets.functions";
 import { get2DContext } from "../../functions/canvas.functions";
 import { trackerType } from "../../variables/trackers-types.variables";
 import { PaintBrush } from "./paintbrush.class";
@@ -129,7 +130,13 @@ export class PreviewPaintBrush extends PaintBrush {
 
     this.isDrawing = true;
 
-    this.context.filter = filters;
+    const stringifiedFilters: string = joinArrayOnChar(filters, " ");
+    const hasNoFilters: boolean = !stringifiedFilters.length;
+    if (hasNoFilters) {
+      this.context.filter = "none";
+    } else {
+      this.context.filter = stringifiedFilters;
+    }
   }
 
   /**
