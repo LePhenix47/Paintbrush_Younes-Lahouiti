@@ -45,6 +45,7 @@ export function spliceArray(
   const hasItems: boolean = !!items.length;
   if (hasItems) {
     //The `.splice()` method returns the removed items
+    //It's also a mutative method so when we call it we modify the `newArray`
     removedItems = newArray.splice(startIndex, deleteCount, ...items);
   } else {
     removedItems = newArray.splice(startIndex, deleteCount);

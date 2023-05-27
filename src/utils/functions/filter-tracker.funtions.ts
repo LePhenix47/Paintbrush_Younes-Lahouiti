@@ -1,5 +1,5 @@
 import { tracker } from "../variables/trackers.variables";
-import { joinArrayOnChar } from "./array-sets.functions";
+import { joinArrayOnChar, spliceArray } from "./array-sets.functions";
 import { log } from "./console.functions";
 import {
   matchRegExp,
@@ -51,7 +51,22 @@ function separateNumberAndLetter(str) {
 export function addNewFilterFromTracker(filterToAdd: string) {
   tracker.filters = replaceText(tracker.filters, "none", "");
 
-  tracker.filters += filterToAdd + " ";
+  let individualFilters: string[] = splitString(tracker.filters, " ");
+  individualFilters.push(filterToAdd);
+
+  individualFilters = individualFilters.map((filter) => {
+    return filter.trim();
+  });
+
+  individualFilters = individualFilters.filter((filter) => {
+    return !!filter;
+  });
+
+  individualFilters = [...new Set(individualFilters)];
+
+  log({ individualFilters });
+
+  tracker.filters = joinArrayOnChar(individualFilters, " ");
 }
 
 export function changeFilterValueOrUnit(
@@ -59,22 +74,37 @@ export function changeFilterValueOrUnit(
   value: string,
   unit: string
 ) {
+  const filterInputted: string = `${filter}(${value}${unit})`;
+
   log("Filter to change:", filter, value, unit);
-  const chosenFilters: string[] = splitString(tracker.filters, " ");
+  let chosenFilters: string[] = splitString(tracker.filters, " ");
 
-  let filterToChange: string = chosenFilters.find((chosenFilter) => {
-    return chosenFilter.includes(filter);
-  });
+  //@ts-ignore
+  let indexOfFilter: number = chosenFilters.find(
+    (chosenFilter: string, index: number) => {
+      const isFilterWeWantToChange: boolean = chosenFilter.includes(filter);
+      if (isFilterWeWantToChange) {
+        log("Found, index:", index);
+        return index;
+      }
+    }
+  );
 
-  const hasNotFoundFilter = !filterToChange;
+  const hasNotFoundFilter: boolean = indexOfFilter < 0;
   if (hasNotFoundFilter) {
-    log(`%cFilter ${filter} NOT found!`, "background: red");
     return;
   }
 
-  log(`%cFilter ${filter} found!`, "background: green", filterToChange);
+  const {
+    newArray,
+  }: {
+    removedItems: any[];
+    newArray: any[];
+  } = spliceArray(chosenFilters, indexOfFilter, 1, filterInputted);
 
-  log(replaceInParentheses("test(123)", "456"));
+  const updatedFilters: string = joinArrayOnChar(newArray, " ");
+
+  tracker.filters = updatedFilters;
 }
 
 export function removeFilterFromTracker(filterToRemove: string) {

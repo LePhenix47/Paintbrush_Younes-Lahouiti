@@ -233,13 +233,22 @@ class ActiveFilter extends HTMLElement {
 
       case "value": {
         log("Value change");
+        const initialComponentMount: boolean = oldValue === null;
+        if (initialComponentMount) {
+          return;
+        }
+
         changeFilterValueOrUnit(this.filter, newValue, this.unit);
-        //…
         break;
       }
 
       case "unit": {
         log("Unit change");
+        const initialComponentMount: boolean = oldValue === null;
+        if (initialComponentMount) {
+          return;
+        }
+
         changeFilterValueOrUnit(this.filter, this.value, newValue);
         break;
       }
