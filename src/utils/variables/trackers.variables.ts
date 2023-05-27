@@ -46,6 +46,10 @@ export const tracker: trackerType = {
   filters: [],
 };
 
+export const canvasStates = {
+  filters: [],
+};
+
 /**
  * The object storing the mouse coordinates.
  * @type {Object}

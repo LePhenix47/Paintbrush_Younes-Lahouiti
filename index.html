@@ -342,6 +342,28 @@
                         </div>
 
                     </section>
+                    <section class="miscellaneous__filters miscellaneous__filters--canvas">
+                        <label for="canvas-filters" class="miscellaneous__label miscellaneous__label--select">
+                            Canvas Filters:
+                            <select class="miscellaneous__select" multiple name="canvas-filters" id="canvas-filters">
+                                <!-- Filter with px values only -->
+                                <option class="miscellaneous__option" value="blur">blur</option>
+                                <!-- Filter with px or % values -->
+                                <option class="miscellaneous__option" value="brightness">brightness</option>
+                                <option class="miscellaneous__option" value="contrast">contrast</option>
+                                <option class="miscellaneous__option" value="grayscale">grayscale</option>
+                                <!--Filters with % values only -->
+                                <option class="miscellaneous__option" value="invert">invert</option>
+                                <option class="miscellaneous__option" value="opacity">opacity</option>
+                                <option class="miscellaneous__option" value="saturate">saturate</option>
+                                <option class="miscellaneous__option" value="sepia">sepia</option>
+                            </select>
+                        </label>
+                        <p>Current filters for canvas:</p>
+                        <div class="miscellaneous__active-filter-container">
+                        </div>
+
+                    </section>
                 </fieldset>
             </form>
         </section>
