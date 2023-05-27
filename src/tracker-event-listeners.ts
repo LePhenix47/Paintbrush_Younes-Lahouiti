@@ -18,6 +18,7 @@ import {
   getSelectOptions,
   appendChildToParent,
   modifyAttribute,
+  getClassListValues,
 } from "./utils/functions/dom.functions";
 import {
   formatText,
@@ -128,66 +129,72 @@ export function insertShapeFilters(event: Event) {
   //@ts-ignore
   const select: HTMLSelectElement = event.currentTarget;
 
-  const selectedOptions: string[] = getSelectOptions(select, true);
+  const shapeSelectedOptions: string[] = getSelectOptions(select, true);
 
   const sectionContainer: HTMLElement = getAncestor(select, "section");
   log(sectionContainer);
 
-  const filtersContainer: HTMLDivElement = selectQuery(
+  const shapeFiltersContainer: HTMLDivElement = selectQuery(
     ".miscellaneous__active-filter-container--shape",
     sectionContainer
   );
 
-  for (const optionValue of selectedOptions) {
-    const isAlreadyAdded: boolean = !!tracker.filters.find((filter: string) => {
-      return filter.includes(optionValue);
-    });
-
-    if (isAlreadyAdded) {
-      continue;
-    }
-
-    const newFilterElement: HTMLElement =
-      document.createElement("shape-filter");
-
-    modifyAttribute(newFilterElement, "filter", optionValue);
-    modifyAttribute(newFilterElement, "value", 0);
-    modifyAttribute(newFilterElement, "unit", "%");
-
-    appendChildToParent(newFilterElement, filtersContainer);
-  }
+  addFilterWebComponent(
+    shapeSelectedOptions,
+    tracker.filters,
+    shapeFiltersContainer
+  );
 }
 
 export function insertCanvasFilters(event: Event) {
   //@ts-ignore
   const select: HTMLSelectElement = event.currentTarget;
 
-  const selectedOptions: string[] = getSelectOptions(select, true);
+  const canvasSelectedOptions: string[] = getSelectOptions(select, true);
 
   const sectionContainer: HTMLElement = getAncestor(select, "section");
 
   log(sectionContainer);
 
-  const filtersContainer: HTMLDivElement = selectQuery(
+  const canvasFiltersContainer: HTMLDivElement = selectQuery(
     ".miscellaneous__active-filter-container--canvas",
     sectionContainer
   );
 
+  addFilterWebComponent(
+    canvasSelectedOptions,
+    canvasState.filters,
+    canvasFiltersContainer
+  );
+}
+
+function addFilterWebComponent(
+  selectedOptions: string[],
+  filterArray: string[],
+  container: HTMLDivElement
+) {
+  const containerClasses: string[] = getClassListValues(container);
+  const filterType: string = containerClasses.includes(
+    "miscellaneous__active-filter-container--shape"
+  )
+    ? "shape-filter"
+    : "canvas-filter";
+
   for (const optionValue of selectedOptions) {
-    const isAlreadyAdded: boolean = !!canvasState.filters.find(
-      (filter: string) => {
-        return filter.includes(optionValue);
-      }
-    );
+    const isAlreadyAdded: boolean = !!filterArray.find((filter: string) => {
+      return filter.includes(optionValue);
+    });
     if (isAlreadyAdded) {
       continue;
     }
-    const newFilterElement: HTMLElement =
-      document.createElement("canvas-filter");
+
+    const newFilterElement: HTMLElement = document.createElement(filterType);
+
     modifyAttribute(newFilterElement, "filter", optionValue);
     modifyAttribute(newFilterElement, "value", 0);
     modifyAttribute(newFilterElement, "unit", "%");
-    appendChildToParent(newFilterElement, filtersContainer);
+
+    appendChildToParent(newFilterElement, container);
   }
 }
 

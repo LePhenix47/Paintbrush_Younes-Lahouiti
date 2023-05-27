@@ -250,19 +250,19 @@ function setMiscellaneousContainerEvents(): void {
   const select: HTMLSelectElement = selectQuery(
     ".miscellaneous__select--canvas"
   );
-  log({ select });
+
   select.addEventListener("change", setGlobalCompositeOperation);
 
   const shapeSelectMultiple: HTMLSelectElement = selectQuery(
     ".miscellaneous__select-multiple--shape"
   );
-  log({ shapeSelectMultiple });
+
   shapeSelectMultiple.addEventListener("input", insertShapeFilters);
 
   const canvasSelectMultiple: HTMLSelectElement = selectQuery(
     ".miscellaneous__select-multiple--canvas"
   );
-  log({ canvasSelectMultiple });
+
   canvasSelectMultiple.addEventListener("input", insertCanvasFilters);
 }
 setMiscellaneousContainerEvents();

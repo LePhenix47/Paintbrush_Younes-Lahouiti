@@ -5,7 +5,13 @@ import {
   getAttribute,
   modifyAttribute,
   selectQuery,
+  setStyleProperty,
 } from "../utils/functions/dom.functions";
+import {
+  addNewCanvasFilterFromTracker,
+  changeCanvasFilterValueOrUnit,
+  removeCanvasFilterFromTracker,
+} from "../utils/functions/filter-canvas.functions";
 import {
   addNewFilterFromTracker,
   changeFilterValueOrUnit,
@@ -16,7 +22,7 @@ import {
   replaceText,
   splitString,
 } from "../utils/functions/string.functions";
-import { tracker } from "../utils/variables/trackers.variables";
+import { canvasState, tracker } from "../utils/variables/trackers.variables";
 import {
   cssReset,
   darkThemeVariables,
@@ -107,6 +113,8 @@ class CanvasFilter extends HTMLElement {
     shadowRoot.appendChild(clonedTemplate);
 
     //We bind the this keyword to have access to the attribute values of our web component
+    this.setValueToWebComponent = this.setValueToWebComponent.bind(this);
+    this.setUnitToWebComponent = this.setUnitToWebComponent.bind(this);
     this.removeWebComponent = this.removeWebComponent.bind(this);
   }
 
@@ -139,27 +147,77 @@ class CanvasFilter extends HTMLElement {
     return ["filter", "value", "unit"];
   }
 
+  setValueToWebComponent(event: Event) {
+    //@ts-ignore
+    const input: HTMLInputElement = event.currentTarget;
+
+    this.value = input.value;
+  }
+
+  setUnitToWebComponent(event: Event) {
+    //@ts-ignore
+    const select: HTMLSelectElement = event.currentTarget;
+
+    this.unit = select.value;
+  }
+
   removeWebComponent(event: Event) {
     //@ts-ignore
     this.remove();
   }
 
   connectedCallback() {
+    const numberInput: HTMLInputElement = selectQuery(
+      "input[type=number]",
+      this.shadowRoot
+    );
+
+    const selectElement: HTMLSelectElement = selectQuery(
+      "select",
+      this.shadowRoot
+    );
+
+    numberInput.addEventListener("input", this.setValueToWebComponent);
+    selectElement.addEventListener("input", this.setUnitToWebComponent);
+
     const deleteButton: HTMLButtonElement = selectQuery(
       "button",
       this.shadowRoot
     );
 
     deleteButton.addEventListener("click", this.removeWebComponent);
+
+    const filter: string = `${this.filter}(${this.value}${this.unit})`;
+    addNewCanvasFilterFromTracker(filter);
+
+    this.updateCanvasElementProperty();
   }
 
   disconnectedCallback() {
+    const numberInput: HTMLInputElement = selectQuery(
+      "input[type=number]",
+      this.shadowRoot
+    );
+
+    const selectElement: HTMLSelectElement = selectQuery(
+      "select",
+      this.shadowRoot
+    );
+
+    numberInput.removeEventListener("input", this.setValueToWebComponent);
+    selectElement.removeEventListener("input", this.setUnitToWebComponent);
+
     const deleteButton: HTMLButtonElement = selectQuery(
       "button",
       this.shadowRoot
     );
 
     deleteButton.removeEventListener("click", this.removeWebComponent);
+
+    this.updateCanvasElementProperty();
+
+    const filter: string = `${this.filter}(${this.value}${this.unit})`;
+    removeCanvasFilterFromTracker(filter);
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -220,7 +278,7 @@ class CanvasFilter extends HTMLElement {
           return;
         }
 
-        changeFilterValueOrUnit(this.filter, newValue, this.unit);
+        changeCanvasFilterValueOrUnit(this.filter, newValue, this.unit);
 
         log(tracker.filters);
         break;
@@ -239,11 +297,11 @@ class CanvasFilter extends HTMLElement {
         const unitIsInvalid: boolean = newValue !== "px" && newValue !== "%";
         if (unitIsInvalid) {
           throw new Error(
-            `Error: unexpected unit passed, not a percentage or a px value: ${newValue}`
+            `Error: unexpected unit passed for canvas filter, not a percentage or a px value: ${newValue}`
           );
         }
 
-        changeFilterValueOrUnit(this.filter, this.value, newValue);
+        changeCanvasFilterValueOrUnit(this.filter, this.value, newValue);
 
         log(tracker.filters);
         break;
@@ -252,6 +310,15 @@ class CanvasFilter extends HTMLElement {
       default:
         break;
     }
+
+    this.updateCanvasElementProperty();
+  }
+
+  updateCanvasElementProperty() {
+    const filterForCanvas: string = joinArrayOnChar(canvasState.filters, " ");
+    log(filterForCanvas);
+
+    setStyleProperty("--canvas-filters", filterForCanvas);
   }
 }
 

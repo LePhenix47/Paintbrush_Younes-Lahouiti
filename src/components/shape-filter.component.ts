@@ -16,7 +16,7 @@ import {
   replaceText,
   splitString,
 } from "../utils/functions/string.functions";
-import { tracker } from "../utils/variables/trackers.variables";
+import { canvasState, tracker } from "../utils/variables/trackers.variables";
 import {
   cssReset,
   darkThemeVariables,
@@ -291,7 +291,7 @@ class ShapeFilter extends HTMLElement {
         const unitIsInvalid: boolean = newValue !== "px" && newValue !== "%";
         if (unitIsInvalid) {
           throw new Error(
-            `Error: unexpected unit passed, not a percentage or a px value: ${newValue}`
+            `Error: unexpected unit passed for shape filter, not a percentage or a px value: ${newValue}`
           );
         }
 

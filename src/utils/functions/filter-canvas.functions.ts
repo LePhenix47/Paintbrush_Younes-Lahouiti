@@ -3,7 +3,9 @@ import { spliceArray } from "./array-sets.functions";
 import { log } from "./console.functions";
 
 /**
- * Adds a new filter to the tracker's filters array.
+ * Adds a new filter to the tracker's filters array in this format: `[filter]([value][unit])`
+ *
+ * example: `blur(5px)` or `contrast(2000%)`
  *
  * @param {string} filterToAdd - The filter to add to the filters array.
  */
