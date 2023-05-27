@@ -421,9 +421,11 @@
     &__label {
         width: 100%;
 
-        &--select {
-            @include label-space-between;
-        }
+        @include label-space-between;
+
+        &--select {}
+
+        &--input {}
     }
 
     &__active-filter {

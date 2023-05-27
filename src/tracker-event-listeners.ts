@@ -19,6 +19,7 @@ import {
   appendChildToParent,
   modifyAttribute,
   getClassListValues,
+  setStyleProperty,
 } from "./utils/functions/dom.functions";
 import {
   formatText,
@@ -123,6 +124,19 @@ function convertAndRotateHue(
   setSpanToInputValue(label, newHexValue);
 
   tracker[checkboxObject.type] = newHexValue;
+}
+
+export function setCanvasBackgorundColor(event: Event) {
+  //@ts-ignore
+  const input: HTMLInputElement = event.currentTarget;
+
+  const labelContainer: HTMLLabelElement = getParent(input);
+
+  const formattedValue: string = formatText(input.value, "uppercase");
+
+  setSpanToInputValue(labelContainer, formattedValue);
+
+  setStyleProperty("--bg-canvas", formattedValue);
 }
 
 export function insertShapeFilters(event: Event) {

@@ -7,6 +7,7 @@ import {
   changeTrackerTransparency,
   insertCanvasFilters,
   insertShapeFilters,
+  setCanvasBackgorundColor,
   setColorInputValues,
   setGlobalCompositeOperation,
   setHueRotationAuto,
@@ -264,6 +265,14 @@ function setMiscellaneousContainerEvents(): void {
   );
 
   canvasSelectMultiple.addEventListener("input", insertCanvasFilters);
+
+  const canvasBackgroundInputColor: HTMLInputElement = selectQuery(
+    ".miscellaneous__input--color"
+  );
+  canvasBackgroundInputColor.addEventListener(
+    "input",
+    setCanvasBackgorundColor
+  );
 }
 setMiscellaneousContainerEvents();
 
