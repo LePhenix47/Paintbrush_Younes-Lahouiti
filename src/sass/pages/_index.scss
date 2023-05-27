@@ -432,11 +432,12 @@
 
 
     &__active-filter-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: grid;
+        grid-auto-rows: auto;
 
-        flex-wrap: wrap
+        padding: 10px 0;
+
+        gap: 10px;
     }
 
     &__active-filter-label {

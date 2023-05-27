@@ -227,7 +227,6 @@ export class PaintBrush {
     if (hasNoFilters) {
       this.context.filter = "none";
     } else {
-      // log(stringifiedFilters);
       this.context.filter = stringifiedFilters;
     }
 

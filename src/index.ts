@@ -324,4 +324,5 @@ function cancelAnimation() {
 }
 
 // Interval.set(1_000, () => {
+//   log(tracker.filters);
 // });

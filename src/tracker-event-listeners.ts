@@ -138,19 +138,22 @@ export function insertFilters(event: Event) {
   );
 
   for (const optionValue of selectedOptions) {
-    const isAlreadyAdded: boolean = tracker.filters.includes(optionValue);
+    const isAlreadyAdded: boolean = !!tracker.filters.find((filter: string) => {
+      return filter.includes(optionValue);
+    });
+
     if (isAlreadyAdded) {
       continue;
-    } else {
-      const newFilterElement: HTMLElement =
-        document.createElement("shape-filter");
-
-      modifyAttribute(newFilterElement, "filter", optionValue);
-      modifyAttribute(newFilterElement, "value", 0);
-      modifyAttribute(newFilterElement, "unit", "%");
-
-      appendChildToParent(newFilterElement, filtersContainer);
     }
+
+    const newFilterElement: HTMLElement =
+      document.createElement("shape-filter");
+
+    modifyAttribute(newFilterElement, "filter", optionValue);
+    modifyAttribute(newFilterElement, "value", 0);
+    modifyAttribute(newFilterElement, "unit", "%");
+
+    appendChildToParent(newFilterElement, filtersContainer);
   }
 
   log(selectedOptions);
