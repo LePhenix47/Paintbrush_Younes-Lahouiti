@@ -325,7 +325,12 @@ export function setNumberInputValues(event: Event): void {
     return;
   }
 
-  handleInputValueOverflow(input, 0, Number.POSITIVE_INFINITY);
+  const isShadowOffset: boolean = input.id.includes("shadow-offset");
+  if (isShadowOffset) {
+    handleInputValueOverflow(input);
+  } else {
+    handleInputValueOverflow(input, 0, Number.POSITIVE_INFINITY);
+  }
 
   const label: HTMLLabelElement = getParent(input);
   const labelForAttribute: string = getAttribute("for", label);
