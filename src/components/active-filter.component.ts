@@ -1,6 +1,7 @@
 import { joinArrayOnChar } from "../utils/functions/array-sets.functions";
 import { log } from "../utils/functions/console.functions";
 import {
+  addClass,
   getAttribute,
   modifyAttribute,
   selectQuery,
@@ -64,6 +65,7 @@ const activeFilterTemplateContent = /*html */ `
 
     <label class="miscellaneous__active-filter-label" for="filter-unit">
         <select name="unit" id="filter-unit">
+            <option value="">---</option>
             <option value="%">Percentage (%)</option>
             <option value="px">Pixels (px)</option>
         </select>
@@ -227,12 +229,44 @@ class ActiveFilter extends HTMLElement {
           "titlecase"
         );
         span.textContent = formattedFilterType;
+
+        const select: HTMLSelectElement = selectQuery(
+          "select",
+          this.shadowRoot
+        );
+
+        const canOnlyHavePercentage: boolean =
+          newValue === "invert" ||
+          newValue === "opacity" ||
+          newValue === "saturate" ||
+          newValue === "sepia";
+
+        if (canOnlyHavePercentage) {
+          const pixelOption: HTMLOptionElement = selectQuery(
+            "option[value=px]",
+            select
+          );
+
+          pixelOption.remove();
+        }
+
+        const canOnlyHavePixels: boolean = newValue === "blur";
+        if (canOnlyHavePixels) {
+          const percentageOption: HTMLOptionElement = selectQuery(
+            `option[value="%"]`,
+            select
+          );
+
+          percentageOption.remove();
+        }
         //…
         break;
       }
 
       case "value": {
         log("Value change");
+
+        //We avoid making unnecessary code execution
         const initialComponentMount: boolean = oldValue === null;
         if (initialComponentMount) {
           return;
@@ -244,6 +278,8 @@ class ActiveFilter extends HTMLElement {
 
       case "unit": {
         log("Unit change");
+
+        //We avoid making unnecessary code execution
         const initialComponentMount: boolean = oldValue === null;
         if (initialComponentMount) {
           return;

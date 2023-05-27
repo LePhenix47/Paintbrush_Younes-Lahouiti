@@ -1,55 +1,23 @@
 import { tracker } from "../variables/trackers.variables";
-import { joinArrayOnChar, spliceArray } from "./array-sets.functions";
+import { spliceArray } from "./array-sets.functions";
 import { log } from "./console.functions";
-import {
-  matchRegExp,
-  replaceText,
-  sliceString,
-  splitString,
-} from "./string.functions";
 
-export function removeDuplicateFilters(filterToVerify: string) {}
-
-function getValuesInsideParentheses(string: string) {
-  const insideParenthesesREGEX: RegExp = /\((.*?)\)/g;
-
-  const matchingCharStrings: string[] = matchRegExp(
-    string,
-    insideParenthesesREGEX
-  );
-
-  let valueInsideParentheses: string = joinArrayOnChar(
-    matchingCharStrings,
-    " "
-  );
-
-  valueInsideParentheses = sliceString(valueInsideParentheses, 1, -1);
-
-  return valueInsideParentheses;
+/**
+ * Adds a new filter to the tracker's filters array.
+ *
+ * @param {string} filterToAdd - The filter to add to the filters array.
+ */
+export function addNewFilterFromTracker(filterToAdd: string) {
+  tracker.filters.push(filterToAdd);
 }
 
 /**
- * Replaces the values inside parentheses in a string with the specified replacement.
+ * Changes the value or unit of a filter in the tracker's filters array.
  *
- * @param {string} string - The string to modify.
- * @param {string} replacement - The replacement value for the values inside parentheses.
- *
- * @returns {string} - The modified string with replaced values inside parentheses.
+ * @param {string} filter - The filter to change.
+ * @param {string} value - The new value for the filter.
+ * @param {string} unit - The new unit for the filter.
  */
-export function replaceInParentheses(
-  string: string,
-  replacement: string
-): string {
-  return string.replace(/\([^()]+\)/g, `(${replacement})`);
-}
-
-export function addNewFilterFromTracker(filterToAdd: string) {
-  tracker.filters.push(filterToAdd);
-
-  const { filters } = tracker;
-  log({ filters });
-}
-
 export function changeFilterValueOrUnit(
   filter: string,
   value: string,
@@ -59,17 +27,29 @@ export function changeFilterValueOrUnit(
 
   log("Filter to change:", filter, value, unit);
 
+  /**
+   * Find the index of the filter in the filters array.
+   * @type {number}
+   */
   let indexOfFilter: number = tracker.filters.findIndex(
-    (chosenFilter: string, index: number) => {
+    (chosenFilter: string) => {
       return chosenFilter.includes(filter);
     }
   );
 
+  /**
+   * Check if the filter was not found in the array.
+   * @type {boolean}
+   */
   const hasNotFoundFilter: boolean = indexOfFilter < 0;
   if (hasNotFoundFilter) {
     return;
   }
 
+  /**
+   * Update the filters array by replacing the filter at the specified index with the new filter.
+   * @type {{removedItems: any[], newArray: any[]}}
+   */
   const {
     newArray,
   }: {
@@ -80,10 +60,13 @@ export function changeFilterValueOrUnit(
   tracker.filters = newArray;
 }
 
+/**
+ * Removes a filter from the tracker's filters array.
+ *
+ * @param {string} filterToRemove - The filter to remove from the filters array.
+ */
 export function removeFilterFromTracker(filterToRemove: string) {
   tracker.filters = tracker.filters.filter((chosenFilter) => {
     return !chosenFilter.includes(filterToRemove);
   });
 }
-
-export function changeTrackerFilterValue(oldValue: string, newValue: string) {}

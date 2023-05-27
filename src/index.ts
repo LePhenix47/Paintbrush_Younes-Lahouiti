@@ -323,6 +323,5 @@ function cancelAnimation() {
   cancelAnimationFrame(canvasAnimationFrameId);
 }
 
-Interval.set(1_000, () => {
-  log(tracker.filters);
-});
+// Interval.set(1_000, () => {
+// });
