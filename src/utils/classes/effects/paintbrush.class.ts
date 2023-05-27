@@ -222,11 +222,12 @@ export class PaintBrush {
     this.context.globalCompositeOperation = globalCompositeOperation;
 
     const stringifiedFilters: string = joinArrayOnChar(filters, " ");
+
     const hasNoFilters: boolean = !stringifiedFilters.length;
     if (hasNoFilters) {
       this.context.filter = "none";
     } else {
-      log(stringifiedFilters);
+      // log(stringifiedFilters);
       this.context.filter = stringifiedFilters;
     }
 

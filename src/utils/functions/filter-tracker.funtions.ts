@@ -45,6 +45,9 @@ export function replaceInParentheses(
 
 export function addNewFilterFromTracker(filterToAdd: string) {
   tracker.filters.push(filterToAdd);
+
+  const { filters } = tracker;
+  log({ filters });
 }
 
 export function changeFilterValueOrUnit(
@@ -56,14 +59,9 @@ export function changeFilterValueOrUnit(
 
   log("Filter to change:", filter, value, unit);
 
-  //@ts-ignore
-  let indexOfFilter: number = tracker.filters.find(
+  let indexOfFilter: number = tracker.filters.findIndex(
     (chosenFilter: string, index: number) => {
-      const isFilterWeWantToChange: boolean = chosenFilter.includes(filter);
-      if (isFilterWeWantToChange) {
-        log("Found, index:", index);
-        return index;
-      }
+      return chosenFilter.includes(filter);
     }
   );
 
