@@ -1,4 +1,5 @@
 import {
+  canvasState,
   checkboxHueRotation,
   rangeInputsInfosTracker,
   tracker,
@@ -133,7 +134,7 @@ export function insertShapeFilters(event: Event) {
   log(sectionContainer);
 
   const filtersContainer: HTMLDivElement = selectQuery(
-    ".miscellaneous__active-filter-container",
+    ".miscellaneous__active-filter-container--shape",
     sectionContainer
   );
 
@@ -164,7 +165,30 @@ export function insertCanvasFilters(event: Event) {
   const selectedOptions: string[] = getSelectOptions(select, true);
 
   const sectionContainer: HTMLElement = getAncestor(select, "section");
+
   log(sectionContainer);
+
+  const filtersContainer: HTMLDivElement = selectQuery(
+    ".miscellaneous__active-filter-container--canvas",
+    sectionContainer
+  );
+
+  for (const optionValue of selectedOptions) {
+    const isAlreadyAdded: boolean = !!canvasState.filters.find(
+      (filter: string) => {
+        return filter.includes(optionValue);
+      }
+    );
+    if (isAlreadyAdded) {
+      continue;
+    }
+    const newFilterElement: HTMLElement =
+      document.createElement("canvas-filter");
+    modifyAttribute(newFilterElement, "filter", optionValue);
+    modifyAttribute(newFilterElement, "value", 0);
+    modifyAttribute(newFilterElement, "unit", "%");
+    appendChildToParent(newFilterElement, filtersContainer);
+  }
 }
 
 export function setGlobalCompositeOperation(event: Event) {

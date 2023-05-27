@@ -144,9 +144,23 @@ class CanvasFilter extends HTMLElement {
     this.remove();
   }
 
-  connectedCallback() {}
+  connectedCallback() {
+    const deleteButton: HTMLButtonElement = selectQuery(
+      "button",
+      this.shadowRoot
+    );
 
-  disconnectedCallback() {}
+    deleteButton.addEventListener("click", this.removeWebComponent);
+  }
+
+  disconnectedCallback() {
+    const deleteButton: HTMLButtonElement = selectQuery(
+      "button",
+      this.shadowRoot
+    );
+
+    deleteButton.removeEventListener("click", this.removeWebComponent);
+  }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     const webComponent: ShadowRoot = this.shadowRoot;

@@ -1,4 +1,5 @@
 import {
+  canvasFilterType,
   checkboxHueRotationType,
   pointerInfosType,
   rangeInputsInfosTrackerType,
@@ -49,10 +50,11 @@ export const tracker: trackerType = {
 /**
  *
  * Filters for our `<canvas>` element
- * @type {string[]} Array of strings
  *
  */
-export const canvasFilters: string[] = [];
+export let canvasState: canvasFilterType = {
+  filters: [],
+};
 
 /**
  * The object storing the mouse coordinates.

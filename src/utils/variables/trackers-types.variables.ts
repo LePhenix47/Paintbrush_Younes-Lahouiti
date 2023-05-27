@@ -20,6 +20,10 @@ export type trackerType = {
   filters: string[];
 };
 
+export type canvasFilterType = {
+  filters: string[];
+};
+
 /**
  * The X and Y coordinates of the cursor in the page
  */
