@@ -143,7 +143,7 @@ export function insertFilters(event: Event) {
       continue;
     } else {
       const newFilterElement: HTMLElement =
-        document.createElement("active-filter");
+        document.createElement("shape-filter");
 
       modifyAttribute(newFilterElement, "filter", optionValue);
       modifyAttribute(newFilterElement, "value", 0);

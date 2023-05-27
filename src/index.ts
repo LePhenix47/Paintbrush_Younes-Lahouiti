@@ -35,7 +35,7 @@ import {
 import { pointerInfos, tracker } from "./utils/variables/trackers.variables";
 
 //Web components:
-import "./components/active-filter.component";
+import "./components/shape-filter.component";
 import { Interval } from "./utils/classes/services/interval.class";
 
 /**

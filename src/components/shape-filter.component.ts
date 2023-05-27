@@ -24,10 +24,10 @@ import {
   lightThemeVariables,
 } from "../utils/variables/web-component.variables";
 
-const activeFilterTemplateElement = document.createElement("template");
+const shapeFilterTemplateElement = document.createElement("template");
 
-const activeFilterTemplateStyle = /* css */ `
-.miscellaneous__active-filter{
+const shapeFilterTemplateStyle = /* css */ `
+.miscellaneous__shape-filter{
      display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -36,34 +36,34 @@ const activeFilterTemplateStyle = /* css */ `
 }
 
 
-.miscellaneous__active-filter-label {
+.miscellaneous__shape-filter-label {
     align-items: center;
     display: inline-flex;
     gap: 15px;
     justify-content: space-between
 }
 
-.miscellaneous__active-filter-input {
+.miscellaneous__shape-filter-input {
     max-width: 50px;
 
     text-align: center;
 }
 
-.miscellaneous__active-filter-button{ 
+.miscellaneous__shape-filter-button{ 
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
 `;
-const activeFilterTemplateContent = /*html */ `
- <div class="miscellaneous__active-filter">
-    <label class="miscellaneous__active-filter-label" for="filter">
+const shapeFilterTemplateContent = /*html */ `
+ <div class="miscellaneous__shape-filter">
+    <label class="miscellaneous__shape-filter-label" for="filter">
     <span>Blur:</span>        
-        <input type="number" class="miscellaneous__active-filter-input" name="value"
+        <input type="number" class="miscellaneous__shape-filter-input" name="value"
             id="filter" value="0" min="0" />
     </label>
 
-    <label class="miscellaneous__active-filter-label" for="filter-unit">
+    <label class="miscellaneous__shape-filter-label" for="filter-unit">
         <select name="unit" id="filter-unit">
             <option value="">---</option>
             <option value="%">Percentage (%)</option>
@@ -71,7 +71,7 @@ const activeFilterTemplateContent = /*html */ `
         </select>
     </label>
 
-    <button type="button" class="miscellaneous__active-filter-button">
+    <button type="button" class="miscellaneous__shape-filter-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
             class="no-pointer-events" fill="var(--out-of-range-color)">
             <path
@@ -82,27 +82,27 @@ const activeFilterTemplateContent = /*html */ `
 </div>
 `;
 
-activeFilterTemplateElement.innerHTML = /*html */ `
+shapeFilterTemplateElement.innerHTML = /*html */ `
   <style>
     ${lightThemeVariables}
     ${darkThemeVariables}
     ${cssReset}
     ${jsClasses}
     
-    ${activeFilterTemplateStyle}
+    ${shapeFilterTemplateStyle}
   </style>
   
-  ${activeFilterTemplateContent}
+  ${shapeFilterTemplateContent}
 `;
 
-class ActiveFilter extends HTMLElement {
+class ShapeFilter extends HTMLElement {
   constructor() {
     super();
     //We create the cotnainer that holds the web component
     const shadowRoot = this.attachShadow({ mode: "open" });
 
     //We clone the template
-    const clonedTemplate = activeFilterTemplateElement.content.cloneNode(true);
+    const clonedTemplate = shapeFilterTemplateElement.content.cloneNode(true);
     //We add it as a child of our web component
     shadowRoot.appendChild(clonedTemplate);
 
@@ -273,6 +273,8 @@ class ActiveFilter extends HTMLElement {
         }
 
         changeFilterValueOrUnit(this.filter, newValue, this.unit);
+
+        log(tracker.filters);
         break;
       }
 
@@ -285,7 +287,17 @@ class ActiveFilter extends HTMLElement {
           return;
         }
 
+        //We check if the unit is valid
+        const unitIsInvalid: boolean = newValue !== "px" && newValue !== "%";
+        if (unitIsInvalid) {
+          throw new Error(
+            `Error: unexpected unit passed, not a percentage or a px value: ${newValue}`
+          );
+        }
+
         changeFilterValueOrUnit(this.filter, this.value, newValue);
+
+        log(tracker.filters);
         break;
       }
 
@@ -295,4 +307,4 @@ class ActiveFilter extends HTMLElement {
   }
 }
 
-customElements.define("active-filter", ActiveFilter);
+customElements.define("shape-filter", ShapeFilter);
