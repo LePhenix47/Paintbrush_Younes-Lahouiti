@@ -12,6 +12,7 @@
     /* Adjust this value to center the canvas vertically */
 
     &__canvas {
+        filter: var(--canvas-filters);
         scroll-snap-align: center;
         scroll-snap-stop: normal;
 
@@ -387,6 +388,7 @@
     }
 
     &__canvas {
+        filter: var(--canvas-filters);
         width: inherit;
         background-color: var(--bg-canvas);
 

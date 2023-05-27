@@ -46,13 +46,17 @@ export const tracker: trackerType = {
   filters: [],
 };
 
-export const canvasStates = {
-  filters: [],
-};
+/**
+ *
+ * Filters for our `<canvas>` element
+ * @type {string[]} Array of strings
+ *
+ */
+export const canvasFilters: string[] = [];
 
 /**
  * The object storing the mouse coordinates.
- * @type {Object}
+ * @type {pointerInfosType}
  * @property {number} x - The x-coordinate of the mouse.
  * @property {number} y - The y-coordinate of the mouse.
  *  @property {boolean} isDrawing - Indicates if the user is currently drawing by clicing the mouse and moving it.

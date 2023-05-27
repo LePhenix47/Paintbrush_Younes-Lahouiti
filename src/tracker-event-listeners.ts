@@ -123,7 +123,7 @@ function convertAndRotateHue(
   tracker[checkboxObject.type] = newHexValue;
 }
 
-export function insertFilters(event: Event) {
+export function insertShapeFilters(event: Event) {
   //@ts-ignore
   const select: HTMLSelectElement = event.currentTarget;
 
@@ -155,8 +155,16 @@ export function insertFilters(event: Event) {
 
     appendChildToParent(newFilterElement, filtersContainer);
   }
+}
 
-  log(selectedOptions);
+export function insertCanvasFilters(event: Event) {
+  //@ts-ignore
+  const select: HTMLSelectElement = event.currentTarget;
+
+  const selectedOptions: string[] = getSelectOptions(select, true);
+
+  const sectionContainer: HTMLElement = getAncestor(select, "section");
+  log(sectionContainer);
 }
 
 export function setGlobalCompositeOperation(event: Event) {

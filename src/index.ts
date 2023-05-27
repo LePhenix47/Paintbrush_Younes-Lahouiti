@@ -5,7 +5,8 @@ import {
 } from "./canvas-event-listeners";
 import {
   changeTrackerTransparency,
-  insertFilters,
+  insertCanvasFilters,
+  insertShapeFilters,
   setColorInputValues,
   setGlobalCompositeOperation,
   setHueRotationAuto,
@@ -33,10 +34,11 @@ import {
   selectQueryAll,
 } from "./utils/functions/dom.functions";
 import { pointerInfos, tracker } from "./utils/variables/trackers.variables";
+import { Interval } from "./utils/classes/services/interval.class";
 
 //Web components:
 import "./components/shape-filter.component";
-import { Interval } from "./utils/classes/services/interval.class";
+import "./components/canvas-filter.component";
 
 /**
  * The canvas element for painting
@@ -245,17 +247,23 @@ setShapesContainerEvents();
  * @returns {void}
  */
 function setMiscellaneousContainerEvents(): void {
-  const select: HTMLSelectElement = selectQuery(".miscellaneous__select");
-
-  /**
-   * Event handler for the change event on the select element in the miscellaneous container.
-   * @param {Event} event - The event triggered by the select change.
-   * @returns {void}
-   */
+  const select: HTMLSelectElement = selectQuery(
+    ".miscellaneous__select--canvas"
+  );
+  log({ select });
   select.addEventListener("change", setGlobalCompositeOperation);
 
-  const selectMultiple: HTMLSelectElement = selectQuery("select[multiple]");
-  selectMultiple.addEventListener("input", insertFilters);
+  const shapeSelectMultiple: HTMLSelectElement = selectQuery(
+    ".miscellaneous__select-multiple--shape"
+  );
+  log({ shapeSelectMultiple });
+  shapeSelectMultiple.addEventListener("input", insertShapeFilters);
+
+  const canvasSelectMultiple: HTMLSelectElement = selectQuery(
+    ".miscellaneous__select-multiple--canvas"
+  );
+  log({ canvasSelectMultiple });
+  canvasSelectMultiple.addEventListener("input", insertCanvasFilters);
 }
 setMiscellaneousContainerEvents();
 
