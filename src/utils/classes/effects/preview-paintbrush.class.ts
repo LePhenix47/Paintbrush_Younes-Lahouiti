@@ -147,6 +147,12 @@ export class PreviewPaintBrush extends PaintBrush {
   drawOnCanvas(): void {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    const isSpray: boolean = this.tool === "spray";
+    if (isSpray) {
+      this.context.filter += "blur(20px)";
+      this.drawCircle();
+    }
+
     switch (this.shape) {
       case "circle": {
         this.drawCircle();

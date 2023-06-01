@@ -253,6 +253,12 @@ export class PaintBrush {
       return;
     }
 
+    const isSpray: boolean = this.tool === "spray";
+    if (isSpray) {
+      this.context.filter = "blur(20px)";
+      this.drawCircle();
+    }
+
     const wantsToDrawWithBrush: boolean = this.tool === "pen";
     if (wantsToDrawWithBrush) {
       switch (this.shape) {
